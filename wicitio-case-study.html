@@ -627,20 +627,20 @@
             <span class="proto-logo-name">Sede Electrónica</span>
           </div>
           <nav class="proto-nav">
-            <div class="proto-nav-item active" onclick="showView('dashboard', this)">
+            <div class="proto-nav-item active" data-view="dashboard">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
               Panel Principal
               <span class="proto-nav-dot"></span>
             </div>
-            <div class="proto-nav-item" onclick="showView('presupuesto', this)">
+            <div class="proto-nav-item" data-view="presupuesto">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
               Presupuesto
             </div>
-            <div class="proto-nav-item" onclick="showView('transacciones', this)">
+            <div class="proto-nav-item" data-view="transacciones">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
               Transacciones
             </div>
-            <div class="proto-nav-item" onclick="showView('insights', this)">
+            <div class="proto-nav-item" data-view="insights">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
               Insights y Análisis
             </div>
@@ -1054,21 +1054,25 @@
 </footer>
 
 <script>
-function showView(id, el) {
-  document.querySelectorAll('.proto-view').forEach(v => v.classList.remove('active'));
-  document.querySelectorAll('.proto-nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('view-' + id).classList.add('active');
-  el.classList.add('active');
-}
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.proto-nav-item[data-view]').forEach(function(item) {
+    item.style.cursor = 'pointer';
+    item.addEventListener('click', function() {
+      var id = this.getAttribute('data-view');
+      document.querySelectorAll('.proto-view').forEach(function(v) { v.classList.remove('active'); });
+      document.querySelectorAll('.proto-nav-item').forEach(function(n) { n.classList.remove('active'); });
+      document.getElementById('view-' + id).classList.add('active');
+      item.classList.add('active');
+    });
+  });
+});
 
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
 }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
 reveals.forEach(el => observer.observe(el));
-document.querySelectorAll('.hero .reveal').forEach((el, i) => {
-  setTimeout(() => el.classList.add('visible'), 200 + i * 150);
-});
+setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 300);
 </script>
 </body>
 </html>
