@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paid.ai — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0d0d0d;
+    --off: #f5f3ef;
+    --muted: #8a8780;
+    --accent: #16a34a;
+    --border: #e2dfd8;
+    --white: #ffffff;
+    --dark: #0f172a;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--black); font-size: 17px; line-height: 1.7; font-weight: 300; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--off); border-bottom: 1px solid var(--border);
+  }
+  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; color: inherit; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-links a.active { color: var(--black); font-weight: 500; }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+
+  .hero { padding: 9rem 0 5rem; border-bottom: 1px solid var(--border); }
+  .hero-tag { display: inline-block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.5rem; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--muted); }
+  .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 560px; line-height: 1.65; margin-bottom: 3rem; }
+
+  .impact-strip { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); background: var(--white); border-radius: 2px; }
+  .impact-cell { padding: 2rem; border-right: 1px solid var(--border); }
+  .impact-cell:last-child { border-right: none; }
+  .impact-num { font-family: 'DM Serif Display', serif; font-size: 3rem; line-height: 1; color: var(--black); margin-bottom: 0.4rem; font-weight: 400; }
+  .impact-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 2rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
+  .team-col { flex: 1; min-width: 180px; }
+  .team-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+  .team-col-val { font-size: 14px; font-weight: 400; line-height: 1.8; }
+
+  section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-num { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
+  .section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+
+  h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 1.5rem; }
+  h3 { font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; margin-bottom: 0.75rem; }
+  p { color: #3a3834; margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  .pullquote { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.75rem; margin: 2.5rem 0; }
+  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-style: italic; color: var(--black); line-height: 1.4; }
+
+  .img-full { width: 100%; border-radius: 8px; border: 1px solid var(--border); display: block; margin: 2.5rem 0; background: var(--white); }
+  .img-full.dark { background: var(--dark); border-color: #1e293b; }
+  .img-caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: -1.5rem; margin-bottom: 2.5rem; letter-spacing: 0.02em; }
+  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+  .img-grid img { width: 100%; border-radius: 8px; border: 1px solid var(--border); background: var(--white); }
+  .img-grid img.dark { background: var(--dark); border-color: #1e293b; }
+
+  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .challenge-card { background: var(--white); padding: 1.75rem; }
+  .challenge-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.75rem; }
+  .challenge-card p { font-size: 0.95rem; color: #3a3834; }
+
+  /* LOOP DIAGRAM */
+  .loop-diagram { display: flex; align-items: center; justify-content: center; gap: 0; margin: 2.5rem 0; background: var(--dark); border-radius: 8px; padding: 2rem; overflow-x: auto; }
+  .loop-step { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; min-width: 120px; }
+  .loop-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .loop-icon.green { background: #166534; }
+  .loop-icon.blue { background: #1e3a5f; }
+  .loop-icon.purple { background: #3b1f6b; }
+  .loop-icon.amber { background: #78350f; }
+  .loop-label { font-size: 11px; font-weight: 500; color: #e2e8f0; text-align: center; }
+  .loop-sub { font-size: 10px; color: #64748b; text-align: center; max-width: 100px; }
+  .loop-arrow { font-size: 20px; color: #334155; margin: 0 0.25rem; flex-shrink: 0; }
+
+  /* BEFORE/AFTER */
+  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+  .ba-card { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .ba-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 1rem; font-weight: 500; }
+  .ba-label.before { background: #f1efe8; color: var(--muted); }
+  .ba-label.after { background: #f0fdf4; color: #16a34a; }
+  .ba-content { padding: 1.25rem; background: var(--white); }
+  .ba-content ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  .ba-content li { font-size: 13px; color: #3a3834; display: flex; align-items: flex-start; gap: 0.5rem; }
+  .ba-content li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+  .ba-content.before li::before { background: #e2dfd8; }
+  .ba-content.after li::before { background: #16a34a; }
+
+  .learnings-list { list-style: none; margin: 1.5rem 0; }
+  .learnings-list li { display: flex; gap: 1.25rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
+  .learnings-list li:last-child { border-bottom: none; }
+  .learning-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); line-height: 1; flex-shrink: 0; min-width: 1.5rem; }
+  .learning-body h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .learning-body p { font-size: 0.95rem; color: #3a3834; }
+
+  footer { padding: 3rem 0; text-align: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
+  footer a { color: var(--black); text-decoration: none; font-weight: 500; }
+
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .container, .container-wide { padding: 0 1.25rem; }
+    .impact-strip, .challenge-grid, .img-grid, .before-after { grid-template-columns: 1fr; }
+    .impact-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .loop-diagram { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name">← Isabel Casanova</a>
+  <div class="nav-links">
+    <a href="factorial-case-study.html">Factorial</a>
+    <a href="wicitio-case-study.html">Wecitio</a>
+    <a href="paid-case-study.html" class="active">Paid.ai</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-tag">Case study · Paid.ai · 2025 · Freelance</span>
+    <h1>Designing the product<br>that makes <em>AI value<br>visible and billable.</em></h1>
+    <p class="hero-sub">Solo design consultancy for Paid.ai — a monetisation platform for AI-native companies. I designed the full MVP and the large product vision: from workflow definition to execution tracing, value attribution, and customer billing.</p>
+
+    <div class="impact-strip reveal">
+      <div class="impact-cell">
+        <div class="impact-num">Full</div>
+        <div class="impact-label">Product design ownership —<br>solo, from brief to prototype</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">MVP+</div>
+        <div class="impact-label">Two scopes delivered: MVP<br>and large product vision</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">Novel</div>
+        <div class="impact-label">No existing pattern for AI<br>value attribution UX</div>
+      </div>
+    </div>
+
+    <div class="team-row reveal">
+      <div class="team-col">
+        <div class="team-col-label">My role</div>
+        <div class="team-col-val">Product Design Consultant</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Type</div>
+        <div class="team-col-val">Freelance · Solo</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Deliverable</div>
+        <div class="team-col-val">MVP prototype + Large product vision</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Year</div>
+        <div class="team-col-val">2025</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section>
+  <div class="container">
+    <div class="section-num">01 Context</div>
+    <h2>A new category of product<br>for a new category of company.</h2>
+    <p>Paid.ai is building the monetisation infrastructure for AI-native companies — the companies that run AI agents on behalf of customers and need to track what those agents do, what it costs, and what value they create. It's a product category that barely existed before 2024.</p>
+    <p>The founding team had a clear thesis: AI agents do more work, cost more to run, and create more value than traditional SaaS, yet most companies building with AI have zero visibility into any of it. They can't answer basic questions: Which customer is generating the most AI cost? Which workflow is delivering the most value? Are we making money on this?</p>
+
+    <div class="pullquote reveal">
+      <p>"The hardest part wasn't designing the interface. It was figuring out what the product actually was — and making something abstract and technical feel concrete and usable."</p>
+    </div>
+
+    <p>They brought me in to design the full product experience: how AI operators would define workflows, observe executions, understand the value generated, and turn that value into customer invoices and delivery reports.</p>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section>
+  <div class="container">
+    <div class="section-num">02 The problem</div>
+    <h2>Three hard things<br>that had to become one thing.</h2>
+    <p>The product had to solve three distinct problems simultaneously, for users who had very different mental models and needs. Making them feel like one coherent system — not three tools bolted together — was the central design challenge.</p>
+
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <h3>Observability</h3>
+        <p>AI operators need to see what their agents are actually doing — every execution, every tool call, every outcome. This is a technical, developer-oriented need. The risk: making the product feel like a log viewer rather than a business tool.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>Value attribution</h3>
+        <p>Translating AI executions into business value is conceptually new. "Your agent resolved 4,821 support tickets worth $45 each" is not an obvious thing to show — it requires defining outcomes, attaching monetary values, and maintaining evidence. This had no established UX pattern to borrow from.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>Billing and proof</h3>
+        <p>AI companies need to charge customers in ways traditional SaaS billing doesn't support — by outcomes, by credits, by value delivered. And they need to prove that value to customers who are increasingly skeptical of AI ROI claims. The invoice alone isn't enough; you need a delivery report.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>The coherence problem</h3>
+        <p>Each of these three problems had its own user, its own data model, and its own interaction pattern. The product had to serve all three while feeling like one platform — not three separate tools. The information architecture was everything.</p>
+      </div>
+    </div>
+
+    <p>The solution I designed was a loop: define what an AI workflow does and what outcome it produces, observe the executions, attribute value to each outcome, and generate billing and delivery reports from that value. The loop is the product.</p>
+  </div>
+
+  <div class="container-wide">
+    <div class="loop-diagram reveal">
+      <div class="loop-step">
+        <div class="loop-icon green">⚡</div>
+        <div class="loop-label">Define workflow</div>
+        <div class="loop-sub">Name, customer, outcome, value</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-icon blue">▶</div>
+        <div class="loop-label">Execute</div>
+        <div class="loop-sub">Agent runs, traces captured</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-icon purple">◈</div>
+        <div class="loop-label">Attribute value</div>
+        <div class="loop-sub">Outcome linked to business value</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-icon amber">$</div>
+        <div class="loop-label">Bill and report</div>
+        <div class="loop-sub">Invoice + delivery report to customer</div>
+      </div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-step">
+        <div class="loop-icon green">↺</div>
+        <div class="loop-label">Prove ROI</div>
+        <div class="loop-sub">Evidence-backed, shareable</div>
+      </div>
+    </div>
+    <p class="img-caption">The core loop: every design decision in the product flows from this sequence. It's the mental model I established first and used to evaluate every feature.</p>
+  </div>
+</section>
+
+<!-- THE HOME -->
+<section>
+  <div class="container">
+    <div class="section-num">03 The home dashboard</div>
+    <h2>Making the business legible<br>at a glance.</h2>
+    <p>The home dashboard needed to answer the question that matters to an AI company operator: am I making money from this? I designed it around four headline metrics — customers, paying customers, total contract value, and credits remaining — followed by a value generated summary and a revenue trend line.</p>
+    <p>The customer table at the bottom shows TCV, LTV, status, next invoice date, number of agents, and signals — giving operators a complete picture of each account without drilling in.</p>
+  </div>
+  <div class="container-wide">
+    <img src="paid-home.png" alt="Paid.ai home dashboard" class="img-full dark reveal">
+    <p class="img-caption">Home dashboard: headline business metrics, revenue trend over time, and a customer table with TCV, LTV, agent count and signals per account.</p>
+  </div>
+</section>
+
+<!-- WORKFLOWS -->
+<section>
+  <div class="container">
+    <div class="section-num">04 Workflows and the builder</div>
+    <h2>Defining what an AI agent<br>does and what it's worth.</h2>
+    <p>The workflow is the unit of everything in Paid.ai. Before you can track executions or generate billing, you have to define: what does this workflow do, for which customer, what outcome does it produce, and what is that outcome worth?</p>
+    <p>I designed the workflow creation as a two-step process: first you define the metadata (name, customer, outcome, estimated value), then you build the actual flow in the block-based builder. The key design decision was surfacing the value and billing eligibility in the builder's header bar — so operators always have context on what they're building towards.</p>
+  </div>
+  <div class="container-wide">
+    <img src="paid-workflows.png" alt="Workflows list" class="img-full dark reveal">
+    <p class="img-caption">Workflows list: each workflow shows customer, primary outcome, executions, value generated, and status. The table is the operator's operational view of their entire AI portfolio.</p>
+
+    <div class="img-grid reveal">
+      <img src="paid-workflow-create.png" alt="Create workflow form" class="dark">
+      <img src="paid-workflow-builder.png" alt="Workflow builder" class="dark">
+    </div>
+    <p class="img-caption">Left: workflow creation — define the outcome and estimated value before touching the builder. Right: the block-based builder, with Triggers, Actions, Logic, and Value blocks. The header bar shows customer, outcome, value and billing eligibility at all times.</p>
+  </div>
+</section>
+
+<!-- EXECUTIONS -->
+<section>
+  <div class="container">
+    <div class="section-num">05 Executions</div>
+    <h2>Every agent run, traced<br>and valued in real time.</h2>
+    <p>The executions view is where observability meets value attribution. Every time an agent runs, Paid.ai captures the execution: duration, cost, outcome, and value generated. The table gives operators a real-time view of what their agents are doing.</p>
+    <p>The execution detail panel — a slide-in drawer — shows the full picture for a single run: execution ID, workflow, customer, status, duration, cost, outcome, and the value attributed. Tabs for Trace, Logs, and Evidence give technical users the depth they need without cluttering the default view.</p>
+  </div>
+  <div class="container-wide">
+    <img src="paid-executions.png" alt="Executions list" class="img-full dark reveal">
+    <p class="img-caption">Executions: every workflow run with status, duration, cost, outcome, and value. The chart above shows execution volume over time. One row = one agent run = one value event.</p>
+
+    <div class="img-grid reveal">
+      <img src="paid-execution-detail.png" alt="Execution detail panel" class="dark">
+      <img src="paid-executions-mvp2.png" alt="Execution with evidence" class="dark">
+    </div>
+    <p class="img-caption">Left: execution detail panel — overview with outcome, value, cost, and duration. Right: the same panel in the MVP scope, with an Evidence section showing the proof attached to the value claim.</p>
+  </div>
+</section>
+
+<!-- VALUE -->
+<section>
+  <div class="container">
+    <div class="section-num">06 Value</div>
+    <h2>From execution data<br>to business intelligence.</h2>
+    <p>The value view is the strategic layer of the product. Where executions give you operational visibility, value gives you business intelligence: how much value has your AI generated, which workflows are performing best, which customers are getting the most out of it?</p>
+    <p>I designed it around four headline metrics (total value, contributing executions, average value per outcome, top customer), a value-over-time chart, and two breakdown tables — value by workflow and value by customer. The table at the bottom ranks workflows by value generated and average value per outcome, giving operators a clear signal on where to invest.</p>
+  </div>
+  <div class="container-wide">
+    <img src="paid-value.png" alt="Value dashboard" class="img-full dark reveal">
+    <p class="img-caption">Value dashboard: $646,685 total value generated, broken down by workflow and customer. The "Top workflows generating value" table shows executions, total value, and average value per outcome — the data operators need to price their AI correctly.</p>
+  </div>
+</section>
+
+<!-- BILLING -->
+<section>
+  <div class="container">
+    <div class="section-num">07 Billing and delivery reports</div>
+    <h2>Turning AI value into<br>invoices customers believe.</h2>
+    <p>This was the most strategically important part of the product. AI companies can generate all the value data they want — but converting it into revenue requires a billing workflow that operators trust, and delivery reports that customers find convincing.</p>
+    <p>I designed billing as a value-first flow: the billing table shows the value generated per customer before showing what to bill. Draft bills are auto-created from value data. The "Create bill" form lets operators select customer, period, workflow scope, and line item type — outcome-based, usage-based, or hybrid — with a live bill preview on the right.</p>
+    <p>The delivery report is the customer-facing document — the evidence that the AI actually delivered what it was supposed to. It shows executions, outcomes delivered, value created, and supporting evidence (execution traces, API responses, source links). This was Paid.ai's core differentiator: not just an invoice, but proof.</p>
+  </div>
+  <div class="container-wide">
+    <img src="paid-billing.png" alt="Billing overview" class="img-full dark reveal">
+    <p class="img-caption">Billing overview: $242,410 in total billable value across five customers, with status per billing period (Approved, Ready for review, Draft, Exported). The value-first design means operators know what they're charging for before they charge.</p>
+
+    <div class="img-grid reveal">
+      <img src="paid-create-bill.png" alt="Create bill form" class="dark">
+      <img src="paid-delivery-report.png" alt="Delivery report" class="dark">
+    </div>
+    <p class="img-caption">Left: the "Create bill" form — customer, period, workflow scope, and outcome-based line items with a live preview. Right: the delivery report — executive summary, outcomes delivered with quantities, total value created ($250,545), and linked evidence. This is what gets sent to the customer.</p>
+
+    <img src="paid-reports-list.png" alt="Reports list" class="img-full dark reveal">
+    <p class="img-caption">Reports list: published, draft, and shared delivery reports per customer, with automated insights below — patterns across workflows, value, and billing that surface without the operator having to look for them.</p>
+  </div>
+</section>
+
+<!-- MVP VS LARGE -->
+<section>
+  <div class="container">
+    <div class="section-num">08 Two scopes, one system</div>
+    <h2>Designing for now<br>and for what comes next.</h2>
+    <p>I delivered two design scopes for Paid.ai. The MVP was a focused product covering the core loop: define a workflow, observe executions, see value generated, and create a bill. Everything a team of two could build and ship to early customers quickly.</p>
+    <p>The large product vision extended this into a full platform: the home dashboard with revenue trends, the credits and observability system, the advanced reports with automated insights, and the workflow builder with its full block library. The design system was consistent across both scopes — so the MVP would grow into the large product without a redesign.</p>
+
+    <div class="before-after reveal">
+      <div class="ba-card">
+        <div class="ba-label before">MVP scope</div>
+        <div class="ba-content before">
+          <ul>
+            <li>Workflow definition with outcome and value estimation</li>
+            <li>Execution list with status, cost, and value per run</li>
+            <li>Value view with recent value events</li>
+            <li>Billing table with draft bill creation</li>
+            <li>Basic delivery report generation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ba-card">
+        <div class="ba-label after">Large product vision</div>
+        <div class="ba-content after">
+          <ul>
+            <li>Home dashboard with revenue trends and customer table</li>
+            <li>Full workflow builder with block library</li>
+            <li>Executions with trace, logs, and evidence tabs</li>
+            <li>Value by workflow and customer with charts</li>
+            <li>Credits and observability system</li>
+            <li>Reports with automated insights</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-wide">
+    <div class="img-grid reveal">
+      <img src="paid-value-mvp.png" alt="Value MVP" class="dark">
+      <img src="paid-value.png" alt="Value large" class="dark">
+    </div>
+    <p class="img-caption">The same Value view in MVP scope (left) and large product scope (right). Same mental model, expanded data richness — value by workflow, value by customer, top workflows table.</p>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section>
+  <div class="container">
+    <div class="section-num">09 Learnings</div>
+    <h2>What designing a new category<br>teaches you.</h2>
+    <ul class="learnings-list">
+      <li>
+        <span class="learning-num">1</span>
+        <div class="learning-body">
+          <h3>The mental model is the product</h3>
+          <p>In an established category — HR software, accounting tools — users arrive with a mental model. You design the interface; they supply the concept. In a new category, you have to design both. The loop (define workflow → execute → attribute value → bill) wasn't just a UX pattern — it was the core concept the product needed to teach. Every screen had to reinforce it.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">2</span>
+        <div class="learning-body">
+          <h3>Abstract concepts need concrete anchors</h3>
+          <p>"Value generated by AI" is meaningless without a number, an outcome, and evidence. I learned to always ask: what is the most concrete version of this? A ticket resolved, a lead qualified, a document processed — not "AI activity". The design had to translate technical events into business language at every level, from individual executions to customer billing.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">3</span>
+        <div class="learning-body">
+          <h3>Scope discipline is a design skill</h3>
+          <p>Designing MVP and large scope simultaneously is a trap if you don't hold the line. The temptation is to let the large vision leak into the MVP and make it too complex to ship. I treated the two scopes as separate deliverables with separate constraints — the MVP had to be something two engineers could build in weeks, not months.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>← <a href="index.html">Back to portfolio</a></p>
+  </div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+reveals.forEach(el => observer.observe(el));
+setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 300);
+</script>
+
+</body>
+</html>
