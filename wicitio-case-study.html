@@ -115,7 +115,6 @@
     font-family: 'DM Sans', sans-serif;
   }
 
-  /* Prototype sidebar */
   .proto-sidebar {
     width: 180px;
     background: #ffffff;
@@ -135,22 +134,29 @@
   .proto-logo svg { width: 16px; height: 16px; fill: white; }
   .proto-logo-name { font-size: 13px; font-weight: 500; color: #0f172a; }
   .proto-nav { padding: 0.75rem 0; flex: 1; }
-  .proto-nav-item {
-    display: flex; align-items: center; gap: 0.6rem;
+  .proto-sidebar .proto-nav-item {
+    display: flex !important;
+    align-items: center;
+    gap: 0.6rem;
     padding: 0.55rem 1rem;
-    font-size: 13px; color: #64748b;
+    font-size: 13px;
+    color: #64748b;
     cursor: pointer;
-    border-radius: 0;
-    transition: all 0.15s;
     position: relative;
+    transition: all 0.15s;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    line-height: 1.4;
   }
-  .proto-nav-item:hover { background: #f8fafc; color: #0f172a; }
-  .proto-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 500; }
-  .proto-nav-item.active::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: #2563eb; border-radius: 0 2px 2px 0; }
+  .proto-sidebar .proto-nav-item:hover { background: #f8fafc; color: #0f172a; }
+  .proto-sidebar .proto-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 500; }
+  .proto-sidebar .proto-nav-item.active::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: #2563eb; border-radius: 0 2px 2px 0; }
   .proto-nav-dot { width: 6px; height: 6px; background: #2563eb; border-radius: 50%; margin-left: auto; }
   .proto-sidebar-footer { padding: 1rem; border-top: 1px solid #e2e8f0; }
   .proto-user { display: flex; align-items: center; gap: 0.5rem; }
-  .proto-avatar { width: 28px; height: 28px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 500; }
+  .proto-avatar { width: 28px; height: 28px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 500; flex-shrink: 0; }
   .proto-user-info p { font-size: 11px; color: #0f172a; font-weight: 500; margin: 0; line-height: 1.3; }
   .proto-user-info span { font-size: 10px; color: #94a3b8; }
 
@@ -305,11 +311,10 @@
 <body>
 
 <nav>
-  <span class="nav-name">Isabel Casanova</span>
+  <a href="index.html" class="nav-name" style="text-decoration:none;color:inherit;">← Isabel Casanova</a>
   <div class="nav-links">
     <a href="factorial-case-study.html">Factorial</a>
-    <a href="#">Wecitio</a>
-    <a href="#">About</a>
+    <a href="wicitio-case-study.html" style="color:var(--black);font-weight:500;">Wecitio</a>
   </div>
 </nav>
 
@@ -608,399 +613,32 @@
   </div>
 
   <div class="container-wide">
-    <!-- NAVIGABLE PROTOTYPE -->
-    <div class="prototype-wrapper reveal">
-      <div class="prototype-bar">
-        <div class="proto-dot r"></div>
-        <div class="proto-dot y"></div>
-        <div class="proto-dot g"></div>
-        <div class="proto-url">sede.wicitio.es/ayuntamiento/villa-real</div>
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:2.5rem 0;">
+      <!-- Tab bar -->
+      <div style="background:#f8f9fa;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0;padding:0;">
+        <button onclick="switchTab('dashboard',this)" id="tab-dashboard" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:#fff;color:#2563eb;border-bottom:2px solid #2563eb;cursor:pointer;font-family:inherit;">Panel Principal</button>
+        <button onclick="switchTab('presupuesto',this)" id="tab-presupuesto" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Presupuesto</button>
+        <button onclick="switchTab('transacciones',this)" id="tab-transacciones" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Transacciones</button>
+        <button onclick="switchTab('insights',this)" id="tab-insights" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Insights</button>
       </div>
-      <div class="prototype-frame">
-
-        <!-- Sidebar -->
-        <div class="proto-sidebar">
-          <div class="proto-sidebar-header">
-            <div class="proto-logo">
-              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-            </div>
-            <span class="proto-logo-name">Sede Electrónica</span>
-          </div>
-          <nav class="proto-nav">
-            <div class="proto-nav-item active" data-view="dashboard">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-              Panel Principal
-              <span class="proto-nav-dot"></span>
-            </div>
-            <div class="proto-nav-item" data-view="presupuesto">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-              Presupuesto
-            </div>
-            <div class="proto-nav-item" data-view="transacciones">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
-              Transacciones
-            </div>
-            <div class="proto-nav-item" data-view="insights">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-              Insights y Análisis
-            </div>
-          </nav>
-          <div class="proto-sidebar-footer">
-            <div class="proto-user">
-              <div class="proto-avatar">AD</div>
-              <div class="proto-user-info">
-                <p>Admin Municipal</p>
-                <span>Intervención de Fondos</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Main content -->
-        <div class="proto-main">
-          <div class="proto-topbar">
-            <input class="proto-search" placeholder="Buscar partidas, transacciones..." readonly>
-            <div class="proto-org"><strong>Ayuntamiento de Villa Real</strong><br>Ejercicio 2025</div>
-          </div>
-
-          <!-- DASHBOARD VIEW -->
-          <div class="proto-view active" id="view-dashboard">
-            <div class="proto-view-inner">
-              <div class="proto-page-header">
-                <div style="display:flex;justify-content:space-between;align-items:flex-start">
-                  <div>
-                    <div class="proto-page-title">Panel de Control Contable</div>
-                    <div class="proto-page-sub">Resumen del estado financiero actual del Ayuntamiento de Villa Real.</div>
-                  </div>
-                  <button style="background:#2563eb;color:white;border:none;border-radius:6px;padding:0.4rem 0.75rem;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit">Filtros Avanzados</button>
-                </div>
-                <div class="proto-role-bar">
-                  <span style="font-size:11px;color:#64748b">Ana Rodríguez</span>
-                  <span class="proto-badge role">Intervención de Fondos</span>
-                  <span class="proto-badge green">Puede aprobar</span>
-                  <span class="proto-badge blue">Puede editar</span>
-                  <span class="proto-badge orange">Acceso datos sensibles</span>
-                </div>
-              </div>
-
-              <div class="proto-metrics">
-                <div class="proto-metric">
-                  <div class="proto-metric-trend up">+2.5%</div>
-                  <div class="proto-metric-label">Presupuesto Total</div>
-                  <div class="proto-metric-val">€12,450,000</div>
-                  <div style="display:flex;justify-content:space-between">
-                    <span class="proto-metric-status high">ALTA FIABILIDAD</span>
-                    <span class="proto-metric-time">Hace 2h</span>
-                  </div>
-                </div>
-                <div class="proto-metric">
-                  <div class="proto-metric-trend up" style="color:#2563eb">58% ejecutado</div>
-                  <div class="proto-metric-label">Ingresos Recaudados</div>
-                  <div class="proto-metric-val">€7,230,000</div>
-                  <div style="display:flex;justify-content:space-between">
-                    <span class="proto-metric-status high">ALTA FIABILIDAD</span>
-                    <span class="proto-metric-time">Hace 30min</span>
-                  </div>
-                </div>
-                <div class="proto-metric">
-                  <div class="proto-metric-trend down">-1.2% vs prev.</div>
-                  <div class="proto-metric-label">Gastos Comprometidos</div>
-                  <div class="proto-metric-val">€5,890,000</div>
-                  <div style="display:flex;justify-content:space-between">
-                    <span class="proto-metric-status high">ALTA FIABILIDAD</span>
-                    <span class="proto-metric-time">Hace 1h</span>
-                  </div>
-                </div>
-                <div class="proto-metric">
-                  <div class="proto-metric-trend down">-5% amortizado</div>
-                  <div class="proto-metric-label">Deuda Pública</div>
-                  <div class="proto-metric-val">€2,120,000</div>
-                  <div style="display:flex;justify-content:space-between">
-                    <span class="proto-metric-status med">FIABILIDAD MEDIA</span>
-                    <span class="proto-metric-time">Hace 3h</span>
-                  </div>
-                </div>
-              </div>
-
-              <div class="proto-charts">
-                <div class="proto-chart-card">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
-                    <span class="proto-chart-title">Ejecución Presupuestaria (Semestre)</span>
-                    <div style="display:flex;gap:0.75rem;font-size:10px;color:#64748b">
-                      <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;background:#22c55e;border-radius:50%;display:inline-block"></span>Ingresos</span>
-                      <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;background:#3b82f6;border-radius:50%;display:inline-block"></span>Gastos</span>
-                    </div>
-                  </div>
-                  <svg class="proto-chart-area" viewBox="0 0 400 100" preserveAspectRatio="none">
-                    <defs>
-                      <linearGradient id="gInc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity="0.3"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient>
-                      <linearGradient id="gExp" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></linearGradient>
-                    </defs>
-                    <path d="M0,60 C50,55 100,45 150,40 C200,35 250,30 300,20 C350,15 380,10 400,5" stroke="#22c55e" stroke-width="2" fill="none"/>
-                    <path d="M0,60 C50,55 100,45 150,40 C200,35 250,30 300,20 C350,15 380,10 400,5 L400,100 L0,100Z" fill="url(#gInc)"/>
-                    <path d="M0,65 C50,63 100,60 150,58 C200,56 250,54 300,50 C350,47 380,45 400,43" stroke="#3b82f6" stroke-width="2" fill="none"/>
-                    <path d="M0,65 C50,63 100,60 150,58 C200,56 250,54 300,50 C350,47 380,45 400,43 L400,100 L0,100Z" fill="url(#gExp)"/>
-                    <text x="0" y="98" font-size="8" fill="#94a3b8">Ene</text>
-                    <text x="70" y="98" font-size="8" fill="#94a3b8">Feb</text>
-                    <text x="145" y="98" font-size="8" fill="#94a3b8">Mar</text>
-                    <text x="215" y="98" font-size="8" fill="#94a3b8">Abr</text>
-                    <text x="285" y="98" font-size="8" fill="#94a3b8">May</text>
-                    <text x="360" y="98" font-size="8" fill="#94a3b8">Jun</text>
-                  </svg>
-                </div>
-                <div class="proto-chart-card">
-                  <div class="proto-chart-title">Distribución por Áreas</div>
-                  <svg viewBox="0 0 100 80" width="100%" style="display:block;margin:0 auto">
-                    <circle cx="50" cy="40" r="28" fill="none" stroke="#e2e8f0" stroke-width="12"/>
-                    <circle cx="50" cy="40" r="28" fill="none" stroke="#6366f1" stroke-width="12" stroke-dasharray="44 132" stroke-dashoffset="0"/>
-                    <circle cx="50" cy="40" r="28" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="33 143" stroke-dashoffset="-44"/>
-                    <circle cx="50" cy="40" r="28" fill="none" stroke="#f59e0b" stroke-width="12" stroke-dasharray="22 154" stroke-dashoffset="-77"/>
-                    <circle cx="50" cy="40" r="28" fill="none" stroke="#06b6d4" stroke-width="12" stroke-dasharray="17 159" stroke-dashoffset="-99"/>
-                  </svg>
-                  <div style="font-size:10px;color:#64748b;line-height:2">
-                    <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#6366f1;border-radius:50%;display:inline-block"></span>Infraestructura</span><span style="font-weight:500;color:#334155">400k€</span></div>
-                    <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#22c55e;border-radius:50%;display:inline-block"></span>Educación</span><span style="font-weight:500;color:#334155">300k€</span></div>
-                    <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#f59e0b;border-radius:50%;display:inline-block"></span>Salud</span><span style="font-weight:500;color:#334155">200k€</span></div>
-                    <div style="display:flex;justify-content:space-between"><span style="display:flex;align-items:center;gap:4px"><span style="width:6px;height:6px;background:#06b6d4;border-radius:50%;display:inline-block"></span>Seguridad</span><span style="font-weight:500;color:#334155">150k€</span></div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="proto-table-card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
-                  <span style="font-size:13px;font-weight:500;color:#0f172a">Actividad Reciente e Intervenciones</span>
-                  <span style="font-size:11px;color:#2563eb;cursor:pointer">Ver Historial Completo</span>
-                </div>
-                <table class="proto-table">
-                  <thead><tr><th>Concepto</th><th>Importe</th><th>Estado</th><th>Fecha/Hora</th></tr></thead>
-                  <tbody>
-                    <tr><td>Licitación Alumbrado LED</td><td style="font-weight:500">€85,000</td><td><span class="proto-status aprobado">Aprobado</span></td><td style="color:#94a3b8">Hace 2 horas</td></tr>
-                    <tr><td>Recaudación IBI Trimestral</td><td style="font-weight:500">€324,500</td><td><span class="proto-status completado">Completado</span></td><td style="color:#94a3b8">Hace 5 horas</td></tr>
-                    <tr><td>Desviación Partida Urbanismo</td><td style="font-weight:500">+12%</td><td><span class="proto-status pendiente">Pendiente Revisión</span></td><td style="color:#94a3b8">Hace 1 día</td></tr>
-                    <tr><td>Informe Trimestral de Tesorería</td><td style="font-weight:500">PDF</td><td><span class="proto-status generado">Generado</span></td><td style="color:#94a3b8">Hace 2 días</td></tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-          <!-- PRESUPUESTO VIEW -->
-          <div class="proto-view" id="view-presupuesto">
-            <div class="proto-view-inner">
-              <div class="proto-page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
-                <div>
-                  <div class="proto-page-title">Presupuesto Municipal</div>
-                  <div class="proto-page-sub">Gestión y seguimiento de partidas presupuestarias.</div>
-                </div>
-                <div style="display:flex;gap:0.5rem">
-                  <button style="background:white;border:1px solid #e2e8f0;border-radius:6px;padding:0.4rem 0.75rem;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit;color:#334155">Exportar BOE</button>
-                  <button style="background:#2563eb;color:white;border:none;border-radius:6px;padding:0.4rem 0.75rem;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit">+ Nueva Partida</button>
-                </div>
-              </div>
-              <div class="proto-budget-header">
-                <div class="proto-budget-card income">
-                  <div class="proto-budget-type">Ingresos totales</div>
-                  <div class="proto-budget-amount">€8,500,000</div>
-                  <div class="proto-budget-sub">Previsión Anual Finalizada al 48%</div>
-                  <div class="proto-budget-bar"><div class="proto-budget-bar-fill" style="width:48%;background:rgba(255,255,255,0.7)"></div></div>
-                </div>
-                <div class="proto-budget-card expense">
-                  <div class="proto-budget-type" style="color:#64748b">Gastos totales</div>
-                  <div class="proto-budget-amount" style="color:#0f172a">€8,900,000</div>
-                  <div class="proto-budget-sub" style="color:#94a3b8">Ejecución de gasto al 44%</div>
-                  <div class="proto-budget-bar" style="background:#f1f5f9"><div class="proto-budget-bar-fill" style="width:44%;background:#f59e0b"></div></div>
-                </div>
-              </div>
-              <div style="display:flex;gap:0.5rem;margin-bottom:1rem;align-items:center">
-                <button style="background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;border-radius:6px;padding:0.35rem 0.75rem;font-size:11px;font-weight:500;cursor:pointer;font-family:inherit">Capítulos de Ingreso</button>
-                <button style="background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:6px;padding:0.35rem 0.75rem;font-size:11px;cursor:pointer;font-family:inherit">Capítulos de Gasto</button>
-                <input placeholder="Buscar capítulo..." style="margin-left:auto;border:1px solid #e2e8f0;border-radius:6px;padding:0.35rem 0.75rem;font-size:11px;outline:none;font-family:inherit">
-              </div>
-              <div class="proto-partida">
-                <div class="proto-partida-header">
-                  <div><span class="proto-partida-code">100-0</span><span class="proto-partida-name">Impuestos Directos</span><div class="proto-partida-sub">Ejecución del 47% de la partida asignada.</div></div>
-                  <div class="proto-partida-amounts"><div class="proto-partida-exec">€2,100,000</div><div class="proto-partida-budget">€4,500,000</div></div>
-                </div>
-                <div class="proto-progress"><div class="proto-progress-fill" style="width:47%;background:#22c55e"></div></div>
-              </div>
-              <div class="proto-partida">
-                <div class="proto-partida-header">
-                  <div><span class="proto-partida-code">100-1</span><span class="proto-partida-name">Tasas y Precios Públicos</span><div class="proto-partida-sub">Ejecución del 78% de la partida asignada.</div></div>
-                  <div class="proto-partida-amounts"><div class="proto-partida-exec">€620,000</div><div class="proto-partida-budget">€800,000</div></div>
-                </div>
-                <div class="proto-progress"><div class="proto-progress-fill" style="width:78%;background:#22c55e"></div></div>
-              </div>
-              <div class="proto-partida">
-                <div class="proto-partida-header">
-                  <div><span class="proto-partida-code">100-2</span><span class="proto-partida-name">Transferencias Corrientes</span><div class="proto-partida-sub">Ejecución del 45% de la partida asignada.</div></div>
-                  <div class="proto-partida-amounts"><div class="proto-partida-exec">€1,450,000</div><div class="proto-partida-budget">€3,200,000</div></div>
-                </div>
-                <div class="proto-progress"><div class="proto-progress-fill" style="width:45%;background:#22c55e"></div></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TRANSACCIONES VIEW -->
-          <div class="proto-view" id="view-transacciones">
-            <div class="proto-view-inner">
-              <div class="proto-page-header" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem">
-                <div>
-                  <div class="proto-page-title">Libro Diario y Registro</div>
-                  <div class="proto-page-sub">Listado detallado de todas las operaciones contables.</div>
-                </div>
-                <div style="display:flex;gap:0.5rem">
-                  <button style="background:white;border:1px solid #e2e8f0;border-radius:6px;padding:0.4rem 0.75rem;font-size:11px;cursor:pointer;font-family:inherit;color:#334155">Filtros</button>
-                  <button style="background:white;border:1px solid #e2e8f0;border-radius:6px;padding:0.4rem 0.75rem;font-size:11px;cursor:pointer;font-family:inherit;color:#334155">Descargar</button>
-                </div>
-              </div>
-              <div class="proto-tx-filters">
-                <input class="proto-tx-search" placeholder="Buscar por ID, proveedor, concepto..." readonly>
-                <button class="proto-tx-tab active">Todas</button>
-                <button class="proto-tx-tab">Solo Gastos</button>
-                <button class="proto-tx-tab">Solo Ingresos</button>
-                <button class="proto-tx-tab">Pendientes</button>
-              </div>
-              <div style="background:white;border:1px solid #e2e8f0;border-radius:8px;overflow:hidden">
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.5rem 1rem;border-bottom:1px solid #f1f5f9">
-                  <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;font-weight:500">ID / Fecha</span>
-                  <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;font-weight:500">Tercero</span>
-                  <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;font-weight:500">Concepto</span>
-                  <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;font-weight:500">Importe</span>
-                  <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#94a3b8;font-weight:500">Estado</span>
-                </div>
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.75rem 1rem;border-bottom:1px solid #f8fafc;align-items:center">
-                  <div><div style="font-size:11px;font-weight:600;color:#2563eb">TRX-001</div><div style="font-size:10px;color:#94a3b8">2025-02-18</div></div>
-                  <div style="font-size:12px;font-weight:500;color:#0f172a">Sacyr Infraestructuras</div>
-                  <div><div style="font-size:11px;color:#334155">Certificación Obra Polideportivo</div><span style="font-size:9px;background:#f8fafc;color:#94a3b8;padding:1px 4px;border-radius:3px;text-transform:uppercase">Inversiones</span></div>
-                  <div style="font-size:12px;font-weight:600;color:#dc2626">-45.200,50€</div>
-                  <span class="proto-status aprobado">Pagado</span>
-                </div>
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.75rem 1rem;border-bottom:1px solid #f8fafc;align-items:center">
-                  <div><div style="font-size:11px;font-weight:600;color:#2563eb">TRX-002</div><div style="font-size:10px;color:#94a3b8">2025-02-17</div></div>
-                  <div style="font-size:12px;font-weight:500;color:#0f172a">AEAT</div>
-                  <div><div style="font-size:11px;color:#334155">Devolución IVA IV Trimestre</div><span style="font-size:9px;background:#f8fafc;color:#94a3b8;padding:1px 4px;border-radius:3px;text-transform:uppercase">Impuestos</span></div>
-                  <div style="font-size:12px;font-weight:600;color:#16a34a">124.500,00€</div>
-                  <span class="proto-status pendiente">Pendiente</span>
-                </div>
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.75rem 1rem;border-bottom:1px solid #f8fafc;align-items:center">
-                  <div><div style="font-size:11px;font-weight:600;color:#2563eb">TRX-003</div><div style="font-size:10px;color:#94a3b8">2025-02-17</div></div>
-                  <div style="font-size:12px;font-weight:500;color:#0f172a">Endesa Energía</div>
-                  <div><div style="font-size:11px;color:#334155">Suministro Eléctrico Edificios</div><span style="font-size:9px;background:#f8fafc;color:#94a3b8;padding:1px 4px;border-radius:3px;text-transform:uppercase">Suministros</span></div>
-                  <div style="font-size:12px;font-weight:600;color:#dc2626">-12.340,20€</div>
-                  <span class="proto-status aprobado">Pagado</span>
-                </div>
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.75rem 1rem;border-bottom:1px solid #f8fafc;align-items:center">
-                  <div><div style="font-size:11px;font-weight:600;color:#2563eb">TRX-004</div><div style="font-size:10px;color:#94a3b8">2025-02-16</div></div>
-                  <div style="font-size:12px;font-weight:500;color:#0f172a">Banco Santander</div>
-                  <div><div style="font-size:11px;color:#334155">Amortización Préstamo ICO</div><span style="font-size:9px;background:#f8fafc;color:#94a3b8;padding:1px 4px;border-radius:3px;text-transform:uppercase">Deuda</span></div>
-                  <div style="font-size:12px;font-weight:600;color:#dc2626">-350.000,00€</div>
-                  <span class="proto-status aprobado">Pagado</span>
-                </div>
-                <div style="display:grid;grid-template-columns:120px 140px 1fr 110px 90px;padding:0.75rem 1rem;align-items:center">
-                  <div><div style="font-size:11px;font-weight:600;color:#2563eb">TRX-005</div><div style="font-size:10px;color:#94a3b8">2025-02-15</div></div>
-                  <div style="font-size:12px;font-weight:500;color:#0f172a">Ciudadano - Varios</div>
-                  <div><div style="font-size:11px;color:#334155">Recaudación Impuesto Circulación</div><span style="font-size:9px;background:#f8fafc;color:#94a3b8;padding:1px 4px;border-radius:3px;text-transform:uppercase">Impuestos</span></div>
-                  <div style="font-size:12px;font-weight:600;color:#16a34a">45.670,00€</div>
-                  <span class="proto-status completado">Completado</span>
-                </div>
-              </div>
-              <div style="font-size:11px;color:#64748b;margin-top:0.75rem;display:flex;justify-content:space-between;align-items:center">
-                <span>Mostrando <strong>1-5</strong> de 124 transacciones</span>
-                <div style="display:flex;gap:0.5rem">
-                  <button style="font-size:11px;padding:0.3rem 0.6rem;border:1px solid #e2e8f0;border-radius:4px;background:white;cursor:pointer;font-family:inherit">Anterior</button>
-                  <button style="font-size:11px;padding:0.3rem 0.6rem;border:1px solid #e2e8f0;border-radius:4px;background:white;cursor:pointer;font-family:inherit;font-weight:500">Siguiente</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- INSIGHTS VIEW -->
-          <div class="proto-view" id="view-insights">
-            <div class="proto-view-inner">
-              <div class="proto-page-header" style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem">
-                <div>
-                  <div class="proto-page-title">Insights y Análisis Avanzado</div>
-                  <div class="proto-page-sub">Métricas clave de rendimiento y eficiencia financiera municipal.</div>
-                </div>
-                <div style="display:flex;gap:0.4rem">
-                  <button style="background:#eff6ff;color:#2563eb;border:1px solid #bfdbfe;border-radius:6px;padding:0.3rem 0.6rem;font-size:11px;font-weight:500;font-family:inherit;cursor:pointer">Trimestral</button>
-                  <button style="background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:6px;padding:0.3rem 0.6rem;font-size:11px;font-family:inherit;cursor:pointer">Semestral</button>
-                  <button style="background:white;color:#64748b;border:1px solid #e2e8f0;border-radius:6px;padding:0.3rem 0.6rem;font-size:11px;font-family:inherit;cursor:pointer">Anual</button>
-                </div>
-              </div>
-              <div class="proto-insight-banner">
-                <div class="proto-insight-icon">⚡</div>
-                <div class="proto-insight-text">
-                  <div class="proto-insight-title">Optimización Detectada</div>
-                  <div class="proto-insight-desc">Se ha detectado una infrautilización del 15% en el presupuesto de mantenimiento de parques. Considera redistribuir €45,000 hacia el programa "Verano Juvenil" para mejorar el impacto social sin exceder el techo de gasto.</div>
-                </div>
-                <button class="proto-insight-btn">Ver Recomendación</button>
-              </div>
-              <div class="proto-insight-charts">
-                <div class="proto-chart-card">
-                  <div class="proto-chart-title">Tendencia Mensual Acumulada</div>
-                  <svg class="proto-chart-area" viewBox="0 0 300 90" preserveAspectRatio="none">
-                    <line x1="0" y1="60" x2="300" y2="60" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="4"/>
-                    <polyline points="0,70 50,65 100,55 150,50 200,45 250,30 300,10" stroke="#22c55e" stroke-width="2" fill="none"/>
-                    <circle cx="0" cy="70" r="3" fill="#22c55e"/>
-                    <circle cx="50" cy="65" r="3" fill="#22c55e"/>
-                    <circle cx="100" cy="55" r="3" fill="#22c55e"/>
-                    <circle cx="150" cy="50" r="3" fill="#22c55e"/>
-                    <circle cx="200" cy="45" r="3" fill="#22c55e"/>
-                    <circle cx="250" cy="30" r="3" fill="#22c55e"/>
-                    <circle cx="300" cy="10" r="3" fill="#22c55e"/>
-                    <text x="0" y="85" font-size="8" fill="#94a3b8">Jul</text>
-                    <text x="45" y="85" font-size="8" fill="#94a3b8">Ago</text>
-                    <text x="95" y="85" font-size="8" fill="#94a3b8">Sep</text>
-                    <text x="145" y="85" font-size="8" fill="#94a3b8">Oct</text>
-                    <text x="195" y="85" font-size="8" fill="#94a3b8">Nov</text>
-                    <text x="245" y="85" font-size="8" fill="#94a3b8">Dic</text>
-                  </svg>
-                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.5rem;margin-top:0.5rem">
-                    <div style="text-align:center"><div style="font-size:9px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8">Superávit</div><div style="font-size:14px;font-weight:700;color:#16a34a">+€12.4k</div></div>
-                    <div style="text-align:center"><div style="font-size:9px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8">Ahorro medio</div><div style="font-size:14px;font-weight:700;color:#0f172a">8.2%</div></div>
-                    <div style="text-align:center"><div style="font-size:9px;text-transform:uppercase;letter-spacing:0.05em;color:#94a3b8">Desviación</div><div style="font-size:14px;font-weight:700;color:#0f172a">1.2%</div></div>
-                  </div>
-                </div>
-                <div class="proto-chart-card">
-                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem">
-                    <span class="proto-chart-title">Eficiencia por Área</span>
-                    <span style="font-size:10px;color:#2563eb;cursor:pointer">Ver Auditoría</span>
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:6px">
-                    <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b;width:40px">Urb.</span><div style="flex:1;height:14px;background:#f1f5f9;border-radius:3px"><div style="width:82%;height:100%;background:#6366f1;border-radius:3px"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b;width:40px">Educ.</span><div style="flex:1;height:14px;background:#f1f5f9;border-radius:3px"><div style="width:91%;height:100%;background:#22c55e;border-radius:3px"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b;width:40px">Cult.</span><div style="flex:1;height:14px;background:#f1f5f9;border-radius:3px"><div style="width:78%;height:100%;background:#f59e0b;border-radius:3px"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b;width:40px">Seg.</span><div style="flex:1;height:14px;background:#f1f5f9;border-radius:3px"><div style="width:95%;height:100%;background:#06b6d4;border-radius:3px"></div></div></div>
-                    <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#64748b;width:40px">Adm.</span><div style="flex:1;height:14px;background:#f1f5f9;border-radius:3px"><div style="width:88%;height:100%;background:#6366f1;border-radius:3px"></div></div></div>
-                  </div>
-                  <div style="margin-top:0.75rem;font-size:10px;color:#64748b">
-                    <div style="display:flex;justify-content:space-between"><span>Área más eficiente: Seguridad</span><span style="font-weight:600;color:#0f172a">95%</span></div>
-                    <div style="display:flex;justify-content:space-between"><span>Cuello de botella: Cultura</span><span style="font-weight:600;color:#f59e0b">78%</span></div>
-                  </div>
-                </div>
-              </div>
-              <div class="proto-insight-metrics">
-                <div class="proto-kpi">
-                  <div class="proto-kpi-label">Período Medio Pago</div>
-                  <div class="proto-kpi-val">18.4 días</div>
-                </div>
-                <div class="proto-kpi">
-                  <div class="proto-kpi-label">Carga Fiscal / Hab.</div>
-                  <div class="proto-kpi-val">€452.00</div>
-                </div>
-                <div class="proto-kpi">
-                  <div class="proto-kpi-label">Informes Exportados</div>
-                  <div class="proto-kpi-val">12 este mes</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+      <!-- Dashboard -->
+      <div id="pane-dashboard" style="display:block;">
+        <img src="wicitio-dashboard.png" alt="Wecitio dashboard" style="width:100%;display:block;">
+      </div>
+      <!-- Presupuesto -->
+      <div id="pane-presupuesto" style="display:none;">
+        <img src="wicitio-presupuesto.png" alt="Wecitio presupuesto" style="width:100%;display:block;">
+      </div>
+      <!-- Transacciones -->
+      <div id="pane-transacciones" style="display:none;">
+        <img src="wicitio-transacciones.png" alt="Wecitio transacciones" style="width:100%;display:block;">
+      </div>
+      <!-- Insights -->
+      <div id="pane-insights" style="display:none;">
+        <img src="wicitio-insights.png" alt="Wecitio insights" style="width:100%;display:block;">
       </div>
     </div>
-    <p class="img-caption">Interactive prototype — click the left navigation to switch between the four core workflows: Dashboard, Presupuesto, Transacciones, and Insights.</p>
+    <p class="img-caption">Click the tabs to switch between the four core workflows.</p>
   </div>
 </section>
 
@@ -1054,18 +692,17 @@
 </footer>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  document.querySelectorAll('.proto-nav-item[data-view]').forEach(function(item) {
-    item.style.cursor = 'pointer';
-    item.addEventListener('click', function() {
-      var id = this.getAttribute('data-view');
-      document.querySelectorAll('.proto-view').forEach(function(v) { v.classList.remove('active'); });
-      document.querySelectorAll('.proto-nav-item').forEach(function(n) { n.classList.remove('active'); });
-      document.getElementById('view-' + id).classList.add('active');
-      item.classList.add('active');
-    });
+function switchTab(id, btn) {
+  ['dashboard','presupuesto','transacciones','insights'].forEach(function(v) {
+    document.getElementById('pane-' + v).style.display = 'none';
+    var t = document.getElementById('tab-' + v);
+    if (t) { t.style.background = 'transparent'; t.style.color = '#64748b'; t.style.borderBottom = '2px solid transparent'; }
   });
-});
+  document.getElementById('pane-' + id).style.display = 'block';
+  btn.style.background = '#fff';
+  btn.style.color = '#2563eb';
+  btn.style.borderBottom = '2px solid #2563eb';
+}
 
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
