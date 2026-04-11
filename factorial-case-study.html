@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Factorial — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --off: #f5f3ef;
+    --muted: #8a8780;
+    --accent: #d94f3d;
+    --border: #e2dfd8;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off);
+    color: var(--black);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--off);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; }
+  .nav-links a:hover { color: var(--black); }
+
+  /* LAYOUT */
+  .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 0 5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .hero h1 em { font-style: italic; color: var(--muted); }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 3rem;
+  }
+
+  /* IMPACT STRIP */
+  .impact-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 2px;
+  }
+  .impact-cell {
+    padding: 2rem 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .impact-cell:last-child { border-right: none; }
+  .impact-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+  .impact-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* TEAM ROW */
+  .team-row {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-col { flex: 1; min-width: 180px; }
+  .team-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+  .team-col-val { font-size: 14px; font-weight: 400; line-height: 1.8; }
+
+  /* SECTION */
+  section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-num {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+  }
+
+  p { color: #3a3834; margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* PULLQUOTE */
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.25rem 0 0.25rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  /* IMAGE BLOCKS */
+  .img-full {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+    margin: 2.5rem 0;
+    background: var(--white);
+  }
+  .img-caption {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: -1.5rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .img-grid img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .img-trio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    align-items: start;
+  }
+  .img-trio img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  /* CHALLENGE CARDS */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+  .challenge-card {
+    background: var(--white);
+    padding: 1.75rem 1.75rem;
+  }
+  .challenge-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.75rem; }
+  .challenge-card p { font-size: 0.95rem; color: #3a3834; }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 2.5rem 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .flow-step {
+    flex: 1;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-icon {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .flow-step h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--black); margin-bottom: 0.25rem; }
+  .flow-step p { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.4; }
+  .flow-arrow {
+    font-size: 1rem; color: var(--border);
+    position: absolute; right: -0.6rem; top: 50%; transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  /* LEARNINGS */
+  .learnings-list { list-style: none; margin: 1.5rem 0; }
+  .learnings-list li {
+    display: flex; gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .learnings-list li:last-child { border-bottom: none; }
+  .learning-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 1.5rem;
+  }
+  .learning-body h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .learning-body p { font-size: 0.95rem; color: #3a3834; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--black); text-decoration: none; font-weight: 500; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .container, .container-wide { padding: 0 1.25rem; }
+    .impact-strip { grid-template-columns: 1fr; }
+    .impact-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .challenge-grid { grid-template-columns: 1fr; }
+    .img-grid, .img-trio { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-step { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Your Name</span>
+  <div class="nav-links">
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-tag">Case study · Factorial HR · 2022–2024</span>
+    <h1>Turning time management<br>into <em>the growth engine</em><br>of an HR platform</h1>
+    <p class="hero-sub">How I led product and design across five HR products — and connected them to Payroll to create a unified ecosystem that scaled from 2,500 to 7,000 companies.</p>
+
+    <div class="impact-strip reveal">
+      <div class="impact-cell">
+        <div class="impact-num">7,000</div>
+        <div class="impact-label">Companies using Time Management<br>(up from 2,500)</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">300K</div>
+        <div class="impact-label">Employees tracked<br>on the platform</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">+35%</div>
+        <div class="impact-label">Adoption across the<br>HR & Payroll ecosystem</div>
+      </div>
+    </div>
+
+    <div class="team-row reveal">
+      <div class="team-col">
+        <div class="team-col-label">My role</div>
+        <div class="team-col-val">Head of Product & Design</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Team</div>
+        <div class="team-col-val">50 people across Product,<br>Design & Engineering</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Products</div>
+        <div class="team-col-val">Time Tracking · Time Off<br>Scheduling · Payroll</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Timeline</div>
+        <div class="team-col-val">2022 – 2024</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section>
+  <div class="container">
+    <div class="section-num">01 — Context</div>
+    <h2>A platform with five products<br>and no clear north star</h2>
+    <p>Factorial is an all-in-one HR platform competing in a crowded European market. When I joined as Head of Product & Design, I inherited a portfolio of five products — Time Tracking, Time Off, Scheduling, Project Management, and Space Management — each built with its own logic, its own design patterns, and its own team.</p>
+    <p>The products worked in isolation. Managers had to jump between tools to get a full picture of their workforce. HR admins were reconciling data manually. And Payroll — the product where Factorial's core revenue sat — was largely disconnected from the time data that should have been feeding it.</p>
+
+    <div class="pullquote reveal">
+      <p>"The data to run payroll existed — it just lived in five different places and reached the finance team through emails and spreadsheets."</p>
+    </div>
+
+    <p>My mandate was clear: build a coherent product strategy, prioritize ruthlessly, and make Factorial's HR suite feel like one platform — not a bundle of tools.</p>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="container">
+    <div class="section-num">02 — The problem</div>
+    <h2>Time was the lever.<br>Nobody had pulled it yet.</h2>
+    <p>After mapping the business and talking to customers, two things became obvious. First, Time Tracking and Time Off were the highest-frequency touchpoints in the platform — employees used them daily, managers reviewed them weekly. Second, that usage wasn't converting into ecosystem value: the data generated wasn't flowing downstream into Payroll.</p>
+
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <h3>For employees</h3>
+        <p>Clocking in and out, requesting time off, checking balances — all critical tasks with fragmented, inconsistent experiences across products.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For managers</h3>
+        <p>Approving timesheets and absences was manual, error-prone, and disconnected. No single view of a team's status.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For HR admins</h3>
+        <p>Payroll preparation meant exporting data, running calculations in Excel, and importing results back — every single month.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For the business</h3>
+        <p>Time Tracking had strong adoption potential but wasn't driving Payroll upsell. The ecosystem value wasn't visible to customers.</p>
+      </div>
+    </div>
+
+    <p>The opportunity wasn't just to improve each product. It was to create a <strong>closed loop</strong>: time worked → managed → approved → paid. That loop, if we could close it, would be the strongest retention driver and growth argument in the platform.</p>
+  </div>
+</section>
+
+<!-- WHAT WE DID: TIME TRACKING -->
+<section>
+  <div class="container">
+    <div class="section-num">03 — Time Tracking</div>
+    <h2>Making time data<br>actionable for managers</h2>
+    <p>The Time Tracking product needed to do two things well: give managers a clear, accurate view of their team's hours, and make the approval process fast enough that it actually got done.</p>
+    <p>We redesigned the manager timesheet view around three core concepts — <strong>estimated</strong>, <strong>worked</strong>, and <strong>balance</strong> — making it possible to spot anomalies at a glance without opening individual records.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="A1.png" alt="Time Tracking manager view — monthly timesheet with employee list, estimated vs worked hours and balance" class="img-full reveal">
+    <p class="img-caption">Manager view: monthly timesheet with estimated, worked, and balance columns. Colour-coded hour distribution bars surface anomalies instantly.</p>
+
+    <div class="img-trio reveal">
+      <img src="Estimated.png" alt="Estimated hours breakdown tooltip">
+      <img src="Worked.png" alt="Worked hours breakdown tooltip">
+      <img src="Balance.png" alt="Balance breakdown tooltip">
+    </div>
+    <p class="img-caption">Each column expands on hover: estimated shows regular + approved overtime; worked shows effective vs tracked time; balance shows running total since period start.</p>
+  </div>
+
+  <div class="container">
+    <p>We also built Scheduling as a companion to Time Tracking — giving managers the ability to plan shifts in advance, publish them to employees, and use that planned time as the baseline for variance detection.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="Turnos.png" alt="Scheduling view — weekly shift grid per employee" class="img-full reveal">
+    <p class="img-caption">Scheduling: weekly view with shift blocks per employee. Shifts feed directly into the estimated hours calculation in Time Tracking.</p>
+  </div>
+</section>
+
+<!-- WHAT WE DID: TIME OFF -->
+<section>
+  <div class="container">
+    <div class="section-num">04 — Time Off</div>
+    <h2>Simplifying absence management<br>for complex organisations</h2>
+    <p>Time Off was the most policy-heavy product in the portfolio. Companies needed to configure different absence types, blocked periods, approval chains, and allowances — and they needed employees to be able to request time off without calling HR.</p>
+    <p>We rebuilt the admin experience around a clear configuration model: policies first, then blocked periods, then absence types. This reduced setup time and made it obvious what rules applied to which employees.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="01-time-off-home.png" alt="Time Off admin dashboard — pending requests, absence trend, employee list" class="img-full reveal">
+    <p class="img-caption">Time Off management dashboard: pending requests with overdue alerts, absence distribution by type, weekly trend, and full employee list.</p>
+
+    <div class="img-grid reveal">
+      <img src="01.png" alt="Time Off policy configuration — absence types and blocked periods">
+      <img src="Group_5.png" alt="Time Off approval modal — approve step or entire request">
+    </div>
+    <p class="img-caption">Left: policy configuration with absence types and blocked periods. Right: approval modal with multi-step workflow support — managers can approve a step or the entire request.</p>
+  </div>
+</section>
+
+<!-- PAYROLL CONNECTION -->
+<section>
+  <div class="container">
+    <div class="section-num">05 — Closing the loop with Payroll</div>
+    <h2>From time worked<br>to payroll, automatically</h2>
+    <p>The most strategically important work was invisible to most users: connecting the time data generated in Time Tracking and Time Off directly into the Payroll preparation flow.</p>
+    <p>We designed the overtime compensation flow as the first explicit bridge. When a manager approved overtime in a timesheet, they could immediately choose how to compensate it — as a payroll supplement or as additional time off. That decision flowed directly into the payroll period, eliminating the manual step that had existed before.</p>
+
+    <div class="flow reveal">
+      <div class="flow-step">
+        <span class="flow-icon">⏱</span>
+        <h3>Time worked</h3>
+        <p>Hours tracked and scheduled</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">✓</span>
+        <h3>Manager approval</h3>
+        <p>Timesheet reviewed and signed off</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">⇄</span>
+        <h3>Compensation decision</h3>
+        <p>Overtime → pay or time off</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">€</span>
+        <h3>Payroll supplement</h3>
+        <p>Auto-created in payroll period</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide">
+    <div class="img-grid reveal">
+      <img src="Modal.png" alt="Compensate overtime modal — choose payroll supplement or time off">
+      <img src="F1.png" alt="Payroll period preparation — supplements per employee with overtime linked">
+    </div>
+    <p class="img-caption">Left: the compensation modal — one decision point that routes overtime to either payroll or time off balance. Right: the payroll preparation view showing the supplement auto-created from that decision, linked back to the original timesheet entry.</p>
+  </div>
+
+  <div class="container">
+    <p>This was the first time in Factorial that a decision made in one product automatically populated another. It was a proof of concept for the larger ecosystem vision — and a direct driver of Payroll adoption among Time Tracking customers.</p>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section>
+  <div class="container">
+    <div class="section-num">06 — Learnings</div>
+    <h2>What I'd tell myself<br>at the start of this</h2>
+
+    <ul class="learnings-list">
+      <li>
+        <span class="learning-num">1</span>
+        <div class="learning-body">
+          <h3>Focus beats coverage</h3>
+          <p>I managed five products, but the real impact came from deciding which two to bet on. Time Tracking and Time Off had the frequency; everything else was secondary. Spreading effort evenly across all five would have produced mediocre results across the board.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">2</span>
+        <div class="learning-body">
+          <h3>Integration is a product decision, not an engineering one</h3>
+          <p>The payroll connection only happened because we framed it as a product problem: "How does a manager decide what to do with overtime?" — not as a technical task. Starting from the user decision made the right architecture obvious.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">3</span>
+        <div class="learning-body">
+          <h3>Consistency compounds</h3>
+          <p>Small design decisions — the same tooltip pattern, the same approval flow, the same data table conventions — accumulated into something customers noticed without being able to articulate it. "It feels like one product" was the best feedback we got.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>← <a href="#">Back to all work</a></p>
+    <p style="margin-top: 0.5rem;">Next case study → <a href="#">[Your next project]</a></p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger hero elements on load
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+  });
+</script>
+
+</body>
+</html>
