@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Factorial Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0d0d0d;
+    --off: #f5f3ef;
+    --muted: #8a8780;
+    --accent: #d94f3d;
+    --border: #e2dfd8;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--off);
+    color: var(--black);
+    font-size: 17px;
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--off);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; }
+  .nav-links a:hover { color: var(--black); }
+
+  /* LAYOUT */
+  .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
+  .container-wide { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero {
+    padding: 9rem 0 5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+  }
+  .hero h1 em { font-style: italic; color: var(--muted); }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.65;
+    margin-bottom: 3rem;
+  }
+
+  /* IMPACT STRIP */
+  .impact-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    background: var(--white);
+    border-radius: 2px;
+  }
+  .impact-cell {
+    padding: 2rem 2rem;
+    border-right: 1px solid var(--border);
+  }
+  .impact-cell:last-child { border-right: none; }
+  .impact-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--black);
+    margin-bottom: 0.4rem;
+    font-weight: 400;
+  }
+  .impact-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+  /* TEAM ROW */
+  .team-row {
+    display: flex; flex-wrap: wrap; gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .team-col { flex: 1; min-width: 180px; }
+  .team-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
+  .team-col-val { font-size: 14px; font-weight: 400; line-height: 1.8; }
+
+  /* SECTION */
+  section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .section-num {
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
+    color: var(--muted); margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+
+  h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+    color: var(--black);
+  }
+
+  p { color: #3a3834; margin-bottom: 1rem; }
+  p:last-child { margin-bottom: 0; }
+
+  /* PULLQUOTE */
+  .pullquote {
+    border-left: 3px solid var(--accent);
+    padding: 0.25rem 0 0.25rem 1.75rem;
+    margin: 2.5rem 0;
+  }
+  .pullquote p {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  /* IMAGE BLOCKS */
+  .img-full {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    display: block;
+    margin: 2.5rem 0;
+    background: var(--white);
+  }
+  .img-caption {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: -1.5rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.02em;
+  }
+
+  .img-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .img-grid img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  .img-trio {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+    align-items: start;
+  }
+  .img-trio img {
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  /* CHALLENGE CARDS */
+  .challenge-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    margin: 2rem 0;
+  }
+  .challenge-card {
+    background: var(--white);
+    padding: 1.75rem 1.75rem;
+  }
+  .challenge-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.75rem; }
+  .challenge-card p { font-size: 0.95rem; color: #3a3834; }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 2.5rem 0;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .flow-step {
+    flex: 1;
+    padding: 1.5rem 1.25rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+    position: relative;
+  }
+  .flow-step:last-child { border-right: none; }
+  .flow-icon {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .flow-step h3 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--black); margin-bottom: 0.25rem; }
+  .flow-step p { font-size: 0.8rem; color: var(--muted); margin: 0; line-height: 1.4; }
+  .flow-arrow {
+    font-size: 1rem; color: var(--border);
+    position: absolute; right: -0.6rem; top: 50%; transform: translateY(-50%);
+    z-index: 1;
+  }
+
+  /* LEARNINGS */
+  .learnings-list { list-style: none; margin: 1.5rem 0; }
+  .learnings-list li {
+    display: flex; gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .learnings-list li:last-child { border-bottom: none; }
+  .learning-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.5rem;
+    color: var(--accent);
+    line-height: 1;
+    flex-shrink: 0;
+    min-width: 1.5rem;
+  }
+  .learning-body h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.35rem; }
+  .learning-body p { font-size: 0.95rem; color: #3a3834; }
+
+  /* FOOTER */
+  footer {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+  }
+  footer a { color: var(--black); text-decoration: none; font-weight: 500; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .container, .container-wide { padding: 0 1.25rem; }
+    .impact-strip { grid-template-columns: 1fr; }
+    .impact-cell { border-right: none; border-bottom: 1px solid var(--border); }
+    .challenge-grid { grid-template-columns: 1fr; }
+    .img-grid, .img-trio { grid-template-columns: 1fr; }
+    .flow { flex-direction: column; }
+    .flow-step { border-right: none; border-bottom: 1px solid var(--border); }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-name" style="text-decoration:none;color:inherit;">← Isabel Casanova</a>
+  <div class="nav-links">
+    <a href="factorial-case-study.html" style="color:var(--black);font-weight:500;">Factorial</a>
+    <a href="wicitio-case-study.html">Wecitio</a>
+    <a href="paid-case-study.html">Paid.ai</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-tag">Case study · Factorial HR · 2021–2023</span>
+    <h1>Turning time management<br>into <em>the growth engine</em><br>of an HR platform</h1>
+    <p class="hero-sub">How I led product and design across three core HR products and connected them to Payroll to create a unified ecosystem that scaled from 2,500 to 7,000 companies.</p>
+
+    <div class="impact-strip reveal">
+      <div class="impact-cell">
+        <div class="impact-num">7,000</div>
+        <div class="impact-label">Companies using Time Management<br>(up from 2,500)</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">300K</div>
+        <div class="impact-label">Employees tracked<br>on the platform</div>
+      </div>
+      <div class="impact-cell">
+        <div class="impact-num">+35%</div>
+        <div class="impact-label">Adoption across the<br>HR & Payroll ecosystem</div>
+      </div>
+    </div>
+
+    <div class="team-row reveal">
+      <div class="team-col">
+        <div class="team-col-label">My role</div>
+        <div class="team-col-val">Head of Product & Design</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Team</div>
+        <div class="team-col-val">50 people across Product,<br>Design & Engineering</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Products</div>
+        <div class="team-col-val">Time Tracking · Time Off<br>Scheduling · Payroll</div>
+      </div>
+      <div class="team-col">
+        <div class="team-col-label">Timeline</div>
+        <div class="team-col-val">2021–2023</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEXT -->
+<section>
+  <div class="container">
+    <div class="section-num">01 Context</div>
+    <h2>Three early-stage products.<br>One strategic opportunity.</h2>
+    <p>Factorial is an all-in-one HR platform competing in a crowded European market. When I joined as Head of Product and Design, I inherited three products that were functional but early: Time Tracking, Time Off, and Scheduling. Each had been built by separate teams, with its own logic and design language. They worked, but only just. Customers used them because they had to, not because they were good.</p>
+    <p>The strategic picture was equally underdeveloped. Factorial's revenue came primarily from time management subscriptions, and while that base was growing, it had a ceiling. In the HR software market, Payroll is the highest-value product in the category. Every company runs payroll every month, without exception. It drives the deepest retention and the highest contract value. Factorial had a Payroll product, but it was largely manual, requiring HR admins to export time data, reconcile it in spreadsheets, and re-import results every single cycle.</p>
+
+    <div class="pullquote reveal">
+      <p>"The data to run payroll existed. It just lived in three different products and reached the finance team through emails and spreadsheets."</p>
+    </div>
+
+    <p>My mandate was to grow the three core products into something genuinely useful, and then connect them to Payroll to unlock the platform's real potential. Grow first. Connect second.</p>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section>
+  <div class="container">
+    <div class="section-num">02 The challenge</div>
+    <h2>Products that worked in isolation<br>for users who needed them together.</h2>
+    <p>Talking to customers made the gaps clear. Each product had its own problems, and they compounded each other. Fixing them individually would help. But the real opportunity was in what happened between them.</p>
+
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <h3>For employees</h3>
+        <p>Clocking in, requesting time off, checking balances: all high-frequency tasks with inconsistent, underdeveloped experiences. The basics weren't reliable enough to trust.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For managers</h3>
+        <p>Reviewing timesheets and approving absences required jumping between views with no unified picture of the team. Errors were common and hard to catch.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For HR admins</h3>
+        <p>Closing payroll every month meant manually exporting time data, calculating supplements in Excel, and importing everything back. A process that took days and introduced risk every cycle.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>For the business</h3>
+        <p>Time management was growing but not converting into Payroll adoption. The products weren't creating pull toward the higher-value part of the platform.</p>
+      </div>
+    </div>
+
+    <p>The path forward had two phases: mature each product to a level where customers actually relied on it, then build the connections that would make switching away from Factorial genuinely painful.</p>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section>
+  <div class="container">
+    <div class="section-num">03 How I worked</div>
+    <h2>Decisions made close<br>to customers and data.</h2>
+    <p>My process across all three products followed the same rhythm. I started by talking directly to customers — through Customer Experience, Sales, and direct interviews — to understand where the real friction was. Not the friction they described first, but the friction underneath it: the workaround they'd stopped noticing, the task they'd given up trying to do in the product.</p>
+    <p>I combined that with usage data to prioritise. Customer feedback tells you what hurts; data tells you how often and for how many. Together they made it possible to argue for the right bets in a team of 50 people with competing priorities.</p>
+
+    <div class="challenge-grid reveal">
+      <div class="challenge-card">
+        <h3>Customer interviews</h3>
+        <p>Direct sessions with HR managers, admins, and employees, coordinated with CX and Sales to surface real pain — not just feature requests.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>Data analysis</h3>
+        <p>Usage patterns, drop-off points, and adoption curves to validate what customers said and prioritise by actual impact.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>Team workshops</h3>
+        <p>Cross-functional sessions with the product and engineering teams to align on the problem before touching solutions. I facilitated, challenged, and pushed for clarity.</p>
+      </div>
+      <div class="challenge-card">
+        <h3>Co-design and critique</h3>
+        <p>I was hands-on throughout. I sketched alongside the designers, ran critiques, defined interaction patterns, and made the key design calls myself. Leading the team didn't mean stepping back from the work — it meant being the person who raised the bar on it.</p>
+      </div>
+    </div>
+
+    <p>I operated as a player-coach: setting direction and removing blockers for the team, while staying hands-on in the design work itself. I didn't delegate the hard design problems — I worked through them with the team, and often drove the solution.</p>
+
+    <p>One of the first things I mapped was the HR admin's payroll closing process as it existed before we touched it. This is what surfaced the Excel reconciliation step as the most critical problem — and ultimately defined the product direction.</p>
+  </div>
+
+  <div class="container-wide">
+    <div style="margin: 2rem 0; background: var(--white); border: 1px solid var(--border); border-radius: 4px; padding: 2rem 1.5rem; overflow-x: auto;">
+      <svg width="100%" viewBox="0 0 680 460" role="img">
+        <title>HR admin journey map — payroll preparation before the solution</title>
+        <desc>A process map showing the painful manual steps an HR admin had to go through to close payroll each month.</desc>
+        <defs>
+          <marker id="arr2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </marker>
+        </defs>
+
+        <!-- Title -->
+        <text x="30" y="28" font-size="11" font-family="inherit" fill="#8a8780" letter-spacing="0.08em" font-weight="500">HR ADMIN · PAYROLL CLOSING · AS-IS PROCESS · ~1 WEEK PER CYCLE</text>
+
+        <!-- Swimlane dividers -->
+        <line x1="30" y1="40" x2="650" y2="40" stroke="#e2dfd8" stroke-width="0.5"/>
+        <line x1="30" y1="172" x2="650" y2="172" stroke="#e2dfd8" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <line x1="30" y1="218" x2="650" y2="218" stroke="#e2dfd8" stroke-width="0.5" stroke-dasharray="4 4"/>
+        <line x1="30" y1="400" x2="650" y2="400" stroke="#e2dfd8" stroke-width="0.5"/>
+
+        <!-- Swimlane labels -->
+        <text x="30" y="62" font-size="10" font-family="inherit" fill="#b4b2a9">Steps</text>
+        <text x="30" y="200" font-size="10" font-family="inherit" fill="#b4b2a9">Tools</text>
+        <text x="30" y="244" font-size="10" font-family="inherit" fill="#b4b2a9">Pain</text>
+
+        <!-- Box width=108, gap=16, start=80 -->
+        <!-- x positions: 80, 204, 328, 452, 542 — 5 boxes of 100px with 24px gaps -->
+
+        <!-- Step 1: Collect -->
+        <rect x="80" y="50" width="100" height="108" rx="6" fill="#f5f3ef" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="130" y="78" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">Collect</text>
+        <text x="130" y="93" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">timesheets</text>
+        <text x="130" y="114" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Chase managers</text>
+        <text x="130" y="127" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">by email each</text>
+        <text x="130" y="140" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">month</text>
+
+        <!-- Step 2: Export -->
+        <rect x="204" y="50" width="100" height="108" rx="6" fill="#f5f3ef" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="254" y="78" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">Export</text>
+        <text x="254" y="93" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">time data</text>
+        <text x="254" y="114" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">3 separate CSV</text>
+        <text x="254" y="127" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">exports from</text>
+        <text x="254" y="140" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">different products</text>
+
+        <!-- Step 3: Reconcile — critical -->
+        <rect x="328" y="44" width="100" height="120" rx="6" fill="#d94f3d" stroke="#b03d2d" stroke-width="1"/>
+        <text x="378" y="72" font-size="12" font-family="inherit" fill="#ffffff" font-weight="500" text-anchor="middle">Reconcile</text>
+        <text x="378" y="87" font-size="12" font-family="inherit" fill="#ffffff" font-weight="500" text-anchor="middle">in Excel</text>
+        <text x="378" y="108" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">Calculate extras,</text>
+        <text x="378" y="121" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">OT, corrections.</text>
+        <text x="378" y="134" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">3-5 days of work.</text>
+
+        <!-- Step 4: Validate -->
+        <rect x="452" y="50" width="100" height="108" rx="6" fill="#f5f3ef" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="502" y="78" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">Validate</text>
+        <text x="502" y="93" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">with managers</text>
+        <text x="502" y="114" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Another email</text>
+        <text x="502" y="127" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">round-trip.</text>
+        <text x="502" y="140" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Days of delay.</text>
+
+        <!-- Step 5: Import -->
+        <rect x="556" y="50" width="100" height="108" rx="6" fill="#f5f3ef" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="606" y="78" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">Import to</text>
+        <text x="606" y="93" font-size="12" font-family="inherit" fill="#0d0d0d" font-weight="500" text-anchor="middle">payroll</text>
+        <text x="606" y="114" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Manual re-entry.</text>
+        <text x="606" y="127" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Errors restart</text>
+        <text x="606" y="140" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">the whole cycle.</text>
+
+        <!-- Arrows -->
+        <line x1="181" y1="104" x2="202" y2="104" stroke="#c8c5be" stroke-width="1" marker-end="url(#arr2)"/>
+        <line x1="305" y1="104" x2="326" y2="104" stroke="#c8c5be" stroke-width="1" marker-end="url(#arr2)"/>
+        <line x1="429" y1="104" x2="450" y2="104" stroke="#c8c5be" stroke-width="1" marker-end="url(#arr2)"/>
+        <line x1="553" y1="104" x2="554" y2="104" stroke="#c8c5be" stroke-width="1" marker-end="url(#arr2)"/>
+
+        <!-- Tools row -->
+        <rect x="80"  y="182" width="100" height="22" rx="4" fill="#eeece8" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="130" y="197" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Email / Slack</text>
+
+        <rect x="204" y="182" width="100" height="22" rx="4" fill="#eeece8" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="254" y="197" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">3 CSV exports</text>
+
+        <rect x="328" y="182" width="100" height="22" rx="4" fill="#eeece8" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="378" y="197" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Excel / Sheets</text>
+
+        <rect x="452" y="182" width="100" height="22" rx="4" fill="#eeece8" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="502" y="197" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Email / calls</text>
+
+        <rect x="556" y="182" width="100" height="22" rx="4" fill="#eeece8" stroke="#e2dfd8" stroke-width="0.5"/>
+        <text x="606" y="197" font-size="10" font-family="inherit" fill="#8a8780" text-anchor="middle">Payroll tool</text>
+
+        <!-- Pain row -->
+        <rect x="80"  y="228" width="100" height="156" rx="6" fill="#fef3f0" stroke="#f5c4b3" stroke-width="0.5"/>
+        <text x="130" y="252" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">Managers ignore</text>
+        <text x="130" y="266" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">or delay. Cycle</text>
+        <text x="130" y="280" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">blocked until</text>
+        <text x="130" y="294" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">all complete.</text>
+
+        <rect x="204" y="228" width="100" height="156" rx="6" fill="#fef3f0" stroke="#f5c4b3" stroke-width="0.5"/>
+        <text x="254" y="252" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">No single source</text>
+        <text x="254" y="266" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">of truth. Data</text>
+        <text x="254" y="280" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">conflicts between</text>
+        <text x="254" y="294" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">products.</text>
+
+        <!-- Critical pain -->
+        <rect x="328" y="222" width="100" height="168" rx="6" fill="#d94f3d" stroke="#b03d2d" stroke-width="1"/>
+        <text x="378" y="246" font-size="10" font-family="inherit" fill="#ffffff" font-weight="500" text-anchor="middle">Most critical.</text>
+        <text x="378" y="262" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">Errors reach</text>
+        <text x="378" y="276" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">employees' pay.</text>
+        <text x="378" y="294" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">No audit trail.</text>
+        <text x="378" y="308" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">Manual every</text>
+        <text x="378" y="322" font-size="10" font-family="inherit" fill="#fcc" text-anchor="middle">single month.</text>
+
+        <rect x="452" y="228" width="100" height="156" rx="6" fill="#fef3f0" stroke="#f5c4b3" stroke-width="0.5"/>
+        <text x="502" y="252" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">No defined flow.</text>
+        <text x="502" y="266" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">Who approves</text>
+        <text x="502" y="280" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">overtime vs</text>
+        <text x="502" y="294" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">absences unclear.</text>
+
+        <rect x="556" y="228" width="100" height="156" rx="6" fill="#fef3f0" stroke="#f5c4b3" stroke-width="0.5"/>
+        <text x="606" y="252" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">Re-entry errors.</text>
+        <text x="606" y="266" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">Whole process</text>
+        <text x="606" y="280" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">restarts if</text>
+        <text x="606" y="294" font-size="10" font-family="inherit" fill="#712B13" text-anchor="middle">something wrong.</text>
+
+        <!-- Legend -->
+        <rect x="80" y="412" width="10" height="10" rx="2" fill="#fef3f0" stroke="#f5c4b3" stroke-width="0.5"/>
+        <text x="96" y="421" font-size="10" font-family="inherit" fill="#8a8780">Pain point</text>
+        <rect x="170" y="412" width="10" height="10" rx="2" fill="#d94f3d"/>
+        <text x="186" y="421" font-size="10" font-family="inherit" fill="#8a8780">Critical pain point</text>
+      </svg>
+    </div>
+    <p class="img-caption">As-is process map: the HR admin's monthly payroll closing before the solution. Mapped from customer interviews and CX sessions. The Excel reconciliation step — highlighted — was the single biggest source of errors and time loss.</p>
+  </div>
+
+<!-- WHAT WE DID: TIME TRACKING -->
+<section>
+  <div class="container">
+    <div class="section-num">04 Time Tracking</div>
+    <h2>From basic clock-in tool<br>to the manager's source of truth.</h2>
+    <p>When I joined, Time Tracking let employees log hours. That was about it. Managers had no real visibility, approval was cumbersome, and the data generated was barely usable. Customer interviews confirmed what the data showed: managers weren't using it to manage — they were working around it.</p>
+    <p>I made the call to rebuild it as a management tool, not just an employee one. The central design decision — which I developed with the team through workshops and co-design — was to make time data legible at a glance. Three concepts: what was expected (estimated), what actually happened (worked), and the difference between them (balance). No more opening individual records to spot a problem.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="A1.png" alt="Time Tracking manager view showing timesheet with estimated, worked and balance columns" class="img-full reveal">
+    <p class="img-caption">Manager view: monthly timesheet with estimated, worked, and balance per employee. Colour-coded hour distribution bars make anomalies visible at a glance.</p>
+
+    <div class="img-trio reveal">
+      <img src="Estimated.png" alt="Estimated hours breakdown">
+      <img src="Worked.png" alt="Worked hours breakdown">
+      <img src="Balance.png" alt="Balance breakdown">
+    </div>
+    <p class="img-caption">Each column expands on hover: estimated breaks down regular hours and approved overtime; worked separates effective time from tracked time; balance shows the running total since the period started.</p>
+  </div>
+
+  <div class="container">
+    <p>I also pushed for Scheduling to be rebuilt as a proper companion, not a separate product. Instead of treating shifts as a separate concern, we made them the input that Time Tracking used to calculate what was expected. Planning and tracking became one continuous flow.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="Turnos.png" alt="Scheduling weekly view with shift blocks per employee" class="img-full reveal">
+    <p class="img-caption">Scheduling: weekly shift grid per employee, published directly from the manager view. Planned shifts feed the estimated hours calculation in Time Tracking automatically.</p>
+  </div>
+</section>
+
+<!-- WHAT WE DID: TIME OFF -->
+<section>
+  <div class="container">
+    <div class="section-num">05 Time Off</div>
+    <h2>From a request form<br>to a policy engine.</h2>
+    <p>Time Off had the same problem as Time Tracking: it was built for a simple case and fell apart under real-world complexity. Companies have different absence types, different approval chains, different rules for different teams. The original product couldn't handle any of that. HR admins were managing the gaps manually.</p>
+    <p>We rebuilt the admin experience around a clear configuration model. Policies came first, defining the rules. Blocked periods came next, restricting availability. Absence types came last, giving employees the right vocabulary to make requests. Setup that used to take a support call could now be done independently.</p>
+  </div>
+
+  <div class="container-wide">
+    <img src="01-time-off-home.png" alt="Time Off management dashboard" class="img-full reveal">
+    <p class="img-caption">Dashboard: pending requests with overdue alerts, absence breakdown by type, weekly trend across offices, and full employee log.</p>
+    <div style="display:grid; grid-template-columns: 1.6fr 1fr; gap:1rem; margin: 2.5rem 0;" class="reveal">
+      <img src="01.png" alt="Time Off policy configuration" style="width:100%; border-radius:4px; border:1px solid var(--border);">
+      <img src="Group_5.png" alt="Time Off approval modal" style="width:100%; border-radius:4px; border:1px solid var(--border);">
+    </div>
+    <p class="img-caption">Left: policy configuration with absence types, blocked periods and approval chains. Right: approval modal supporting multi-step workflows.</p>
+  </div>
+</section>
+
+<!-- PAYROLL CONNECTION -->
+<section>
+  <div class="container">
+    <div class="section-num">06 Connecting to Payroll</div>
+    <h2>The loop closes:<br>time worked becomes payroll, automatically.</h2>
+    <p>With Time Tracking and Time Off working reliably, we had the foundation we needed for the second phase: connecting them to Payroll. This was the strategic move that transformed three standalone products into a platform.</p>
+    <p>In the HR software market, payroll is where companies commit. It's the highest-stakes, highest-frequency operation HR runs. If we could make payroll preparation flow directly from the time data already in the system, we would eliminate the monthly manual reconciliation that every HR admin dreaded, and make Factorial genuinely hard to leave.</p>
+    <p>The first bridge we built was overtime compensation. When a manager approved extra hours in a timesheet, they could immediately decide how to handle them: pay the employee directly via a payroll supplement, or convert the hours into additional time off. That single decision, made in Time Tracking, flowed automatically into the active payroll period.</p>
+
+    <div class="flow reveal">
+      <div class="flow-step">
+        <span class="flow-icon">⏱</span>
+        <h3>Time worked</h3>
+        <p>Hours tracked and scheduled</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">✓</span>
+        <h3>Manager approval</h3>
+        <p>Timesheet reviewed and signed off</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">⇄</span>
+        <h3>Compensation decision</h3>
+        <p>Overtime routed to pay or time off</p>
+      </div>
+      <div class="flow-step">
+        <span class="flow-icon">€</span>
+        <h3>Payroll supplement</h3>
+        <p>Auto-created in payroll period</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-wide">
+    <div style="max-width: 380px; margin: 2.5rem auto 1.5rem;">
+      <img src="Modal.png" alt="Compensate overtime modal" style="width:100%; border-radius:4px; border:1px solid var(--border); display:block; background:#000;">
+      <p class="img-caption" style="margin-top:0.6rem;">The overtime modal: one decision routes extra hours to a payroll supplement or time off balance, automatically populating the active payroll period.</p>
+    </div>
+    <img src="F1.png" alt="Payroll period preparation with supplements" class="img-full reveal">
+    <p class="img-caption">Payroll preparation: supplements per employee, including overtime entries auto-created from Time Tracking and traceable back to the original timesheet.</p>
+  </div>
+
+  <div class="container">
+    <p>This was the first time in Factorial that an action in one product automatically populated another. It proved the architecture worked, accelerated Payroll adoption among Time Tracking customers, and set the pattern for deeper integrations that followed.</p>
+  </div>
+</section>
+
+<!-- LEARNINGS -->
+<section>
+  <div class="container">
+    <div class="section-num">07 Learnings</div>
+    <h2>What I'd do differently<br>and what I'd do the same.</h2>
+
+    <ul class="learnings-list">
+      <li>
+        <span class="learning-num">1</span>
+        <div class="learning-body">
+          <h3>Mature before you connect</h3>
+          <p>The temptation early on was to build the Payroll integration before the upstream products were solid. I'm glad we resisted. An integration built on top of weak products just creates a more complex version of the same problem. Getting Time Tracking and Time Off to a level customers genuinely relied on was what made the connection meaningful.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">2</span>
+        <div class="learning-body">
+          <h3>Integration is a product decision, not an engineering one</h3>
+          <p>The payroll connection only worked because we started from a user question: "What does a manager need to decide when they approve overtime?" That framing made the right solution obvious. Starting from the technical question would have produced a different, worse answer.</p>
+        </div>
+      </li>
+      <li>
+        <span class="learning-num">3</span>
+        <div class="learning-body">
+          <h3>Consistency is a growth lever</h3>
+          <p>As we matured each product, we invested heavily in shared patterns: the same approval flow, the same tooltip system, the same table conventions. Customers noticed without being able to articulate it. The best feedback we got was simply: "It feels like one product now." That coherence was a meaningful part of why adoption grew.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <p>← <a href="#">Back to all work</a></p>
+    <p style="margin-top: 0.5rem;">Next case study → <a href="#">[Your next project]</a></p>
+  </div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger hero elements on load
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 200 + i * 150);
+  });
+</script>
+
+</body>
+</html>
