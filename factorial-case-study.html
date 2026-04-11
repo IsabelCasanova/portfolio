@@ -361,107 +361,108 @@
 <section>
   <div class="container">
     <div class="section-num">01 Context</div>
-    <h2>A portfolio with three products<br>and no clear north star</h2>
-    <p>Factorial is an all-in-one HR platform competing in a crowded European market. When I joined as Head of Product &amp; Design, I inherited a portfolio of three core products: Time Tracking, Time Off, and Scheduling, each built with its own logic, its own design patterns, and its own team.</p>
-    <p>The products worked in isolation. Managers had to jump between tools to get a full picture of their workforce. HR admins were reconciling data manually. But the deeper problem was strategic: Factorial's revenue came primarily from time management, and that was a ceiling. In the HR software market, Payroll is where the real money is. Every company needs to run payroll every month, without fail. It's the highest-value, highest-retention product in the category. Factorial had built a Payroll product, but it was largely manual and disconnected from the time data that should have been feeding it automatically. The opportunity was clear: if we could make Time Tracking and Time Off flow seamlessly into Payroll, we could accelerate the transition from a time management tool into a full HR platform with Payroll at its core.</p>
+    <h2>Three early-stage products.<br>One strategic opportunity.</h2>
+    <p>Factorial is an all-in-one HR platform competing in a crowded European market. When I joined as Head of Product and Design, I inherited three products that were functional but early: Time Tracking, Time Off, and Scheduling. Each had been built by separate teams, with its own logic and design language. They worked, but only just. Customers used them because they had to, not because they were good.</p>
+    <p>The strategic picture was equally underdeveloped. Factorial's revenue came primarily from time management subscriptions, and while that base was growing, it had a ceiling. In the HR software market, Payroll is the highest-value product in the category. Every company runs payroll every month, without exception. It drives the deepest retention and the highest contract value. Factorial had a Payroll product, but it was largely manual, requiring HR admins to export time data, reconcile it in spreadsheets, and re-import results every single cycle.</p>
 
     <div class="pullquote reveal">
-      <p>"The data to run payroll existed  it just lived in five different places and reached the finance team through emails and spreadsheets."</p>
+      <p>"The data to run payroll existed. It just lived in three different products and reached the finance team through emails and spreadsheets."</p>
     </div>
 
-    <p>My mandate was clear: build a coherent product strategy, prioritize ruthlessly, and make Factorial's HR suite feel like one platform  not a bundle of tools. I decided to focus on three: Time Tracking, Time Off, and their connection to Payroll.</p>
+    <p>My mandate was to grow the three core products into something genuinely useful, and then connect them to Payroll to unlock the platform's real potential. Grow first. Connect second.</p>
   </div>
 </section>
 
 <!-- PROBLEM -->
 <section>
   <div class="container">
-    <div class="section-num">02  The problem</div>
-    <h2>Time was the lever.<br>Nobody had pulled it yet.</h2>
-    <p>After mapping the business and talking to customers, two things became obvious. First, Time Tracking and Time Off were the highest-frequency touchpoints in the platform  employees used them daily, managers reviewed them weekly. Second, that usage wasn't converting into ecosystem value: the data generated wasn't flowing downstream into Payroll.</p>
+    <div class="section-num">02 The challenge</div>
+    <h2>Products that worked in isolation<br>for users who needed them together.</h2>
+    <p>Talking to customers made the gaps clear. Each product had its own problems, and they compounded each other. Fixing them individually would help. But the real opportunity was in what happened between them.</p>
 
     <div class="challenge-grid reveal">
       <div class="challenge-card">
         <h3>For employees</h3>
-        <p>Clocking in and out, requesting time off, checking balances  all critical tasks with fragmented, inconsistent experiences across products.</p>
+        <p>Clocking in, requesting time off, checking balances: all high-frequency tasks with inconsistent, underdeveloped experiences. The basics weren't reliable enough to trust.</p>
       </div>
       <div class="challenge-card">
         <h3>For managers</h3>
-        <p>Approving timesheets and absences was manual, error-prone, and disconnected. No single view of a team's status.</p>
+        <p>Reviewing timesheets and approving absences required jumping between views with no unified picture of the team. Errors were common and hard to catch.</p>
       </div>
       <div class="challenge-card">
         <h3>For HR admins</h3>
-        <p>Payroll preparation meant exporting data, running calculations in Excel, and importing results back  every single month.</p>
+        <p>Closing payroll every month meant manually exporting time data, calculating supplements in Excel, and importing everything back. A process that took days and introduced risk every cycle.</p>
       </div>
       <div class="challenge-card">
         <h3>For the business</h3>
-        <p>Time Tracking had strong adoption potential but wasn't driving Payroll upsell. The ecosystem value wasn't visible to customers.</p>
+        <p>Time management was growing but not converting into Payroll adoption. The products weren't creating pull toward the higher-value part of the platform.</p>
       </div>
     </div>
 
-    <p>The opportunity wasn't just to improve each product. It was to create a <strong>closed loop</strong>: time worked → managed → approved → paid. That loop, if we could close it, would be the strongest retention driver and growth argument in the platform.</p>
+    <p>The path forward had two phases: mature each product to a level where customers actually relied on it, then build the connections that would make switching away from Factorial genuinely painful.</p>
   </div>
 </section>
 
 <!-- WHAT WE DID: TIME TRACKING -->
 <section>
   <div class="container">
-    <div class="section-num">03  Time Tracking</div>
-    <h2>Making time data<br>actionable for managers</h2>
-    <p>The Time Tracking product needed to do two things well: give managers a clear, accurate view of their team's hours, and make the approval process fast enough that it actually got done.</p>
-    <p>We redesigned the manager timesheet view around three core concepts  <strong>estimated</strong>, <strong>worked</strong>, and <strong>balance</strong>  making it possible to spot anomalies at a glance without opening individual records.</p>
+    <div class="section-num">03 Time Tracking</div>
+    <h2>From basic clock-in tool<br>to the manager's source of truth.</h2>
+    <p>When I joined, Time Tracking let employees log hours. That was about it. Managers had no real visibility, approval was cumbersome, and the data generated was barely usable. We had to rebuild it from the ground up as a management tool, not just an employee one.</p>
+    <p>The central design decision was to make time data legible at a glance. We structured the manager view around three concepts: what was expected (estimated), what actually happened (worked), and the difference between them (balance). No more opening individual records to spot a problem.</p>
   </div>
 
   <div class="container-wide">
-    <img src="A1.png" alt="Time Tracking manager view monthly timesheet with employee list, estimated vs worked hours and balance" class="img-full reveal">
-    <p class="img-caption">Manager view: monthly timesheet with estimated, worked, and balance columns. Colour-coded hour distribution bars surface anomalies instantly.</p>
+    <img src="A1.png" alt="Time Tracking manager view showing timesheet with estimated, worked and balance columns" class="img-full reveal">
+    <p class="img-caption">Manager view: monthly timesheet with estimated, worked, and balance per employee. Colour-coded hour distribution bars make anomalies visible at a glance.</p>
 
     <div class="img-trio reveal">
-      <img src="Estimated.png" alt="Estimated hours breakdown tooltip">
-      <img src="Worked.png" alt="Worked hours breakdown tooltip">
-      <img src="Balance.png" alt="Balance breakdown tooltip">
+      <img src="Estimated.png" alt="Estimated hours breakdown">
+      <img src="Worked.png" alt="Worked hours breakdown">
+      <img src="Balance.png" alt="Balance breakdown">
     </div>
-    <p class="img-caption">Each column expands on hover: estimated shows regular + approved overtime; worked shows effective vs tracked time; balance shows running total since period start.</p>
+    <p class="img-caption">Each column expands on hover: estimated breaks down regular hours and approved overtime; worked separates effective time from tracked time; balance shows the running total since the period started.</p>
   </div>
 
   <div class="container">
-    <p>We also built Scheduling as a companion to Time Tracking  giving managers the ability to plan shifts in advance, publish them to employees, and use that planned time as the baseline for variance detection.</p>
+    <p>We also rebuilt Scheduling as a proper companion product. Instead of treating shifts as a separate concern, we made them the input that Time Tracking used to calculate what was expected. Planning and tracking became one continuous flow.</p>
   </div>
 
   <div class="container-wide">
-    <img src="Turnos.png" alt="Scheduling view weekly shift grid per employee" class="img-full reveal">
-    <p class="img-caption">Scheduling: weekly view with shift blocks per employee. Shifts feed directly into the estimated hours calculation in Time Tracking.</p>
+    <img src="Turnos.png" alt="Scheduling weekly view with shift blocks per employee" class="img-full reveal">
+    <p class="img-caption">Scheduling: weekly shift grid per employee, published directly from the manager view. Planned shifts feed the estimated hours calculation in Time Tracking automatically.</p>
   </div>
 </section>
 
 <!-- WHAT WE DID: TIME OFF -->
 <section>
   <div class="container">
-    <div class="section-num">04  Time Off</div>
-    <h2>Simplifying absence management<br>for complex organisations</h2>
-    <p>Time Off was the most policy-heavy product in the portfolio. Companies needed to configure different absence types, blocked periods, approval chains, and allowances  and they needed employees to be able to request time off without calling HR.</p>
-    <p>We rebuilt the admin experience around a clear configuration model: policies first, then blocked periods, then absence types. This reduced setup time and made it obvious what rules applied to which employees.</p>
+    <div class="section-num">04 Time Off</div>
+    <h2>From a request form<br>to a policy engine.</h2>
+    <p>Time Off had the same problem as Time Tracking: it was built for a simple case and fell apart under real-world complexity. Companies have different absence types, different approval chains, different rules for different teams. The original product couldn't handle any of that. HR admins were managing the gaps manually.</p>
+    <p>We rebuilt the admin experience around a clear configuration model. Policies came first, defining the rules. Blocked periods came next, restricting availability. Absence types came last, giving employees the right vocabulary to make requests. Setup that used to take a support call could now be done independently.</p>
   </div>
 
   <div class="container-wide">
-    <img src="01-time-off-home.png" alt="Time Off admin dashboard pending requests, absence trend, employee list" class="img-full reveal">
-    <p class="img-caption">Time Off management dashboard: pending requests with overdue alerts, absence distribution by type, weekly trend, and full employee list.</p>
+    <img src="01-time-off-home.png" alt="Time Off management dashboard with pending requests and absence trend" class="img-full reveal">
+    <p class="img-caption">Time Off dashboard: pending requests with overdue alerts, absence breakdown by type, weekly trend across offices, and a full employee log with filters.</p>
 
     <div class="img-grid reveal">
-      <img src="01.png" alt="Time Off policy configuration absence types and blocked periods">
-      <img src="Group_5.png" alt="Time Off approval modal approve step or entire request">
+      <img src="01.png" alt="Time Off policy configuration">
+      <img src="Group_5.png" alt="Time Off approval modal with multi-step workflow">
     </div>
-    <p class="img-caption">Left: policy configuration with absence types and blocked periods. Right: approval modal with multi-step workflow support  managers can approve a step or the entire request.</p>
+    <p class="img-caption">Left: policy configuration with absence types and blocked periods, assignable per employee group. Right: approval modal supporting multi-step workflows, where managers can approve a single step or the full request.</p>
   </div>
 </section>
 
 <!-- PAYROLL CONNECTION -->
 <section>
   <div class="container">
-    <div class="section-num">05  Closing the loop with Payroll</div>
-    <h2>From time worked<br>to payroll, automatically</h2>
-    <p>The most strategically important work was invisible to most users: connecting the time data generated in Time Tracking and Time Off directly into the Payroll preparation flow.</p>
-    <p>We designed the overtime compensation flow as the first explicit bridge. When a manager approved overtime in a timesheet, they could immediately choose how to compensate it  as a payroll supplement or as additional time off. That decision flowed directly into the payroll period, eliminating the manual step that had existed before.</p>
+    <div class="section-num">05 Connecting to Payroll</div>
+    <h2>The loop closes:<br>time worked becomes payroll, automatically.</h2>
+    <p>With Time Tracking and Time Off working reliably, we had the foundation we needed for the second phase: connecting them to Payroll. This was the strategic move that transformed three standalone products into a platform.</p>
+    <p>In the HR software market, payroll is where companies commit. It's the highest-stakes, highest-frequency operation HR runs. If we could make payroll preparation flow directly from the time data already in the system, we would eliminate the monthly manual reconciliation that every HR admin dreaded, and make Factorial genuinely hard to leave.</p>
+    <p>The first bridge we built was overtime compensation. When a manager approved extra hours in a timesheet, they could immediately decide how to handle them: pay the employee directly via a payroll supplement, or convert the hours into additional time off. That single decision, made in Time Tracking, flowed automatically into the active payroll period.</p>
 
     <div class="flow reveal">
       <div class="flow-step">
@@ -477,7 +478,7 @@
       <div class="flow-step">
         <span class="flow-icon">⇄</span>
         <h3>Compensation decision</h3>
-        <p>Overtime → pay or time off</p>
+        <p>Overtime routed to pay or time off</p>
       </div>
       <div class="flow-step">
         <span class="flow-icon">€</span>
@@ -489,43 +490,43 @@
 
   <div class="container-wide">
     <div class="img-grid reveal">
-      <img src="Modal.png" alt="Compensate overtime modal choose payroll supplement or time off">
-      <img src="F1.png" alt="Payroll period preparation supplements per employee with overtime linked">
+      <img src="Modal.png" alt="Compensate overtime modal">
+      <img src="F1.png" alt="Payroll period preparation with supplements">
     </div>
-    <p class="img-caption">Left: the compensation modal  one decision point that routes overtime to either payroll or time off balance. Right: the payroll preparation view showing the supplement auto-created from that decision, linked back to the original timesheet entry.</p>
+    <p class="img-caption">Left: the overtime compensation modal, where a single decision routes extra hours to either payroll or time off balance. Right: the payroll preparation view, showing the supplement auto-created from that decision, traceable back to the original timesheet.</p>
   </div>
 
   <div class="container">
-    <p>This was the first time in Factorial that a decision made in one product automatically populated another. It was a proof of concept for the larger ecosystem vision  and a direct driver of Payroll adoption among Time Tracking customers.</p>
+    <p>This was the first time in Factorial that an action in one product automatically populated another. It proved the architecture worked, accelerated Payroll adoption among Time Tracking customers, and set the pattern for deeper integrations that followed.</p>
   </div>
 </section>
 
 <!-- LEARNINGS -->
 <section>
   <div class="container">
-    <div class="section-num">06  Learnings</div>
-    <h2>What I'd tell myself<br>at the start of this</h2>
+    <div class="section-num">06 Learnings</div>
+    <h2>What I'd do differently<br>and what I'd do the same.</h2>
 
     <ul class="learnings-list">
       <li>
         <span class="learning-num">1</span>
         <div class="learning-body">
-          <h3>Focus beats coverage</h3>
-          <p>I managed five products, but the real impact came from deciding which three to bet on. Time Tracking, Time Off, and Payroll had the frequency and the revenue connection. Spreading effort evenly across all five would have produced mediocre results across the board.</p>
+          <h3>Mature before you connect</h3>
+          <p>The temptation early on was to build the Payroll integration before the upstream products were solid. I'm glad we resisted. An integration built on top of weak products just creates a more complex version of the same problem. Getting Time Tracking and Time Off to a level customers genuinely relied on was what made the connection meaningful.</p>
         </div>
       </li>
       <li>
         <span class="learning-num">2</span>
         <div class="learning-body">
           <h3>Integration is a product decision, not an engineering one</h3>
-          <p>The payroll connection only happened because we framed it as a product problem: "How does a manager decide what to do with overtime?"  not as a technical task. Starting from the user decision made the right architecture obvious.</p>
+          <p>The payroll connection only worked because we started from a user question: "What does a manager need to decide when they approve overtime?" That framing made the right solution obvious. Starting from the technical question would have produced a different, worse answer.</p>
         </div>
       </li>
       <li>
         <span class="learning-num">3</span>
         <div class="learning-body">
-          <h3>Consistency compounds</h3>
-          <p>Small design decisions  the same tooltip pattern, the same approval flow, the same data table conventions  accumulated into something customers noticed without being able to articulate it. "It feels like one product" was the best feedback we got.</p>
+          <h3>Consistency is a growth lever</h3>
+          <p>As we matured each product, we invested heavily in shared patterns: the same approval flow, the same tooltip system, the same table conventions. Customers noticed without being able to articulate it. The best feedback we got was simply: "It feels like one product now." That coherence was a meaningful part of why adoption grew.</p>
         </div>
       </li>
     </ul>
