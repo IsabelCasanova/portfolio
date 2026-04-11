@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isabel Casanova — Product Design & Strategy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0d0d0d;
+    --off: #f5f3ef;
+    --muted: #8a8780;
+    --border: #e2dfd8;
+    --white: #ffffff;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--black); font-size: 17px; line-height: 1.7; font-weight: 300; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 3rem;
+    background: var(--off); border-bottom: 1px solid var(--border);
+  }
+  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
+  .nav-links a:hover { color: var(--black); }
+
+  .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* HERO */
+  .hero {
+    padding: 10rem 0 6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 1.5rem; display: block; }
+  .hero h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+    font-weight: 400;
+    margin-bottom: 2rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--muted); }
+  .hero-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* WORK SECTION */
+  .work-section { padding: 5rem 0; }
+  .work-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 3rem; display: flex; align-items: center; gap: 0.75rem; }
+  .work-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* CASE CARDS */
+  .case-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .case-card { display: block; background: var(--white); text-decoration: none; color: inherit; transition: background 0.2s; }
+  .case-card:hover { background: #faf9f7; }
+  .case-card:hover .case-arrow { transform: translate(3px, -3px); }
+  .case-content { padding: 2.75rem 3rem; display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: end; }
+  .case-left { min-width: 0; }
+  .case-eyebrow { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 1rem; }
+  .case-tags { display: flex; gap: 6px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .case-tag { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; padding: 3px 8px; border-radius: 3px; font-weight: 500; background: var(--off); color: var(--muted); border: 0.5px solid var(--border); }
+  .case-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 0.75rem; }
+  .case-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; max-width: 520px; }
+  .case-right { display: flex; flex-direction: column; align-items: flex-end; gap: 2rem; flex-shrink: 0; }
+  .case-metrics { display: flex; gap: 2.5rem; }
+  .case-metric-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; font-weight: 400; line-height: 1; color: var(--black); text-align: right; }
+  .case-metric-label { font-size: 11px; color: var(--muted); margin-top: 3px; text-align: right; }
+  .case-cta { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--black); white-space: nowrap; }
+  .case-arrow { display: inline-block; transition: transform 0.2s; font-size: 15px; }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+  .about-strip h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem; }
+  .about-strip p { font-size: 0.95rem; color: var(--muted); line-height: 1.8; }
+  .about-contact { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-item { display: flex; align-items: center; gap: 0.75rem; font-size: 14px; }
+  .contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); min-width: 60px; }
+  .contact-val { color: var(--black); text-decoration: none; }
+  .contact-val:hover { text-decoration: underline; }
+
+  footer { padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--muted); }
+
+  /* Animations */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media (max-width: 700px) {
+    nav { padding: 1rem 1.25rem; }
+    .container { padding: 0 1.25rem; }
+    
+    
+    .about-strip { grid-template-columns: 1fr; gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-name">Isabel Casanova</span>
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-tag">Product Design & Strategy</span>
+    <h1>Designing products<br>that <em>grow businesses</em><br>and serve people.</h1>
+    <p class="hero-desc">Head of Product and Design with experience leading teams across B2B SaaS, HR technology, and public sector platforms. I work at the intersection of design, product strategy, and business outcomes.</p>
+  </div>
+</div>
+
+<!-- WORK -->
+<div class="work-section" id="work">
+  <div class="container">
+    <div class="work-label">Selected work</div>
+
+    <div class="case-list">
+
+      <a href="factorial-case-study.html" class="case-card reveal">
+        <div class="case-content">
+          <div class="case-left">
+            <div class="case-eyebrow">2021 – 2023 · HR Tech · Barcelona</div>
+            <div class="case-title">Factorial HR — Time Management & Payroll</div>
+            <div class="case-tags">
+              <span class="case-tag">Head of Product & Design</span>
+              <span class="case-tag">B2B SaaS</span>
+              <span class="case-tag">Strategy</span>
+            </div>
+            <p class="case-desc">Led product and design across three core HR products and connected them to Payroll, scaling from 2,500 to 7,000 companies across Europe.</p>
+          </div>
+          <div class="case-right">
+            <div class="case-metrics">
+              <div><div class="case-metric-num">7,000</div><div class="case-metric-label">Companies</div></div>
+              <div><div class="case-metric-num">300K</div><div class="case-metric-label">Employees</div></div>
+              <div><div class="case-metric-num">+35%</div><div class="case-metric-label">Adoption</div></div>
+            </div>
+            <div class="case-cta">View case study <span class="case-arrow">↗</span></div>
+          </div>
+        </div>
+      </a>
+
+      <a href="wicitio-case-study.html" class="case-card reveal" style="transition-delay:0.12s">
+        <div class="case-content">
+          <div class="case-left">
+            <div class="case-eyebrow">2023 – 2025 · Public Sector · Spain</div>
+            <div class="case-title">Wecitio — Municipal Accounting Platform</div>
+            <div class="case-tags">
+              <span class="case-tag">Head of Product & Design</span>
+              <span class="case-tag">Public Sector</span>
+              <span class="case-tag">Modernisation</span>
+            </div>
+            <p class="case-desc">Led the transformation of a 20-year-old Visual Basic system into a modern API-first accounting platform for Spanish municipalities, co-built with partner institutions.</p>
+          </div>
+          <div class="case-right">
+            <div class="case-metrics">
+              <div><div class="case-metric-num">Legacy</div><div class="case-metric-label">VB replaced</div></div>
+              <div><div class="case-metric-num">API-first</div><div class="case-metric-label">Architecture</div></div>
+              <div><div class="case-metric-num">Public</div><div class="case-metric-label">Compliance</div></div>
+            </div>
+            <div class="case-cta">View case study <span class="case-arrow">↗</span></div>
+          </div>
+        </div>
+      </a>
+
+    </div>    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div id="about">
+  <div class="container">
+    <div class="about-strip reveal">
+      <div>
+        <h2>About me</h2>
+        <p>I'm a Head of Product and Design with experience building and growing product teams in B2B SaaS and public sector environments. I work at the intersection of design craft and business strategy — hands-on enough to shape the work, senior enough to set the direction.</p>
+        <p style="margin-top:1rem;">I've led teams of up to 50 people, managed multi-product portfolios, and built products used by hundreds of thousands of people across Europe.</p>
+      </div>
+      <div class="about-contact">
+        <h2>Get in touch</h2>
+        <div class="contact-item">
+          <span class="contact-label">Email</span>
+          <a href="/cdn-cgi/l/email-protection#6e071d0f0c0b022e0d0f1d0f0001180f400d0103" class="contact-val"><span class="__cf_email__" data-cfemail="b9d0cad8dbdcd5f9dad8cad8d7d6cfd897dad6d4">[email&#160;protected]</span></a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">LinkedIn</span>
+          <a href="https://linkedin.com/in/isabelcasanova" class="contact-val" target="_blank">isabelcasanova</a>
+        </div>
+        <div class="contact-item">
+          <span class="contact-label">Based</span>
+          <span class="contact-val">Barcelona, Spain</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    Isabel Casanova · Product Design & Strategy · Barcelona
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.01, rootMargin: '0px 0px -20px 0px' });
+reveals.forEach(el => observer.observe(el));
+setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 200);
+</script>
+</body>
+</html>
