@@ -613,32 +613,13 @@
   </div>
 
   <div class="container-wide">
-    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:2.5rem 0;">
+    <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:2.5rem 0;font-family:'DM Sans',sans-serif;">
       <!-- Tab bar -->
-      <div style="background:#f8f9fa;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0;padding:0;">
-        <button onclick="switchTab('dashboard',this)" id="tab-dashboard" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:#fff;color:#2563eb;border-bottom:2px solid #2563eb;cursor:pointer;font-family:inherit;">Panel Principal</button>
-        <button onclick="switchTab('presupuesto',this)" id="tab-presupuesto" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Presupuesto</button>
-        <button onclick="switchTab('transacciones',this)" id="tab-transacciones" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Transacciones</button>
-        <button onclick="switchTab('insights',this)" id="tab-insights" style="padding:0.75rem 1.25rem;font-size:12px;font-weight:500;border:none;background:transparent;color:#64748b;border-bottom:2px solid transparent;cursor:pointer;font-family:inherit;">Insights</button>
-      </div>
-      <!-- Dashboard -->
-      <div id="pane-dashboard" style="display:block;">
-        <img src="wicitio-dashboard.png" alt="Wecitio dashboard" style="width:100%;display:block;">
-      </div>
-      <!-- Presupuesto -->
-      <div id="pane-presupuesto" style="display:none;">
-        <img src="wicitio-presupuesto.png" alt="Wecitio presupuesto" style="width:100%;display:block;">
-      </div>
-      <!-- Transacciones -->
-      <div id="pane-transacciones" style="display:none;">
-        <img src="wicitio-transacciones.png" alt="Wecitio transacciones" style="width:100%;display:block;">
-      </div>
-      <!-- Insights -->
-      <div id="pane-insights" style="display:none;">
-        <img src="wicitio-insights.png" alt="Wecitio insights" style="width:100%;display:block;">
-      </div>
-    </div>
-    <p class="img-caption">Click the tabs to switch between the four core workflows.</p>
+      <div style="background:#f8f9fa;border-bottom:1px solid var(--border);display:flex;align-items:center;flex-wrap:wrap;">
+        <div style="border:1px solid var(--border);border-radius:8px;overflow:hidden;margin:2.5rem 0;box-shadow:0 4px 24px rgba(0,0,0,0.06);">
+          <iframe src="wicitio-prototype.html" style="width:100%;height:780px;border:none;display:block;" title="Wecitio interactive prototype"></iframe>
+        </div>
+        <p class="img-caption">Interactive prototype — fully navigable. Click the sidebar to switch between Dashboard, Presupuesto, Transacciones, Expedientes, Informes, Alertas and Insights.</p>
   </div>
 </section>
 
@@ -692,18 +673,6 @@
 </footer>
 
 <script>
-function switchTab(id, btn) {
-  ['dashboard','presupuesto','transacciones','insights'].forEach(function(v) {
-    document.getElementById('pane-' + v).style.display = 'none';
-    var t = document.getElementById('tab-' + v);
-    if (t) { t.style.background = 'transparent'; t.style.color = '#64748b'; t.style.borderBottom = '2px solid transparent'; }
-  });
-  document.getElementById('pane-' + id).style.display = 'block';
-  btn.style.background = '#fff';
-  btn.style.color = '#2563eb';
-  btn.style.borderBottom = '2px solid #2563eb';
-}
-
 const reveals = document.querySelectorAll('.reveal');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
