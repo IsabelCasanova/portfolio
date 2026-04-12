@@ -552,7 +552,7 @@ footer {
     <h2>Making the business legible<br>at a glance.</h2>
     <p>The home dashboard answers the question that matters to an AI operator: am I making money from this? I designed it around four headline metrics, a value summary, a revenue trend, and a customer table with TCV, LTV, agents, and signals per account.</p>
     <div class="img-wrap r"><img src="paid-home.png" alt="Home dashboard" class="parallax"></div>
-    <div class="img-label">The home dashboard: 62 customers, $485K total contract value, 48 paying. Revenue trend up month over month. Customer table shows TCV, LTV, active agents, next invoice date, and signals.</div>
+    <div class="img-label">62 customers, 48 paying, $485K TCV. Revenue trending from $30K to $100K over 6 months. Customer table: Acme Corp ($102K TCV, 5 agents), TechStart Inc ($74K, 4 agents), Global Systems ($70K, 6 agents). All active, next invoices due Feb 3–18.</div>
   </div>
 </div>
 
@@ -567,12 +567,12 @@ footer {
     <h2>Defining what an AI agent<br>does and what it is worth.</h2>
     <p>The workflow is the unit of everything in Paid.ai. I designed creation as a two-step process: first define the metadata (name, customer, outcome, estimated value), then build the flow in the block-based builder. The key decision: surfacing value and billing eligibility in the builder header at all times.</p>
     <div class="img-wrap r"><img src="paid-workflows.png" alt="Workflows" class="parallax"></div>
-    <div class="img-label">Workflows: Support Automation (Acme Corp, Ticket Resolved, 3,482 runs, $72,440 generated). Sales Qualification (TechStart, Lead Qualified, 892 runs, $41,220). Email Triage (CloudNine, 4,210 runs, $21,050). Each workflow is linked to a customer, an outcome, and a value per execution.</div>
+    <div class="img-label">Workflows view in the large product: 7 workflows across 5 customers. Support Automation (Acme Corp) has generated $216,945 from 4,821 runs. Sales Qualification (TechStart) leads by value at $227,160. Invoice Matching is paused. Contract Review is a draft with no executions yet.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-workflow-create.png" alt="Create workflow" class="parallax"></div>
       <div class="img-wrap"><img src="paid-workflow-builder.png" alt="Builder" class="parallax"></div>
     </div>
-    <div class="img-label">Left: creating a workflow — name, customer, primary outcome (Ticket Resolved), estimated value per outcome ($45), and a starting point template. Right: the published builder — Trigger (new support ticket) → Run Agent (resolve ticket) → Evaluate (check resolution) → Create Value Event ($45) → Notify. Header shows outcome, value per execution, and billing eligibility.</div>
+    <div class="img-label">Left: creating a workflow — name, customer, primary outcome, and estimated value ($45/outcome). Choose from templates: Support Automation, Sales Qualification, Document Processing. Right: the published builder. Trigger → Run Agent (Resolve ticket) → Evaluate (Check resolution) → Create Value Event ($45 · Ticket Resolved) → Notify. Header confirms outcome, value, and billing eligibility.</div>
   </div>
 </div>
 
@@ -587,12 +587,12 @@ footer {
     <h2>Every agent run, traced<br>and valued in real time.</h2>
     <p>The executions view is where observability meets value attribution. Every agent run is captured: duration, cost, outcome, and value generated. The slide-in detail panel gives technical depth without cluttering the default view.</p>
     <div class="img-wrap r"><img src="paid-executions.png" alt="Executions" class="parallax"></div>
-    <div class="img-label">Executions: 35 total runs, 28 successful, 7 failed. EX-001 Support Automation / Acme Corp / Success / 0.8s / $0.02 cost / Ticket Resolved / $45 value. EX-005 Email Triage / CloudNine / Failed / 2.8s. Each row is one agent action with full traceability.</div>
+    <div class="img-label">Executions: 35 total, 28 successful, 7 failed, $1,175 total value generated. EX-001: Support Automation / Acme Corp / 0.8s / $0.02 / Ticket Resolved / $45. EX-002: Sales Qualification / TechStart / $0.05 / Lead Qualified / $120. EX-005: Email Triage / CloudNine / Failed. Every agent run fully traced.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-execution-detail.png" alt="Detail" class="parallax"></div>
       <div class="img-wrap"><img src="paid-executions-mvp2.png" alt="Evidence" class="parallax"></div>
     </div>
-    <div class="img-label">Left: MVP execution list — r-001 through r-008, each showing workflow, customer, status, and value. Right: execution detail for r-001 — Support Automation, Acme Corp, Success, 2s, $0.03 cost, Ticket Resolved, $45 value. Evidence block shows "Value of $45 attributed to Acme Corp", exportable as PDF.</div>
+    <div class="img-label">Left: execution list with slide-out detail for EX-001 — Support Automation / Acme Corp / Success / Ticket Resolved / $45 value / $0.02 cost / 0.8s. Tabs: Overview, Trace, Logs, Evidence. Right: MVP execution list with evidence panel — r-001 Support Automation, $45 value attributed to Acme Corp, exportable evidence.</div>
   </div>
 </div>
 
@@ -607,7 +607,7 @@ footer {
     <h2>From execution data<br>to business intelligence.</h2>
     <p>The value view is the strategic layer. Where executions give operational visibility, value gives business intelligence: how much has your AI generated, which workflows are performing best, which customers are getting the most out of it.</p>
     <div class="img-wrap r"><img src="paid-value.png" alt="Value" class="parallax"></div>
-    <div class="img-label">Value: $646,685 generated across 22,274 executions, $29.03 average per outcome. Sales Qualification leads at $227K (TechStart), Support Automation at $216K (Acme Corp). Value over time chart shows consistent $27K–$36K monthly. TechStart top customer by value.</div>
+    <div class="img-label">$646,685 generated across 22,274 executions at $29.03 average per outcome. Value over time: $18K–$36K monthly from Feb 15–28. By workflow: Support Automation $216K, Sales Qualification $227K. By customer: Acme Corp leads. Top workflows table shows executions, value, and avg per outcome.</div>
   </div>
 </div>
 
@@ -622,14 +622,14 @@ footer {
     <h2>Turning AI value into<br>invoices customers believe.</h2>
     <p>Billing as a value-first flow: the table shows value generated per customer before showing what to bill. The delivery report is not just an invoice but proof: executions, outcomes, value, and supporting evidence including execution traces, API responses, and source links.</p>
     <div class="img-wrap r"><img src="paid-billing.png" alt="Billing" class="parallax"></div>
-    <div class="img-label">Billing: $242,410 in total billable value across five customers. The table leads with value generated — operators see what was earned before billing. Acme Corp approved at $72,440. TechStart ready for review at $41,220. CloudNine approved at $21,050.</div>
+    <div class="img-label">Billing in the large product: 3 customers ready to bill, 2 draft bills, 3 approved, $242,410 total billable value. Acme Corp Feb 2026: $72,440 approved. TechStart: $41,220 ready for review. DataFlow AI and Global Systems: draft. Acme Corp Jan 2026: $58,200 exported.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-create-bill.png" alt="Create bill" class="parallax"></div>
       <div class="img-wrap"><img src="paid-delivery-report.png" alt="Delivery report" class="parallax"></div>
     </div>
-    <div class="img-label">Left: Create bill — select customer, period, workflow scope, and line item type (outcome-based, usage-based, or hybrid). Live bill preview updates as you configure. Right: the delivery report — the document sent to the customer. Acme Corp, Feb 2026: 11 executions, 9 outcomes, $250,545 in value, with linked evidence from Zendesk, GPT-4o, Jira, and PagerDuty.</div>
+    <div class="img-label">Left: Create bill — customer, period, workflow scope, line item type (outcome-based), outcome, quantity, and unit value with live draft preview. Right: Delivery Report for Acme Corp, Feb 2026. Support Automation ran 3,482 times. Value Created: $72,440 from 3,482 executions. Linked evidence: 2 verified outcomes with execution traces. Downloadable as PDF.</div>
     <div class="img-wrap r"><img src="paid-reports-list.png" alt="Reports" class="parallax"></div>
-    <div class="img-label">Reports: Acme Corp Feb 2026 Value Report (published), TechStart Delivery Summary (draft), Q1 Billing Summary (draft), Support Automation Performance Report (published). Automated insights below — Support Automation +34% this week, TechStart has $41K unbilled, Document Processing highest avg value at $22/document.</div>
+    <div class="img-label">Reports: published, draft, and shared delivery reports per customer. Automated insights below the table — Support Automation generated 34% more value this week, TechStart has $41K in unbilled value from the last two periods, Document Processing has the highest average value per outcome at $22/document, Sales Qualification success rate dropped from 94% to 91.8%.</div>
   </div>
 </div>
 
@@ -667,10 +667,10 @@ footer {
       </div>
     </div>
     <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-value-mvp.png" alt="Value MVP" class="parallax"></div>
-      <div class="img-wrap"><img src="paid-value.png" alt="Value large" class="parallax"></div>
+      <div class="img-wrap"><img src="paid-workflows-mvp.png" alt="Workflows MVP" class="parallax"></div>
+      <div class="img-wrap"><img src="paid-workflows.png" alt="Workflows large" class="parallax"></div>
     </div>
-    <div class="img-label">Same Value view — MVP scope (left) and large product vision (right). MVP: $184K total value, 7 contributing executions, recent value events table. Shippable in weeks. Large vision: $646K total, value-over-time chart, breakdowns by workflow and customer, top workflows table ranked by value and average per outcome.</div>
+    <div class="img-label">Workflows in MVP scope (left) vs large product (right). MVP: 5 active workflows, Support Automation leads at $72,440 from 3,482 runs. Large product: 7 workflows including Invoice Matching (paused) and Contract Review (draft, $0). Same information architecture, expanded scope and data richness.</div>
   </div>
 </div>
 
