@@ -552,7 +552,7 @@ footer {
     <h2>Making the business legible<br>at a glance.</h2>
     <p>The home dashboard answers the question that matters to an AI operator: am I making money from this? I designed it around four headline metrics, a value summary, a revenue trend, and a customer table with TCV, LTV, agents, and signals per account.</p>
     <div class="img-wrap r"><img src="paid-home.png" alt="Home dashboard" class="parallax"></div>
-    <div class="img-label">The operator home: 62 customers, $485K TCV, revenue trending up. Customer table shows TCV, LTV, agent count and signals per account — everything needed to understand the portfolio at a glance.</div>
+    <div class="img-label">62 customers, $485K TCV, revenue trending up. The customer table gives the operator a complete view of each account: contract value, lifetime value, active agents, and signals per account.</div>
   </div>
 </div>
 
@@ -567,12 +567,12 @@ footer {
     <h2>Defining what an AI agent<br>does and what it is worth.</h2>
     <p>The workflow is the unit of everything in Paid.ai. I designed creation as a two-step process: first define the metadata (name, customer, outcome, estimated value), then build the flow in the block-based builder. The key decision: surfacing value and billing eligibility in the builder header at all times.</p>
     <div class="img-wrap r"><img src="paid-workflows.png" alt="Workflows" class="parallax"></div>
-    <div class="img-label">Workflows list: each workflow maps to a customer, defines a primary outcome, and tracks executions and value generated over time. This is where operators see the full picture of their AI portfolio.</div>
+    <div class="img-label">Workflows view: each row shows customer, primary outcome, execution count, value generated, and last run. Support Automation has run 4,821 times generating $216K. Sales Qualification: 1,893 runs, $227K.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-workflow-create.png" alt="Create workflow" class="parallax"></div>
       <div class="img-wrap"><img src="paid-workflow-builder.png" alt="Builder" class="parallax"></div>
     </div>
-    <div class="img-label">Left: before touching the builder, the operator names the workflow, selects the customer, picks the primary outcome, and sets the estimated value per outcome. Right: the block-based builder — Triggers, Actions, Logic, and Value blocks — with customer, outcome, value, and billing eligibility always visible in the header.</div>
+    <div class="img-label">Left: workflow setup — name, customer, primary outcome, value per outcome, and a starting point template (Support Automation, Sales Qualification, Document Processing...). Right: the block-based builder. Trigger → Run Agent → Evaluate → Create Value Event → Notify. The header always shows the outcome, value, and billing eligibility.</div>
   </div>
 </div>
 
@@ -587,12 +587,12 @@ footer {
     <h2>Every agent run, traced<br>and valued in real time.</h2>
     <p>The executions view is where observability meets value attribution. Every agent run is captured: duration, cost, outcome, and value generated. The slide-in detail panel gives technical depth without cluttering the default view.</p>
     <div class="img-wrap r"><img src="paid-executions.png" alt="Executions" class="parallax"></div>
-    <div class="img-label">Executions view: every agent run captured in real time. Each row shows workflow, customer, status, duration, cost, outcome, and value generated. 28 successful out of 35 total executions, generating $1,175 in value.</div>
+    <div class="img-label">Executions: every agent run with workflow, customer, status, duration, cost, outcome, and value. Each row is one agent action — EX-001 resolved a support ticket in 0.8s at $0.02 cost, generating $45 in value.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-execution-detail.png" alt="Detail" class="parallax"></div>
       <div class="img-wrap"><img src="paid-executions-mvp2.png" alt="Evidence" class="parallax"></div>
     </div>
-    <div class="img-label">Left: execution detail — Support Automation for Acme Corp, Ticket Resolved, $45 value at $0.02 cost. Right: the evidence attached to each value claim, including execution traces and source links, exportable for customer reporting.</div>
+    <div class="img-label">Left: execution detail panel — workflow, customer, outcome, value generated, and cost side by side. Right: the MVP execution view with the evidence block — "Ticket Resolved completed successfully. Value of $45 attributed to Acme Corp." Exportable as proof.</div>
   </div>
 </div>
 
@@ -607,7 +607,7 @@ footer {
     <h2>From execution data<br>to business intelligence.</h2>
     <p>The value view is the strategic layer. Where executions give operational visibility, value gives business intelligence: how much has your AI generated, which workflows are performing best, which customers are getting the most out of it.</p>
     <div class="img-wrap r"><img src="paid-value.png" alt="Value" class="parallax"></div>
-    <div class="img-label">Value dashboard: $646,685 generated across 22,274 contributing executions. Sales Qualification leads at $227K, Support Automation at $216K. Average value per outcome: $29.03. TechStart is the top customer by value generated.</div>
+    <div class="img-label">$646,685 generated across 22,274 executions. Value broken down by workflow (Support Automation and Sales Qualification lead) and by customer (Acme Corp and TechStart top the list). Average value per outcome: $29.03.</div>
   </div>
 </div>
 
@@ -622,14 +622,14 @@ footer {
     <h2>Turning AI value into<br>invoices customers believe.</h2>
     <p>Billing as a value-first flow: the table shows value generated per customer before showing what to bill. The delivery report is not just an invoice but proof: executions, outcomes, value, and supporting evidence including execution traces, API responses, and source links.</p>
     <div class="img-wrap r"><img src="paid-billing.png" alt="Billing" class="parallax"></div>
-    <div class="img-label">Billing overview: $242,410 in total billable value across five customers. Value is shown before billing status — operators see what they generated before deciding what to charge. Acme Corp approved, TechStart ready for review.</div>
+    <div class="img-label">Billing: $242,410 in total billable value. The table shows value generated alongside billing status — operators see what was earned before deciding what to invoice. Acme Corp approved at $72,440, TechStart ready for review at $41,220.</div>
     <div class="img-duo r">
       <div class="img-wrap"><img src="paid-create-bill.png" alt="Create bill" class="parallax"></div>
       <div class="img-wrap"><img src="paid-delivery-report.png" alt="Delivery report" class="parallax"></div>
     </div>
-    <div class="img-label">Left: Create bill — select customer, period, workflow scope, and line item type. The live bill preview updates in real time. Right: delivery report for Acme Corp, Feb 2026 — 11 executions, 9 outcomes delivered, $250,545 in value created, with linked evidence from Zendesk, GPT-4o, Jira, and PagerDuty.</div>
+    <div class="img-label">Left: Create bill — customer, billing period, workflow scope, and line item type (outcome-based). Right: the delivery report, the document that goes to the customer. Acme Corp, Feb 2026: 11 executions, 9 outcomes delivered, $250,545 in value. Evidence links to Zendesk tickets, GPT-4o outputs, Jira issues, and PagerDuty responses.</div>
     <div class="img-wrap r"><img src="paid-reports-list.png" alt="Reports" class="parallax"></div>
-    <div class="img-label">Reports: published, draft, and shared delivery reports per customer. Below, automated insights surface patterns without the operator having to look — Support Automation +34% value this week, TechStart has $41K in unbilled value, Document Processing has the highest average value per outcome.</div>
+    <div class="img-label">Reports hub: published, draft, and shared delivery reports by customer and period. Below, automated insights — Support Automation generated 34% more value this week, TechStart has $41K in unbilled value from the last two periods, Document Processing has the highest average value per outcome at $22.</div>
   </div>
 </div>
 
@@ -670,7 +670,7 @@ footer {
       <div class="img-wrap"><img src="paid-value-mvp.png" alt="Value MVP" class="parallax"></div>
       <div class="img-wrap"><img src="paid-value.png" alt="Value large" class="parallax"></div>
     </div>
-    <div class="img-label">The same Value view at two stages of the product. MVP (left): $184K total, 7 executions, recent value events table — focused and shippable. Large vision (right): $646K total, value over time chart, breakdowns by workflow and customer, top workflows table — the full business intelligence layer.</div>
+    <div class="img-label">The Value view in MVP scope (left) and large product vision (right). MVP: $184K total, 7 contributing executions, a simple table of recent value events. Large vision: $646K total, a value-over-time chart, breakdowns by workflow and by customer, and a ranked table of top workflows. Same concept, different depth.</div>
   </div>
 </div>
 
