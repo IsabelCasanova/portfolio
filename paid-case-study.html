@@ -7,20 +7,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
-
 :root {
-  --white:  #ffffff;
-  --off:    #f7f6f4;
-  --ink:    #111110;
-  --dim:    #5c5955;
-  --rule:   #e8e5e0;
-  --green:  #1a6e38;
-  --sans:   "Inter", system-ui, sans-serif;
+  --white: #ffffff;
+  --off: #f7f6f4;
+  --ink: #111110;
+  --dim: #5c5955;
+  --rule: #e8e5e0;
+  --green: #1a6e38;
+  --sans: "Inter", system-ui, sans-serif;
 }
-
 body {
   font-family: var(--sans);
   background: var(--white);
@@ -29,7 +26,6 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
-
 /* cursor */
 #cur {
   position: fixed; width: 6px; height: 6px;
@@ -49,18 +45,14 @@ body {
 #ring.hover { width: 48px; height: 48px; border-color: var(--green); }
 #cur.img { width: 48px; height: 48px; background: var(--green); opacity: .12; }
 #ring.img { width: 72px; height: 72px; border-color: var(--green); opacity: .4; }
-
-/* img scale container */
 .img-wrap { overflow: hidden; }
 .img-wrap img { display: block; width: 100%; }
-
 /* ---- PROGRESS ---- */
 #progress {
   position: fixed; top: 0; left: 0; z-index: 999;
   height: 1px; background: var(--ink);
   width: 0%; transition: width 0.1s linear;
 }
-
 /* ---- NAV ---- */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -89,7 +81,6 @@ nav.s::after { opacity: 1; }
   text-decoration: none; transition: color 0.2s;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--ink); }
-
 /* ---- HERO ---- */
 .hero {
   min-height: 100svh;
@@ -123,11 +114,9 @@ nav.s::after { opacity: 1; }
 .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
 .meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
 .meta-val { font-size: 13px; font-weight: 400; color: var(--ink); }
-
 @keyframes up { to { opacity: 1; transform: none; } }
 @keyframes fadeIn { to { opacity: 1; } }
-
-/* ---- SECTIONS: two-column Hanzo layout ---- */
+/* ---- SECTIONS ---- */
 .block {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -136,39 +125,22 @@ nav.s::after { opacity: 1; }
   border-bottom: 1px solid var(--rule);
   align-items: start;
 }
-.block + .img-section { }
-.block.last { border-bottom: 1px solid var(--rule); }
 .block.bg { background: var(--off); }
-.block-label {
-  position: sticky; top: 8rem;
-}
-.block-num {
-  font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--dim);
-  margin-bottom: 0.4rem;
-}
-.block-title {
-  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-  color: var(--ink);
-}
-.block-sub {
-  font-size: 11px; font-weight: 400; color: #8a8683;
-  margin-top: 0.25rem; line-height: 1.5;
-}
-
-/* ---- IMAGES: escape right column, max width 1100px ---- */
+.block-label { position: sticky; top: 8rem; }
+.block-num { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.4rem; }
+.block-title { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); }
+.block-sub { font-size: 11px; font-weight: 400; color: #8a8683; margin-top: 0.25rem; line-height: 1.5; }
+/* ---- IMAGES escape right column ---- */
 .content .img-wrap,
-.content .img-duo {
+.content .img-duo,
+.content .img-trio {
   margin-left: calc(-280px - 3rem);
   margin-right: 0;
   width: calc(100% + 280px + 3rem);
   max-width: 1100px;
 }
-.content .img-label {
-  margin-left: 0;
-}
-
-/* ---- RIGHT COLUMN CONTENT ---- */
+.content .img-label { margin-left: 0; }
+/* ---- RIGHT COLUMN ---- */
 .content h2 {
   font-size: clamp(1.6rem, 2.8vw, 2.8rem);
   font-weight: 300; line-height: 1.15;
@@ -182,21 +154,17 @@ nav.s::after { opacity: 1; }
 }
 .content p:last-child { margin-bottom: 0; }
 .content p strong { color: var(--ink); font-weight: 500; }
-
 /* ---- PULLQUOTE ---- */
 .pq {
-  padding: 2.5rem 0;
-  margin: 2.5rem 0;
+  padding: 2.5rem 0; margin: 2.5rem 0;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
 .pq p {
   font-size: clamp(1.2rem, 2.2vw, 1.65rem);
   font-weight: 400; color: var(--ink);
-  line-height: 1.5; letter-spacing: -0.01em;
-  max-width: 580px;
+  line-height: 1.5; letter-spacing: -0.01em; max-width: 580px;
 }
-
 /* ---- PROBLEM ROWS ---- */
 .problem-rows { margin: 3rem 0; }
 .problem-row {
@@ -204,26 +172,14 @@ nav.s::after { opacity: 1; }
   gap: 2rem; padding: 2rem;
   border-bottom: 1px solid var(--rule);
   transition: background 0.25s ease, padding-left 0.25s ease;
-  border-radius: 2px;
-  margin: 0 -2rem;
+  border-radius: 2px; margin: 0 -2rem;
 }
 .problem-row:first-child { border-top: 1px solid var(--rule); }
-.problem-row:hover {
-  background: var(--off);
-  padding-left: 2.5rem;
-}
+.problem-row:hover { background: var(--off); padding-left: 2.5rem; }
 .problem-row:hover .pr-title { color: var(--green); }
-.pr-num {
-  font-size: 11px; font-weight: 400; color: var(--dim);
-  padding-top: 0.2rem; letter-spacing: 0.05em;
-}
-.pr-title {
-  font-size: 13px; font-weight: 500; letter-spacing: 0.05em;
-  text-transform: uppercase; color: var(--ink);
-  margin-bottom: 0.5rem;
-}
+.pr-num { font-size: 11px; font-weight: 400; color: var(--dim); padding-top: 0.2rem; letter-spacing: 0.05em; }
+.pr-title { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.5rem; }
 .pr-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-
 /* ---- LOOP ---- */
 .loop {
   display: flex; align-items: center; flex-wrap: nowrap;
@@ -231,18 +187,11 @@ nav.s::after { opacity: 1; }
   padding: 3rem 0; border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
 }
-.ln {
-  display: flex; flex-direction: column; align-items: flex-start;
-  gap: 0.5rem; min-width: 130px; flex-shrink: 0; padding-right: 1rem;
-}
-.ln-step {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--green);
-}
+.ln { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; min-width: 130px; flex-shrink: 0; padding-right: 1rem; }
+.ln-step { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); }
 .ln-label { font-size: 14px; font-weight: 400; color: var(--ink); }
 .ln-sub { font-size: 12px; color: var(--dim); line-height: 1.4; max-width: 110px; }
 .la { font-size: 18px; color: var(--rule); margin: 0 1rem; padding-bottom: 2rem; flex-shrink: 0; }
-
 /* ---- FINDINGS ---- */
 .findings { margin: 3rem 0; }
 .finding {
@@ -259,7 +208,6 @@ nav.s::after { opacity: 1; }
 .f-tag { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.15rem; transition: color 0.2s; }
 .f-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; transition: color 0.2s; }
 .f-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-
 /* ---- IA SKETCH ---- */
 .ia-row {
   display: grid; grid-template-columns: 1fr 1fr;
@@ -280,51 +228,33 @@ nav.s::after { opacity: 1; }
 .j-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
 .j-role { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 3px; }
 .j-flow { font-size: 13px; color: var(--dim); line-height: 1.5; }
-
 /* ---- IMAGES ---- */
 .img-wrap {
-  position: relative; overflow: hidden;
-  margin: 4rem 0;
+  position: relative; overflow: hidden; margin: 4rem 0;
 }
-.img-wrap img {
-  width: 100%; display: block;
-  will-change: transform;
-}
+.img-wrap img { width: 100%; display: block; will-change: transform; }
 .img-duo {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--rule);
-  margin: 4rem 0;
+  gap: 1px; background: var(--rule); margin: 4rem 0;
 }
-.img-duo .img-wrap { margin: 0; }
+.img-trio {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--rule); margin: 4rem 0;
+}
+.img-duo .img-wrap,
+.img-trio .img-wrap { margin: 0; }
 .img-label {
   font-size: 11px; color: var(--dim);
   margin-top: 0.75rem; margin-bottom: 0;
   line-height: 1.5; letter-spacing: 0.02em;
 }
-/* Full-bleed image sections */
-.img-section {
-  padding: 0;
-  border-bottom: 1px solid var(--rule);
-}
-.img-section .img-wrap { margin: 0; }
-.img-section .img-duo { margin: 0; gap: 1px; }
-.img-caption-block {
-  padding: 1.5rem 3rem;
-  font-size: 11px; color: var(--dim);
-  line-height: 1.5; letter-spacing: 0.02em;
-  border-bottom: 1px solid var(--rule);
-}
-
 /* ---- SCOPE ---- */
 .scope {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 3rem; margin: 3rem 0;
   padding: 3rem 0; border-top: 1px solid var(--rule);
 }
-.scope-head {
-  font-size: 10px; font-weight: 500; letter-spacing: 0.15em;
-  text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem;
-}
+.scope-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; }
 .scope-head.full { color: var(--ink); }
 .scope-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
 .scope-list li {
@@ -338,7 +268,6 @@ nav.s::after { opacity: 1; }
 .scope-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
 .scope-list.f li::before { background: var(--rule); }
 .scope-list.v li::before { background: var(--ink); }
-
 /* ---- LEARNINGS ---- */
 .learning {
   display: grid; grid-template-columns: 60px 1fr;
@@ -351,50 +280,35 @@ nav.s::after { opacity: 1; }
 .learning:hover { background: var(--off); padding-left: 2.5rem; }
 .learning:hover .l-title { color: var(--green); }
 .learning:hover .l-n { color: var(--green); }
-.l-n {
-  font-size: 11px; font-weight: 500; color: var(--dim);
-  letter-spacing: 0.08em; padding-top: 0.3rem;
-  transition: color 0.2s;
-}
-.l-title {
-  font-size: 1.15rem; font-weight: 500; color: var(--ink);
-  margin-bottom: 0.75rem; line-height: 1.3;
-  letter-spacing: -0.01em; transition: color 0.2s;
-}
+.l-n { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.3rem; transition: color 0.2s; }
+.l-title { font-size: 1.15rem; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; transition: color 0.2s; }
 .l-body { font-size: 14px; color: var(--dim); line-height: 1.8; font-weight: 300; }
-
 /* ---- FOOTER ---- */
 footer {
   display: grid; grid-template-columns: 280px 1fr;
   gap: 3rem; padding: 4rem 3rem;
   border-top: 1px solid var(--rule);
 }
-.f-back {
-  font-size: 11px; font-weight: 400; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--dim);
-  text-decoration: none; transition: color 0.2s;
-}
+.f-back { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
 .f-back:hover { color: var(--ink); }
 .f-credit { font-size: 11px; color: var(--dim); }
-
 /* ---- REVEAL ---- */
-.r {
-  opacity: 0; transform: translateY(28px);
-  transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1);
-}
+.r { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
 .r.on { opacity: 1; transform: none; }
-
 /* ---- RESPONSIVE ---- */
 @media (max-width: 860px) {
   nav, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
   .block { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
   .block-label { position: static; }
   .hero h1 { font-size: 2.6rem; }
-  .img-duo, .scope, .ia-row { grid-template-columns: 1fr; }
+  .img-duo, .img-trio, .scope, .ia-row { grid-template-columns: 1fr; }
   footer { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.5rem; }
   .loop { flex-direction: column; align-items: flex-start; }
   .la { transform: rotate(90deg); }
   .finding { grid-template-columns: 1fr; gap: 0.5rem; }
+  .content .img-wrap,
+  .content .img-duo,
+  .content .img-trio { margin-left: 0; width: 100%; }
 }
 </style>
 </head>
@@ -517,16 +431,17 @@ footer {
       <div>
         <div class="ia-head">Information architecture</div>
         <div class="ia-tree">
-<span class="hl">Workflow</span>
-  &#9492; Customer
-  &#9492; Outcome type
-  &#9492; Value / outcome
-      &#9492; <span class="hl">Execution</span>
-            &#9492; Cost, duration, status
-            &#9492; <span class="hl">Value event</span>
-                  &#9492; Evidence
-                  &#9492; <span class="hl">Bill line item</span>
-                  &#9492; Delivery report</div>
+          <span class="hl">Workflow</span><br>
+          &nbsp;&nbsp;&#9492; Customer<br>
+          &nbsp;&nbsp;&#9492; Outcome type<br>
+          &nbsp;&nbsp;&#9492; Value / outcome<br>
+          &nbsp;&nbsp;&#9492; <span class="hl">Execution</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492; Cost, duration, status<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492; <span class="hl">Value event</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492; Evidence<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492; <span class="hl">Bill line item</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#9492; Delivery report
+        </div>
       </div>
       <div>
         <div class="ia-head">User journeys by role</div>
@@ -541,7 +456,7 @@ footer {
   </div>
 </div>
 
-<!-- 04 HOME -->
+<!-- 04 HOME DASHBOARD -->
 <div class="block bg r">
   <div class="block-label">
     <div class="block-num">04</div>
@@ -551,8 +466,8 @@ footer {
   <div class="content">
     <h2>Making the business legible<br>at a glance.</h2>
     <p>The home dashboard answers the question that matters to an AI operator: am I making money from this? I designed it around four headline metrics, a value summary, a revenue trend, and a customer table with TCV, LTV, agents, and signals per account.</p>
-    <div class="img-wrap r"><img src="paid-home.png" alt="Home dashboard"></div>
-    <div class="img-label">The operator home — the first view that answers "how is the business doing?" Revenue trend, value generated across all AI workflows, and a customer table showing contract value, lifetime value, agent count, and upcoming invoices.</div>
+    <div class="img-wrap r"><img src="paid-home.png" alt="Home dashboard — revenue trend, value generated, and customer table"></div>
+    <p class="img-label">The operator home — the first view that answers "how is the business doing?" Revenue trend, value generated across all AI workflows, and a customer table showing contract value, lifetime value, agent count, and upcoming invoices.</p>
   </div>
 </div>
 
@@ -566,13 +481,21 @@ footer {
   <div class="content">
     <h2>Defining what an AI agent<br>does and what it is worth.</h2>
     <p>The workflow is the unit of everything in Paid.ai. I designed creation as a two-step process: first define the metadata (name, customer, outcome, estimated value), then build the flow in the block-based builder. The key decision: surfacing value and billing eligibility in the builder header at all times.</p>
-    <div class="img-wrap r"><img src="paid-workflows.png" alt="Workflows"></div>
-    <div class="img-label">The Workflows view — every AI workflow the operator has defined, the customer it runs for, the primary outcome it produces, and how much value it has generated. Each row is a business contract between the product and the customer.</div>
+
+    <!-- Workflows list view -->
+    <div class="img-wrap r"><img src="paid-workflows.png" alt="Workflows list — all active workflows with customer, outcome, and value generated"></div>
+    <p class="img-label">The Workflows view — every AI workflow the operator has defined, the customer it runs for, the primary outcome it produces, and how much value it has generated. Each row is a business contract between the product and the customer.</p>
+
+    <!-- Creation flow: form + empty builder -->
     <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-workflow-create.png" alt="Create workflow"></div>
-      <div class="img-wrap"><img src="paid-workflow-builder.png" alt="Builder"></div>
+      <div class="img-wrap"><img src="paid-workflow-create.png" alt="Create workflow — name, customer, outcome, value per execution"></div>
+      <div class="img-wrap"><img src="paid-workflow-builder-empty.png" alt="Workflow builder — empty state before adding blocks"></div>
     </div>
-    <div class="img-label">Left: defining a new workflow — the operator names it, assigns a customer, selects the primary outcome, and estimates the value per execution. Right: the block-based builder in its published state. The workflow header always shows the customer, outcome, value per execution, and billing eligibility — keeping business context visible while building.</div>
+    <p class="img-label">Left: defining a new workflow — the operator names it, assigns a customer, selects the primary outcome, and estimates the value per execution. Right: the builder in its empty state, ready to receive blocks.</p>
+
+    <!-- Published builder state -->
+    <div class="img-wrap r"><img src="paid-workflow-published.png" alt="Workflow builder — published state with blocks and billing eligibility visible in header"></div>
+    <p class="img-label">The block-based builder in its published state. The workflow header always shows the customer, outcome, value per execution, and billing eligibility — keeping business context visible while building.</p>
   </div>
 </div>
 
@@ -586,13 +509,21 @@ footer {
   <div class="content">
     <h2>Every agent run, traced<br>and valued in real time.</h2>
     <p>The executions view is where observability meets value attribution. Every agent run is captured: duration, cost, outcome, and value generated. The slide-in detail panel gives technical depth without cluttering the default view.</p>
-    <div class="img-wrap r"><img src="paid-executions.png" alt="Executions"></div>
-    <div class="img-label">Every time an AI agent runs, Paid.ai captures the full execution — which workflow, which customer, whether it succeeded, how long it took, what it cost, what outcome it produced, and what value it generated. This is the observability layer.</div>
+
+    <!-- Main executions list -->
+    <div class="img-wrap r"><img src="paid-executions.png" alt="Executions list — all agent runs with status, cost, outcome, and value"></div>
+    <p class="img-label">Every time an AI agent runs, Paid.ai captures the full execution — which workflow, which customer, whether it succeeded, how long it took, what it cost, what outcome it produced, and what value it generated. This is the observability layer.</p>
+
+    <!-- Execution detail + MVP evidence -->
     <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-execution-detail.png" alt="Detail"></div>
-      <div class="img-wrap"><img src="paid-executions-mvp2.png" alt="Evidence"></div>
+      <div class="img-wrap"><img src="paid-execution-detail.png" alt="Execution detail panel — trace, logs, evidence tabs"></div>
+      <div class="img-wrap"><img src="paid-executions-mvp.png" alt="Executions MVP — simplified list view for early customers"></div>
     </div>
-    <div class="img-label">Left: clicking into an execution reveals the full detail — workflow, customer, outcome, value, cost, and tabs for Trace, Logs, and Evidence. Right: the same detail in the MVP version, with the evidence block that proves value was delivered. Exportable as PDF for customer reporting.</div>
+    <p class="img-label">Left: clicking into an execution reveals the full detail — workflow, customer, outcome, value, cost, and tabs for Trace, Logs, and Evidence. Right: the executions view in its MVP form, optimised for teams just getting started with the product.</p>
+
+    <!-- Evidence detail -->
+    <div class="img-wrap r"><img src="paid-executions-mvp2.png" alt="Execution evidence — proof block with linked traces and source data"></div>
+    <p class="img-label">The evidence block inside an execution detail: proof that the AI delivered what it promised, with linked execution traces, API responses, and source data. Exportable as PDF for customer reporting.</p>
   </div>
 </div>
 
@@ -606,8 +537,18 @@ footer {
   <div class="content">
     <h2>From execution data<br>to business intelligence.</h2>
     <p>The value view is the strategic layer. Where executions give operational visibility, value gives business intelligence: how much has your AI generated, which workflows are performing best, which customers are getting the most out of it.</p>
-    <div class="img-wrap r"><img src="paid-value.png" alt="Value"></div>
-    <div class="img-label">The Value view turns execution data into business intelligence — total value generated, value over time, which workflows deliver most, which customers benefit most. This is what the operator uses to understand pricing, prioritize workflows, and build the case for renewal.</div>
+
+    <!-- Full value view -->
+    <div class="img-wrap r"><img src="paid-value.png" alt="Value view — total value generated, by workflow and by customer"></div>
+    <p class="img-label">The Value view turns execution data into business intelligence — total value generated, value over time, which workflows deliver most, which customers benefit most. This is what the operator uses to understand pricing, prioritize workflows, and build the case for renewal.</p>
+
+    <!-- MVP value view -->
+    <div class="img-wrap r"><img src="paid-value-mvp.png" alt="Value view MVP — simplified value summary for early-stage operators"></div>
+    <p class="img-label">The MVP version of the Value view: a focused summary of recent value events per workflow, without the full chart layer. Enough for early operators to answer "is this working?" without overwhelming them with data they can't yet act on.</p>
+
+    <!-- Credits -->
+    <div class="img-wrap r"><img src="paid-credits.png" alt="Credits — AI cost tracking per workflow and customer"></div>
+    <p class="img-label">Credits: the cost side of the equation. Tracking what each AI workflow consumes lets operators understand their unit economics and set sustainable pricing against the value they generate.</p>
   </div>
 </div>
 
@@ -621,15 +562,29 @@ footer {
   <div class="content">
     <h2>Turning AI value into<br>invoices customers believe.</h2>
     <p>Billing as a value-first flow: the table shows value generated per customer before showing what to bill. The delivery report is not just an invoice but proof: executions, outcomes, value, and supporting evidence including execution traces, API responses, and source links.</p>
-    <div class="img-wrap r"><img src="paid-billing-large.png" alt="Billing"></div>
-    <div class="img-label">The Billing view leads with value generated — operators see what was earned before deciding what to invoice. Bills move through a lifecycle: draft, ready for review, approved, exported. Value and billing status side by side.</div>
+
+    <!-- Main billing view -->
+    <div class="img-wrap r"><img src="paid-billing-large.png" alt="Billing view — value generated per customer, bill lifecycle, and status"></div>
+    <p class="img-label">The Billing view leads with value generated — operators see what was earned before deciding what to invoice. Bills move through a lifecycle: draft, ready for review, approved, exported. Value and billing status side by side.</p>
+
+    <!-- MVP billing -->
+    <div class="img-wrap r"><img src="paid-billing.png" alt="Billing — bill detail with line items and value breakdown"></div>
+    <p class="img-label">A bill in detail: line items generated from value events, each traceable back to the execution that produced it. The breakdown makes the invoice auditable and defensible to the customer.</p>
+
+    <!-- Create bill + delivery report -->
     <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-create-bill.png" alt="Create bill"></div>
-      <div class="img-wrap"><img src="paid-delivery-report.png" alt="Delivery report"></div>
+      <div class="img-wrap"><img src="paid-create-bill.png" alt="Create bill — select customer, period, and line item type"></div>
+      <div class="img-wrap"><img src="paid-delivery-report-create.png" alt="Create delivery report — generate proof document for customer"></div>
     </div>
-    <div class="img-label">Left: creating a bill from AI-generated value — the operator selects the customer, period, and line item type. The draft preview updates in real time. Right: the delivery report, the document that goes to the customer. Not just an invoice — proof that the AI delivered what it promised, with linked execution evidence.</div>
-    <div class="img-wrap r"><img src="paid-reports-list.png" alt="Reports"></div>
-    <div class="img-label">The Reports hub generates delivery reports per customer and period. Below the table, automated insights surface patterns the operator would otherwise have to look for — which workflows are growing, which customers have unbilled value, where success rates are dropping.</div>
+    <p class="img-label">Left: creating a bill from AI-generated value — the operator selects the customer, period, and line item type. The draft preview updates in real time. Right: generating a delivery report — the document that proves to the customer what was delivered and what it was worth.</p>
+
+    <!-- Delivery report -->
+    <div class="img-wrap r"><img src="paid-delivery-report.png" alt="Delivery report — customer-facing proof of AI value with execution evidence"></div>
+    <p class="img-label">The delivery report: not just an invoice, but proof. Executions, outcomes, value attributed, and linked evidence — everything the customer needs to validate what they're paying for and justify renewal internally.</p>
+
+    <!-- Reports list -->
+    <div class="img-wrap r"><img src="paid-reports-list.png" alt="Reports hub — delivery reports per customer and period with automated insights"></div>
+    <p class="img-label">The Reports hub generates delivery reports per customer and period. Below the table, automated insights surface patterns the operator would otherwise have to look for — which workflows are growing, which customers have unbilled value, where success rates are dropping.</p>
   </div>
 </div>
 
@@ -643,6 +598,7 @@ footer {
   <div class="content">
     <h2>Designing for now<br>and for what comes next.</h2>
     <p>I delivered two design scopes. The MVP covered the core loop: everything a team of two could ship to early customers quickly. The large product vision extended this into a full platform. The design system was consistent across both.</p>
+
     <div class="scope r">
       <div>
         <div class="scope-head">MVP scope</div>
@@ -666,11 +622,34 @@ footer {
         </ul>
       </div>
     </div>
+
+    <!-- Workflows: MVP vs large -->
     <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-workflows-mvp.png" alt="Workflows MVP"></div>
-      <div class="img-wrap"><img src="paid-workflows.png" alt="Workflows large"></div>
+      <div class="img-wrap"><img src="paid-workflows-mvp.png" alt="Workflows — MVP scope"></div>
+      <div class="img-wrap"><img src="paid-workflows.png" alt="Workflows — large product vision"></div>
     </div>
-    <div class="img-label">The same Workflows view at two stages. MVP: five active workflows, each mapped to a customer and outcome, generating value from day one. Large product: seven workflows including paused and draft states, more customers, and higher execution volumes. Same design language, different maturity.</div>
+    <p class="img-label">Workflows: MVP vs large vision. Same core model — workflows mapped to customers and outcomes — but the large scope adds paused and draft states, higher execution volumes, and richer per-row data.</p>
+
+    <!-- Executions: MVP vs large -->
+    <div class="img-duo r">
+      <div class="img-wrap"><img src="paid-executions-mvp.png" alt="Executions — MVP scope"></div>
+      <div class="img-wrap"><img src="paid-executions.png" alt="Executions — large product vision"></div>
+    </div>
+    <p class="img-label">Executions: MVP vs large vision. The MVP captures the essential run data. The full scope adds value attribution per run, outcome tagging, and the detail panel with trace and evidence tabs.</p>
+
+    <!-- Value: MVP vs large -->
+    <div class="img-duo r">
+      <div class="img-wrap"><img src="paid-value-mvp.png" alt="Value — MVP scope"></div>
+      <div class="img-wrap"><img src="paid-value.png" alt="Value — large product vision"></div>
+    </div>
+    <p class="img-label">Value: MVP vs large vision. The MVP answers the core question — is the AI generating value? — with a focused event list. The large scope adds breakdowns by workflow and customer, and charts that show value over time.</p>
+
+    <!-- Billing: MVP vs large -->
+    <div class="img-duo r">
+      <div class="img-wrap"><img src="paid-billing-mvp.png" alt="Billing — MVP scope"></div>
+      <div class="img-wrap"><img src="paid-billing-large.png" alt="Billing — large product vision"></div>
+    </div>
+    <p class="img-label">Billing: MVP vs large vision. The MVP gets a bill out of the door. The large scope makes billing a strategic view — value earned, lifecycle tracking, and direct links to the delivery report that closes the loop with the customer.</p>
   </div>
 </div>
 
@@ -724,31 +703,14 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.r').forEach(el => obs.observe(el));
 
-// Parallax on images
-function onScroll() {
-  document.querySelectorAll('.parallax').forEach(img => {
-    const wrap = img.closest('.img-wrap');
-    if (!wrap) return;
-    const rect = wrap.getBoundingClientRect();
-    const winH = window.innerHeight;
-    if (rect.bottom < 0 || rect.top > winH) return;
-    const offset = (rect.top + rect.height / 2 - winH / 2) / winH;
-    img.style.transform = 'translateY(' + (offset * 24) + 'px) scale(1.04)';
-  });
-}
-window.addEventListener('scroll', onScroll, { passive: true });
-onScroll();
-
 // Custom cursor
 const cur = document.createElement('div');
 const ring = document.createElement('div');
 cur.id = 'cur'; ring.id = 'ring';
 document.body.appendChild(cur);
 document.body.appendChild(ring);
-
 let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
 function animCur() {
   rx += (mx - rx) * 0.14;
   ry += (my - ry) * 0.14;
