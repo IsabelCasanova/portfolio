@@ -3,19 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paid.ai — Isabel Casanova</title>
+<title>Paid.ai Isabel Casanova</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
 :root {
   --white: #ffffff;
-  --off: #f7f6f4;
+  --cream: #f8f6f2;
   --ink: #111110;
   --dim: #5c5955;
-  --rule: #e8e5e0;
+  --rule: #dedad1;
   --green: #1a6e38;
+  --nav-h: 56px;
 }
 body {
   font-family: "Inter", system-ui, sans-serif;
@@ -23,128 +25,493 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: none;
 }
-#cur { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .25s; }
-#ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(17,17,16,.25); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .35s, height .35s, border-color .25s; }
-#cur.hover { width: 10px; height: 10px; background: var(--green); }
-#ring.hover { width: 48px; height: 48px; border-color: var(--green); }
-#progress { position: fixed; top: 0; left: 0; z-index: 999; height: 1px; background: var(--ink); width: 0%; transition: width 0.1s linear; }
 
-/* NAV */
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.75rem 3rem; }
-nav::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); z-index: -1; opacity: 0; transition: opacity 0.4s; }
-nav.s::after { opacity: 1; }
-.nav-home { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); text-decoration: none; }
+/* ── PROGRESS ── */
+#progress { position: fixed; top: 0; left: 0; z-index: 9999; height: 2px; background: var(--ink); width: 0%; transition: width .08s linear; }
+
+/* ── CURSOR ── */
+@media (pointer: fine) {
+  body { cursor: none; }
+  #cur { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .2s, height .2s, background .2s; }
+  #ring { position: fixed; width: 28px; height: 28px; border: 1.5px solid rgba(17,17,16,.18); border-radius: 50%; pointer-events: none; z-index: 9997; transform: translate(-50%,-50%); transition: width .3s cubic-bezier(.16,1,.3,1), height .3s cubic-bezier(.16,1,.3,1), border-color .25s; }
+  #cur.h { width: 8px; height: 8px; background: var(--green); }
+  #ring.h { width: 44px; height: 44px; border-color: var(--green); }
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2.5rem; height: var(--nav-h);
+}
+nav::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(255,255,255,0);
+  backdrop-filter: blur(0px);
+  border-bottom: 1px solid rgba(228,224,216,0);
+  transition: background .3s, backdrop-filter .3s, border-color .3s;
+  pointer-events: none;
+}
+nav.scrolled::before {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px);
+  border-color: var(--rule);
+}
+.nav-home {
+  font-size: 11px; font-weight: 500; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dim); text-decoration: none;
+  transition: color .2s; position: relative; z-index: 1;
+}
 .nav-home:hover { color: var(--ink); }
-.nav-links { display: flex; gap: 2rem; }
-.nav-links a { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); text-decoration: none; }
+.nav-links { display: flex; gap: 2rem; position: relative; z-index: 1; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--dim); text-decoration: none;
+  transition: color .2s; position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ""; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .25s cubic-bezier(.16,1,.3,1);
+}
 .nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
-/* HERO */
-.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; border-bottom: 1px solid var(--rule); }
-.hero-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 3rem; opacity: 0; transform: translateY(12px); animation: up 0.7s ease 0.3s forwards; }
-.hero h1 { font-size: clamp(3rem, 5.5vw, 5.8rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink); max-width: 980px; opacity: 0; transform: translateY(20px); animation: up 0.9s ease 0.5s forwards; }
-.hero-meta { display: flex; gap: 4rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); opacity: 0; animation: fadeIn 0.8s ease 1s forwards; }
-.meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
-.meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
+/* ── HERO ── */
+.hero {
+  padding: calc(var(--nav-h) + 4rem) 2.5rem 4.5rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.hero-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 2rem;
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp .6s ease .2s forwards;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 6.2rem); font-weight: 200;
+  line-height: 1.02; letter-spacing: -.04em; color: var(--ink);
+  max-width: 900px;
+  opacity: 0; transform: translateY(18px);
+  animation: fadeUp .8s ease .35s forwards;
+}
+.hero-sub {
+  font-size: 1rem; color: var(--dim); line-height: 1.8; font-weight: 300;
+  max-width: 500px; margin-top: 1.5rem;
+  opacity: 0; animation: fadeUp .7s ease .6s forwards;
+}
+.hero-meta {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  opacity: 0; animation: fadeIn .6s ease .9s forwards;
+}
+.meta-item { display: flex; flex-direction: column; gap: .3rem; }
+.meta-label { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); }
 .meta-val { font-size: 13px; color: var(--ink); }
-@keyframes up { to { opacity: 1; transform: none; } }
+
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
 @keyframes fadeIn { to { opacity: 1; } }
 
-/* BLOCKS */
-.block { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 6rem 3rem; border-bottom: 1px solid var(--rule); align-items: start; }
-.block.bg { background: var(--off); }
-.block-label { position: sticky; top: 8rem; }
-.block-num { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.4rem; }
-.block-title { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); }
-.block-sub { font-size: 11px; color: #8a8683; margin-top: 0.25rem; line-height: 1.5; }
+/* ── BLOCKS ── */
+.block {
+  display: grid; grid-template-columns: 240px 1fr;
+  gap: 3rem; padding: 5rem 2.5rem;
+  border-bottom: 1px solid var(--rule); align-items: start;
+}
+.block.alt { background: var(--cream); }
+.block-label { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.block-num {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: .35rem;
+  transition: color .3s;
+}
+.block.vis .block-num { color: var(--green); }
+.block-title { font-size: 12px; font-weight: 500; letter-spacing: .04em; color: var(--ink); }
+.block-sub { font-size: 11px; color: #9a958f; margin-top: .25rem; line-height: 1.5; }
 
-/* CONTENT */
-.content h2 { font-size: clamp(1.6rem, 2.8vw, 2.8rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 2rem; }
-.content p { font-size: 1.05rem; color: #4a4744; line-height: 1.85; font-weight: 300; margin-bottom: 1.5rem; max-width: 640px; }
+/* ── CONTENT ── */
+.content h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2.6rem); font-weight: 300;
+  line-height: 1.12; letter-spacing: -.025em; color: var(--ink); margin-bottom: 1.75rem;
+}
+.content p { font-size: 1rem; color: #4a4744; line-height: 1.85; font-weight: 300; margin-bottom: 1.4rem; max-width: 640px; }
 .content p:last-child { margin-bottom: 0; }
 .content p strong { color: var(--ink); font-weight: 500; }
 
-/* PULLQUOTE */
-.pq { padding: 2.5rem 0; margin: 2.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.pq p { font-size: clamp(1.2rem, 2.2vw, 1.65rem); font-weight: 400; color: var(--ink); line-height: 1.5; letter-spacing: -0.01em; max-width: 580px; }
+/* ── PULLQUOTE ── */
+.pq {
+  padding: 2rem 0; margin: 2rem 0;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  position: relative; overflow: hidden;
+}
+.pq::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--green); transform: scaleY(0); transform-origin: top;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.pq.vis::before { transform: scaleY(1); }
+.pq p {
+  font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 400;
+  color: var(--ink); line-height: 1.5; letter-spacing: -.01em; max-width: 560px;
+}
 
-/* PROBLEM ROWS */
-.problem-rows { margin: 3rem 0; }
-.problem-row { display: grid; grid-template-columns: 40px 1fr; gap: 2rem; padding: 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
-.problem-row:first-child { border-top: 1px solid var(--rule); }
-.problem-row:hover { background: var(--off); padding-left: 2.5rem; }
-.problem-row:hover .pr-title { color: var(--green); }
-.pr-num { font-size: 11px; color: var(--dim); padding-top: 0.2rem; }
-.pr-title { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.5rem; }
-.pr-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
+/* ── CHALLENGE CARDS ── */
+.challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2rem 0; }
+.challenge-card { background: var(--white); padding: 1.6rem; transition: background .2s, transform .25s cubic-bezier(.16,1,.3,1); }
+.block.alt .challenge-card { background: var(--cream); }
+.challenge-card:hover { background: #f2efea; transform: translateY(-1px); }
+.block.alt .challenge-card:hover { background: #eeeae4; }
+.challenge-card h3 { font-size: .78rem; font-weight: 500; text-transform: uppercase; letter-spacing: .09em; color: var(--green); margin-bottom: .6rem; transition: letter-spacing .25s; }
+.challenge-card:hover h3 { letter-spacing: .13em; }
+.challenge-card p { font-size: .93rem; color: #4a4744; font-weight: 300; line-height: 1.65; }
 
-/* LOOP */
-.loop { display: flex; align-items: center; overflow-x: auto; margin: 3rem 0; padding: 3rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); gap: 0; }
-.ln { display: flex; flex-direction: column; gap: 0.5rem; min-width: 130px; flex-shrink: 0; padding-right: 1rem; }
-.ln-step { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); }
-.ln-label { font-size: 14px; color: var(--ink); }
-.ln-sub { font-size: 12px; color: var(--dim); line-height: 1.4; max-width: 110px; }
-.la { font-size: 18px; color: var(--rule); margin: 0 1rem; padding-bottom: 2rem; flex-shrink: 0; }
+/* ── FLOW ── */
+.flow { display: flex; background: var(--white); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2.5rem 0; }
+.block.alt .flow { background: #f2efea; }
+.flow-step { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--rule); transition: background .2s; }
+.flow-step:last-child { border-right: none; }
+.flow-step:hover { background: var(--cream); }
+.block.alt .flow-step:hover { background: #eceae3; }
+.flow-icon { font-size: 1.2rem; display: block; margin-bottom: .4rem; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.flow-step:hover .flow-icon { transform: scale(1.3) translateY(-2px); }
+.flow-step h3 { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); font-weight: 500; margin-bottom: .2rem; }
+.flow-step p { font-size: .72rem; color: var(--dim); margin: 0; line-height: 1.4; }
 
-/* FINDINGS */
-.findings { margin: 3rem 0; }
-.finding { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; padding: 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
-.finding:first-child { border-top: 1px solid var(--rule); }
-.finding:hover { background: var(--off); padding-left: 2.5rem; }
-.finding:hover .f-title { color: var(--green); }
-.finding:hover .f-tag { color: var(--green); }
-.f-tag { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.15rem; transition: color 0.2s; }
-.f-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; transition: color 0.2s; }
-.f-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-
-/* IMPACT NUMBERS */
-.impact-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; margin: 3rem 0; }
-.impact-cell { background: var(--white); padding: 2rem; }
-.impact-num { font-size: 2.8rem; font-weight: 300; color: var(--ink); line-height: 1; margin-bottom: 0.4rem; letter-spacing: -0.02em; }
+/* ── IMPACT STRIP ── */
+.impact-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2.5rem 0; }
+.impact-cell { background: var(--white); padding: 2rem 1.75rem; transition: background .2s; }
+.impact-cell:hover { background: var(--cream); }
+.impact-num { font-size: 2.8rem; font-weight: 200; line-height: 1; color: var(--ink); margin-bottom: .35rem; letter-spacing: -.035em; display: block; transition: color .3s; }
+.impact-cell:hover .impact-num { color: var(--green); }
 .impact-label { font-size: 12px; color: var(--dim); line-height: 1.5; }
 
-/* IA ROW */
-.ia-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; padding: 3rem 0; border-top: 1px solid var(--rule); }
-.ia-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; }
-.ia-tree { font-family: "Courier New", monospace; font-size: 12px; color: var(--dim); line-height: 2.1; }
-.ia-tree .hl { color: var(--ink); font-weight: 500; }
-.journeys { display: flex; flex-direction: column; }
-.journey { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: padding-left 0.2s; }
-.journey:hover { padding-left: 0.4rem; }
-.j-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
-.j-role { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 3px; }
-.j-flow { font-size: 13px; color: var(--dim); line-height: 1.5; }
+/* ── FINDINGS ── */
+.finding { display: grid; grid-template-columns: 100px 1fr; gap: 1.75rem; padding: 1.75rem; border-bottom: 1px solid var(--rule); transition: background .2s, padding-left .3s cubic-bezier(.16,1,.3,1); }
+.finding:first-child { border-top: 1px solid var(--rule); }
+.finding:hover { background: var(--cream); padding-left: 2.25rem; }
+.block.alt .finding:hover { background: #eeeae4; }
+.finding:hover .f-tag, .finding:hover .f-title { color: var(--green); }
+.f-tag { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: .08em; padding-top: .15rem; transition: color .2s; }
+.f-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: .35rem; transition: color .2s; }
+.f-body { font-size: 13px; color: var(--dim); line-height: 1.7; font-weight: 300; }
 
-/* LEARNINGS */
-.learning { display: grid; grid-template-columns: 60px 1fr; gap: 2.5rem; padding: 3rem 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
+/* ── LEARNINGS ── */
+.learning { display: grid; grid-template-columns: 48px 1fr; gap: 2rem; padding: 2.5rem 1.75rem; border-bottom: 1px solid var(--rule); transition: background .2s, padding-left .3s cubic-bezier(.16,1,.3,1); }
 .learning:first-child { border-top: 1px solid var(--rule); }
-.learning:hover { background: var(--off); padding-left: 2.5rem; }
+.learning:hover { background: var(--cream); padding-left: 2.25rem; }
+.block.alt .learning:hover { background: #eeeae4; }
 .learning:hover .l-title { color: var(--green); }
-.l-n { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.3rem; transition: color 0.2s; }
-.l-title { font-size: 1.15rem; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; transition: color 0.2s; }
-.l-body { font-size: 14px; color: var(--dim); line-height: 1.8; font-weight: 300; }
+.l-n { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: .08em; padding-top: .25rem; }
+.l-title { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: .6rem; line-height: 1.3; letter-spacing: -.01em; transition: color .2s; }
+.l-body { font-size: 13px; color: var(--dim); line-height: 1.8; font-weight: 300; }
 
-/* SCOPE */
-.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; padding: 3rem 0; border-top: 1px solid var(--rule); }
-.scope-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; }
+/* ── SCOPE ── */
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin: 2.5rem 0; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.scope-head { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.25rem; }
 .scope-head.full { color: var(--ink); }
 .scope-list { list-style: none; }
-.scope-list li { font-size: 14px; color: var(--dim); font-weight: 300; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: 0.75rem; }
-.scope-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
+.scope-list li { font-size: 13px; color: var(--dim); font-weight: 300; padding: .65rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: .65rem; transition: color .2s, padding-left .2s ease; }
+.scope-list li:hover { color: var(--ink); padding-left: .4rem; }
+.scope-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
 .scope-list.f li::before { background: var(--rule); }
 .scope-list.v li::before { background: var(--ink); }
 
-/* FOOTER */
-footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4rem 3rem; border-top: 1px solid var(--rule); }
-.f-back { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); text-decoration: none; }
-.f-back:hover { color: var(--ink); }
+/* ── LOOP ── */
+.loop-flow { display: flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; background: var(--white); margin: 2.5rem 0; }
+.block.alt .loop-flow { background: #f2efea; }
+.loop-step { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--rule); transition: background .2s; }
+.loop-step:last-child { border-right: none; }
+.loop-step:hover { background: var(--cream); }
+.block.alt .loop-step:hover { background: #eceae3; }
+.loop-step:hover .ls-num { color: var(--green); }
+.ls-num { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); margin-bottom: .35rem; transition: color .25s; }
+.ls-label { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: .25rem; }
+.ls-sub { font-size: 11px; color: var(--dim); line-height: 1.4; }
+
+/* ── IMAGES ── */
+.img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
+.img-wrap img { width: 100%; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.img-wrap:hover img { transform: scale(1.015); }
+.img-cap { font-size: 11.5px; color: var(--dim); text-align: center; margin-top: .5rem; margin-bottom: 2.5rem; line-height: 1.5; }
+.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+.img-grid .img-wrap { margin: 0; }
+.img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+.img-trio .img-wrap { margin: 0; }
+
+/* ── BEFORE/AFTER ── */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.ba-item { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.ba-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; font-weight: 500; padding: .5rem 1rem; background: var(--cream); color: var(--dim); }
+
+/* ── PROTO ── */
+.proto-wrap { padding: 5rem 2.5rem; border-bottom: 1px solid var(--rule); }
+.proto-header { display: grid; grid-template-columns: 240px 1fr; gap: 3rem; margin-bottom: 2.5rem; align-items: start; }
+.proto-hints { display: flex; gap: 1.25rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; }
+.proto-hint { font-size: 11.5px; color: var(--dim); display: flex; align-items: flex-start; gap: 5px; }
+.proto-hint::before { content: "↗"; color: var(--green); font-size: 10px; flex-shrink: 0; margin-top: 2px; }
+.proto-chrome { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,.04); transition: box-shadow .35s; }
+.proto-chrome:hover { box-shadow: 0 8px 50px rgba(0,0,0,.08); }
+.proto-bar { background: #1a1a18; padding: 10px 14px; display: flex; align-items: center; gap: 6px; }
+.proto-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.proto-bar-label { font-size: 11px; color: #555; margin-left: 8px; }
+
+/* ── FOOTER ── */
+footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.5rem 2.5rem; border-top: 1px solid var(--rule); }
+.f-back { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; transition: color .2s, gap .25s cubic-bezier(.34,1.56,.64,1); }
+.f-back:hover { color: var(--ink); gap: .75rem; }
 .f-credit { font-size: 11px; color: var(--dim); }
 
-/* REVEAL */
-.r { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+/* ── INDEX specific ── */
+.work-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--dim); padding: 3rem 2.5rem 1.5rem; display: flex; align-items: center; gap: .75rem; }
+.work-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.case-list { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.case-card { display: block; background: var(--white); text-decoration: none; color: inherit; position: relative; overflow: hidden; transition: background .2s; }
+.case-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--green); transform: scaleY(0); transform-origin: bottom; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.case-card:hover::before { transform: scaleY(1); }
+.case-card:hover { background: var(--cream); }
+.case-card:hover .c-arrow { transform: translate(4px,-4px); }
+.c-eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: .65rem; }
+.c-title { font-size: clamp(1.5rem, 2.8vw, 2.4rem); font-weight: 300; line-height: 1.1; letter-spacing: -.03em; color: var(--ink); margin-bottom: .85rem; }
+.c-desc { font-size: 13px; color: var(--dim); line-height: 1.7; font-weight: 300; max-width: 520px; }
+.c-num { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 200; line-height: 1; letter-spacing: -.04em; color: var(--ink); text-align: right; }
+.c-num-label { font-size: 10px; color: var(--dim); text-align: right; margin-top: 3px; }
+.c-cta { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--ink); white-space: nowrap; letter-spacing: .06em; text-transform: uppercase; margin-top: 1.75rem; }
+.c-arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); font-size: 13px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 5rem 2.5rem; border-top: 1px solid var(--rule); }
+.about-grid h2 { font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 200; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1.25rem; }
+.about-grid p { font-size: 13.5px; color: var(--dim); line-height: 1.85; font-weight: 300; margin-bottom: .85rem; }
+.contact-row { display: flex; align-items: center; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--rule); font-size: 13px; transition: padding-left .2s ease; }
+.contact-row:first-of-type { border-top: 1px solid var(--rule); }
+.contact-row:hover { padding-left: .4rem; }
+.contact-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); min-width: 60px; }
+.contact-val { color: var(--ink); text-decoration: none; transition: color .2s; }
+.contact-val:hover { color: var(--green); }
+.site-footer { padding: 2rem 2.5rem; border-top: 1px solid var(--rule); font-size: 11px; color: var(--dim); }
+
+/* ── REVEAL ── */
+.r { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
 .r.on { opacity: 1; transform: none; }
+
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  :root { --nav-h: 50px; }
+  nav { padding: 0 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  .hero { padding: calc(var(--nav-h) + 2.5rem) 1.25rem 3rem; }
+  .hero h1 { font-size: clamp(2.4rem, 8vw, 3.4rem); }
+  .hero-meta { gap: 1.5rem; }
+  .meta-item { flex: 0 0 calc(50% - .75rem); }
+  .block { grid-template-columns: 1fr; padding: 3rem 1.25rem; gap: 1.5rem; }
+  .block-label { position: static; }
+  .challenge-grid { grid-template-columns: 1fr; }
+  .finding { grid-template-columns: 80px 1fr; }
+  .scope-grid, .before-after, .img-grid, .img-trio { grid-template-columns: 1fr; }
+  .loop-flow, .flow { flex-direction: column; }
+  .loop-step, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+  .loop-step:last-child, .flow-step:last-child { border-bottom: none; }
+  .impact-strip { grid-template-columns: 1fr 1fr; }
+  .impact-cell:last-child { grid-column: 1/-1; }
+  footer { grid-template-columns: 1fr; gap: .75rem; padding: 2.5rem 1.25rem; }
+  .proto-wrap { padding: 3rem 1.25rem; }
+  .proto-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .work-label { padding: 2.5rem 1.25rem 1.25rem; }
+  .case-card > div { grid-template-columns: 1fr !important; }
+  .case-card > div > div:last-child { align-items: flex-start !important; }
+  .about-grid { grid-template-columns: 1fr; padding: 3rem 1.25rem; gap: 2.5rem; }
+  .site-footer { padding: 1.75rem 1.25rem; }
+}
+
+
+/* ══ HERO bigger, bolder, expressivo ══ */
+.hero h1 {
+  font-size: clamp(3.2rem, 7.5vw, 8rem) !important;
+  font-weight: 600 !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.05em !important;
+}
+.hero h1 .accent {
+  color: var(--green);
+  font-weight: 300;
+}
+.hero-label {
+  font-size: 10px !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 500 !important;
+}
+
+/* ══ CASE CARDS bigger title, dramatic hover ══ */
+.case-card {
+  transition: background 0.25s ease !important;
+}
+.c-title {
+  font-size: clamp(1.7rem, 3.2vw, 2.8rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.04em !important;
+  transition: color 0.2s ease;
+}
+.case-card:hover .c-title { color: var(--green); }
+.c-eyebrow {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+}
+.c-num {
+  font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+  transition: color 0.2s ease;
+}
+.case-card:hover .c-num { color: var(--green); }
+
+/* ══ IMPACT NUMBERS much bigger ══ */
+.impact-num {
+  font-size: clamp(3.5rem, 6vw, 5.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+}
+
+/* ══ CONTENT H2 more weight and size ══ */
+.content h2 {
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.06 !important;
+  letter-spacing: -0.035em !important;
+}
+
+/* ══ BLOCK LABEL green accent when visible ══ */
+.block-num {
+  transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1) !important;
+}
+.block.vis .block-num {
+  color: var(--green) !important;
+  transform: translateX(4px);
+}
+.block-title {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
+
+/* ══ PULLQUOTE larger, more presence ══ */
+.pq p {
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem) !important;
+  font-weight: 300 !important;
+  font-style: italic;
+  letter-spacing: -0.015em !important;
+}
+
+/* ══ CHALLENGE CARD H3 more spacing on hover ══ */
+.challenge-card h3 {
+  transition: letter-spacing 0.3s ease, color 0.2s ease !important;
+}
+.challenge-card:hover h3 { letter-spacing: 0.16em !important; }
+
+/* ══ FINDING hover stronger ══ */
+.finding:hover .f-title {
+  color: var(--green) !important;
+  letter-spacing: 0.01em;
+}
+.f-title { transition: color 0.2s ease, letter-spacing 0.3s ease; }
+
+/* ══ LEARNING title ══ */
+.l-title {
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* ══ NAV tighter, smaller ══ */
+.nav-home {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+}
+.nav-links a { font-size: 10px !important; letter-spacing: 0.12em !important; }
+
+/* ══ FOOTER accent on hover ══ */
+.f-back { transition: color 0.2s ease, gap 0.3s cubic-bezier(0.34,1.56,0.64,1) !important; }
+.f-back:hover { color: var(--green) !important; }
+
+/* ══ SCROLL REVEAL staggered and springy ══ */
+.r {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1) !important;
+}
+
+/* ══ ABOUT H2 giant ══ */
+.about-grid h2 {
+  font-size: clamp(2rem, 4.5vw, 4.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+  line-height: 0.98 !important;
+}
+
+/* ══ LOOP STEP label ══ */
+.ls-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+}
+.ls-num {
+  font-size: 9px !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* ══ SCOPE HEAD full ══ */
+.scope-head.full { color: var(--ink) !important; font-weight: 500 !important; }
+
+/* ══ PROTO HINT ══ */
+.proto-hint { font-size: 12px; }
+
+/* ══ WORK LABEL ══ */
+.work-label {
+  font-size: 10px !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 500 !important;
+}
+
+/* ══ HERO META label ══ */
+.meta-label { letter-spacing: 0.18em !important; }
+.meta-val { font-size: 14px !important; }
+
+/* ══ IMPACT LABEL ══ */
+.impact-label { font-size: 13px !important; line-height: 1.6 !important; }
+
+/* ══ c-desc ══ */
+.c-desc { font-size: 14px !important; line-height: 1.75 !important; }
+
+/* ══ CASE CTA ══ */
+.c-cta {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 600 !important;
+}
+
+/* ══ HERO sub ══ */
+.hero-sub {
+  font-size: 1.05rem !important;
+  color: var(--dim) !important;
+  max-width: 480px !important;
+}
+
+/* ══ content p ══ */
+.content p { font-size: 1.02rem !important; }
+
+/* ══ Magnetic CTA arrow animation ══ */
+.c-arrow { display: inline-block; }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: clamp(2.6rem, 9vw, 4rem) !important; }
+  .c-title { font-size: clamp(1.5rem, 6vw, 2.2rem) !important; }
+  .impact-num { font-size: clamp(2.8rem, 8vw, 4rem) !important; }
+  .content h2 { font-size: clamp(1.6rem, 5vw, 2.4rem) !important; }
+  .about-grid h2 { font-size: clamp(1.8rem, 7vw, 3rem) !important; }
+}
 
 /* ==============================
    PROTOTYPE SECTION
@@ -424,200 +791,126 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
 </style>
 </head>
 <body>
-
 <div id="progress"></div>
-
-<nav id="nav">
-  <a href="index.html" class="nav-home">Isabel Casanova</a>
-  <div class="nav-links">
-    <a href="factorial-case-study.html">Factorial</a>
-    <a href="wicitio-case-study.html">Wecitio</a>
-    <a href="paid-case-study.html" class="active">Paid.ai</a>
-  </div>
-</nav>
-
-<!-- HERO -->
+<nav id="nav"><a href="index.html" class="nav-home">← Isabel Casanova</a><div class="nav-links"><a href="factorial-case-study.html">Factorial</a><a href="wicitio-case-study.html">Wecitio</a><a href="paid-case-study.html" class='active'>Paid.ai</a></div></nav>
 <div class="hero">
-  <div class="hero-label">Paid.ai &nbsp;&middot;&nbsp; 2025 &nbsp;&middot;&nbsp; Freelance &nbsp;&middot;&nbsp; Solo</div>
-  <h1>Making AI value<br>visible, measurable,<br>and billable.</h1>
+  <div class="hero-label">Paid.ai · 2025–2026 · AI Infrastructure · Freelance</div>
+  <h1>Making AI value <span class="accent">visible,</span><br><span class="accent">measurable,</span><br>and billable.</h1>
   <div class="hero-meta">
     <div class="meta-item"><div class="meta-label">Role</div><div class="meta-val">Product Design Consultant</div></div>
     <div class="meta-item"><div class="meta-label">Scope</div><div class="meta-val">MVP + Full product vision</div></div>
-    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">Freelance &middot; Solo</div></div>
-    <div class="meta-item"><div class="meta-label">Year</div><div class="meta-val">2025</div></div>
+    <div class="meta-item"><div class="meta-label">Type</div><div class="meta-val">Freelance</div></div>
+    <div class="meta-item"><div class="meta-label">Year</div><div class="meta-val">2025–2026</div></div>
   </div>
 </div>
 
-<!-- 01 CONTEXT -->
-<div class="block r">
-  <div class="block-label">
-    <div class="block-num">01</div>
-    <div class="block-title">Context</div>
-    <div class="block-sub">A new company in<br>a category that barely existed</div>
+<div style="padding:0 2.5rem 4rem;border-bottom:1px solid var(--rule);">
+  <div class="impact-strip r">
+    <div class="impact-cell"><span class="impact-num">+25%</span><div class="impact-label">Faster onboarding for early operators</div></div>
+    <div class="impact-cell"><span class="impact-num">+20%</span><div class="impact-label">Adoption clearer AI value connection</div></div>
+    <div class="impact-cell"><span class="impact-num">30%</span><div class="impact-label">Improvement in billing accuracy</div></div>
   </div>
+</div>
+
+<div class="block r">
+  <div class="block-label"><div class="block-num">01</div><div class="block-title">Context</div><div class="block-sub">A new company in<br>a category that barely existed.</div></div>
   <div class="content">
     <h2>AI companies are flying blind<br>on the value they create.</h2>
-    <p>Paid.ai is building monetisation infrastructure for AI-native businesses — the companies that run AI agents on behalf of customers and need to track what those agents do, what they cost, and what value they generate. A product category that barely existed before 2024.</p>
-    <p>The founding team had a clear thesis: <strong>AI agents do more work, cost more to run, and create more value than traditional SaaS</strong> — yet most companies building with AI have no visibility into any of it. Which customer generates the most AI cost? Which workflow delivers the most value? Are we actually making money?</p>
-    <p>They brought me in as sole designer to answer those questions through product: define the full experience, shape the MVP, and design the larger platform vision in parallel — so the team could build with confidence and sell with clarity.</p>
+    <p>Paid.ai is building monetisation infrastructure for AI-native businesses the companies that run AI agents on behalf of customers and need to track what those agents do, what they cost, and what value they generate.</p>
+    <p>The founding team's thesis: AI agents do more work, cost more to run, and create more value than traditional SaaS yet most companies building with AI have no visibility into any of it. They brought me in as sole designer to define the full experience, shape the MVP, and design the larger platform vision in parallel.</p>
   </div>
 </div>
 
-<!-- 02 PROBLEM -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">02</div>
-    <div class="block-title">The problem</div>
-    <div class="block-sub">Three distinct problems<br>that had to feel like one product</div>
-  </div>
+<div class="block alt r">
+  <div class="block-label"><div class="block-num">02</div><div class="block-title">The problem</div><div class="block-sub">The brief said billing.<br>The real problem was earlier.</div></div>
   <div class="content">
     <h2>The brief said billing.<br>The real problem was much earlier.</h2>
-    <p>I spent time with the founding team stress-testing their hypotheses and talking to their target customers: small AI companies, two to ten people, running vertical agents for enterprise clients. Companies already in production, with no visibility into what their agents cost or delivered.</p>
-    <p>What emerged from those conversations reframed the product entirely.</p>
-    <div class="pq r">
-      <p>"The brief said billing platform. The research said: your customers don't have a billing problem. They have a value visibility problem. Billing is the last step, not the first."</p>
-    </div>
-    <div class="problem-rows r">
-      <div class="problem-row">
-        <div class="pr-num">01</div>
-        <div><div class="pr-title">Observability</div><div class="pr-body">Operators couldn't see what their agents were doing. Every run was a black box — no cost, no outcome, no trace. You can't charge for value you can't see.</div></div>
-      </div>
-      <div class="problem-row">
-        <div class="pr-num">02</div>
-        <div><div class="pr-title">Value attribution</div><div class="pr-body">Translating executions into business value was conceptually new. No established pattern existed. "12,000 tokens consumed" means nothing to a customer. "Ticket resolved — $45" does.</div></div>
-      </div>
-      <div class="problem-row">
-        <div class="pr-num">03</div>
-        <div><div class="pr-title">Billing and proof</div><div class="pr-body">Invoices alone weren't enough. Customers needed evidence — execution traces, outcomes, source links — to justify renewing. The delivery report was more valuable than the bill itself.</div></div>
-      </div>
-      <div class="problem-row">
-        <div class="pr-num">04</div>
-        <div><div class="pr-title">Coherence</div><div class="pr-body">Each problem had its own user, data model, and mental model. Making them feel like one product — not three tools bolted together — was the central design challenge.</div></div>
-      </div>
+    <p>Time with the founding team and their target customers: small AI companies, two to ten people, running vertical agents for enterprise clients. Already in production, with no visibility into what their agents cost or delivered.</p>
+    <div class="pq r"><p>"The brief said billing platform. The research said: your customers don't have a billing problem. They have a value visibility problem. Billing is the last step, not the first."</p></div>
+    <div class="challenge-grid r">
+      <div class="challenge-card"><h3>Observability</h3><p>Operators couldn't see what their agents were doing. Every run was a black box no cost, no outcome, no trace.</p></div>
+      <div class="challenge-card"><h3>Value attribution</h3><p>"12,000 tokens consumed" means nothing to a customer. "Ticket resolved $45" does. Translating executions into business value was conceptually new.</p></div>
+      <div class="challenge-card"><h3>Billing and proof</h3><p>Invoices alone weren't enough. The delivery report with execution traces, outcomes, source links was more valuable than the bill itself.</p></div>
+      <div class="challenge-card"><h3>Coherence</h3><p>Each problem had its own user, data model, and mental model. Making them feel like one product was the central design challenge.</p></div>
     </div>
   </div>
 </div>
 
-<!-- 03 RESEARCH -->
 <div class="block r">
-  <div class="block-label">
-    <div class="block-num">03</div>
-    <div class="block-title">Research & framing</div>
-    <div class="block-sub">From conversations to<br>a product architecture</div>
-  </div>
+  <div class="block-label"><div class="block-num">03</div><div class="block-title">Research &amp; framing</div><div class="block-sub">From conversations<br>to a product loop.</div></div>
   <div class="content">
     <h2>From user conversations<br>to a product loop.</h2>
-    <p>The key structural insight from research was that these companies weren't navigating three separate problems — they were navigating a single loop, and they kept falling out of it at different points. Define what you're doing → run it → see what it generated → charge for it → prove it to the customer. The design had to make that loop explicit, and keep the user inside it.</p>
-    <div class="findings r">
-      <div class="finding">
-        <div class="f-tag">Finding 01</div>
-        <div><div class="f-title">Outcome is the unit, not the token</div><div class="f-body">Users understood "Ticket Resolved — $45" immediately. They didn't understand "1,240 tokens consumed". The whole product had to speak in business outcomes, not technical events.</div></div>
-      </div>
-      <div class="finding">
-        <div class="f-tag">Finding 02</div>
-        <div><div class="f-title">Evidence is more valuable than the invoice</div><div class="f-body">The document that proved value was delivered — with linked traces and execution data — was what customers actually used to justify renewal internally. The invoice was just the last step.</div></div>
-      </div>
-      <div class="finding">
-        <div class="f-tag">Finding 03</div>
-        <div><div class="f-title">The mental model is the product</div><div class="f-body">In a new category, you design both the interface and the concept. Every screen had to teach the same loop: Define → Execute → Attribute → Bill → Prove ROI.</div></div>
-      </div>
-    </div>
-    <div class="ia-row r">
-      <div>
-        <div class="ia-head">The product loop</div>
-        <div class="loop" style="border:none;padding:1rem 0;margin:0;flex-direction:column;gap:0.5rem;">
-          <div class="ln"><div class="ln-step">01</div><div class="ln-label">Define</div><div class="ln-sub">Workflow, outcome, value per outcome</div></div>
-          <div style="width:1px;height:16px;background:var(--rule);margin-left:12px;"></div>
-          <div class="ln"><div class="ln-step">02</div><div class="ln-label">Execute</div><div class="ln-sub">Agent runs, every trace captured</div></div>
-          <div style="width:1px;height:16px;background:var(--rule);margin-left:12px;"></div>
-          <div class="ln"><div class="ln-step">03</div><div class="ln-label">Attribute</div><div class="ln-sub">Outcome linked to business value</div></div>
-          <div style="width:1px;height:16px;background:var(--rule);margin-left:12px;"></div>
-          <div class="ln"><div class="ln-step">04</div><div class="ln-label">Bill</div><div class="ln-sub">Invoice from attributed value</div></div>
-          <div style="width:1px;height:16px;background:var(--rule);margin-left:12px;"></div>
-          <div class="ln"><div class="ln-step">05</div><div class="ln-label">Prove ROI</div><div class="ln-sub">Evidence-backed delivery report</div></div>
-        </div>
-      </div>
-      <div>
-        <div class="ia-head">User journeys by role</div>
-        <div class="journeys">
-          <div class="journey"><div class="j-dot" style="background:#1a6e38"></div><div><div class="j-role">Operator (daily)</div><div class="j-flow">Check executions → review value generated → approve bill</div></div></div>
-          <div class="journey"><div class="j-dot" style="background:#3b82f6"></div><div><div class="j-role">Developer (setup)</div><div class="j-flow">Create workflow → define outcome → set value → publish</div></div></div>
-          <div class="journey"><div class="j-dot" style="background:#d97706"></div><div><div class="j-role">Finance (monthly)</div><div class="j-flow">Review value → generate delivery report → create bill</div></div></div>
-          <div class="journey"><div class="j-dot" style="background:#7c3aed"></div><div><div class="j-role">Customer (renewal)</div><div class="j-flow">Receive report → review ROI evidence → renew</div></div></div>
-        </div>
-      </div>
+    <p>The key structural insight: these companies weren't navigating three separate problems they were navigating a single loop, falling out of it at different points.</p>
+    <div class="finding r"><div class="f-tag">Finding 01</div><div><div class="f-title">Outcome is the unit, not the token</div><div class="f-body">Users understood "Ticket Resolved $45" immediately. The whole product had to speak in business outcomes, not technical events, at every level and in every screen.</div></div></div>
+    <div class="finding r"><div class="f-tag">Finding 02</div><div><div class="f-title">Evidence is more valuable than the invoice</div><div class="f-body">The document proving value was delivered with linked traces was what customers used to justify renewal internally. The invoice was just the last step.</div></div></div>
+    <div class="finding r"><div class="f-tag">Finding 03</div><div><div class="f-title">The mental model is the product</div><div class="f-body">In a new category, you design both the interface and the concept. Every screen had to teach the same loop: Define, Execute, Attribute, Bill, Prove ROI.</div></div></div>
+    <div class="loop-flow r">
+      <div class="loop-step"><div class="ls-num">01</div><div class="ls-label">Define</div><div class="ls-sub">Workflow, outcome, value per outcome</div></div>
+      <div class="loop-step"><div class="ls-num">02</div><div class="ls-label">Execute</div><div class="ls-sub">Agent runs, every trace captured</div></div>
+      <div class="loop-step"><div class="ls-num">03</div><div class="ls-label">Attribute</div><div class="ls-sub">Outcome linked to business value</div></div>
+      <div class="loop-step"><div class="ls-num">04</div><div class="ls-label">Bill</div><div class="ls-sub">Invoice from attributed value</div></div>
+      <div class="loop-step"><div class="ls-num">05</div><div class="ls-label">Prove ROI</div><div class="ls-sub">Evidence-backed delivery report</div></div>
     </div>
   </div>
 </div>
 
-<!-- 04 MVP PRIORITISATION -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">04</div>
-    <div class="block-title">Scope &amp; prioritisation</div>
-    <div class="block-sub">What to build first,<br>and why</div>
-  </div>
+<div class="block alt r">
+  <div class="block-label"><div class="block-num">04</div><div class="block-title">Scope &amp; prioritisation</div><div class="block-sub">What to build first,<br>and why.</div></div>
   <div class="content">
     <h2>Two scopes, one design language,<br>one product loop.</h2>
-    <p>I delivered two distinct design scopes. The MVP had a single constraint: everything in it had to be something a team of two could ship in weeks, not months. That discipline forced hard prioritisation — and produced a much clearer product.</p>
-    <p>The large product vision extended the same loop into a full platform, adding the home dashboard, full workflow builder, execution charts, value intelligence with breakdowns by workflow and customer, billing lifecycle management, and reports with automated insights. The design system was identical across both — so the MVP felt like the beginning of something, not a prototype.</p>
+    <p>The MVP had a single constraint: everything in it had to be something a team of two could ship in weeks. That discipline forced hard prioritisation and produced a much clearer product. The large product vision extended the same loop into a full platform, with identical design system across both.</p>
     <div class="scope-grid r">
       <div>
-        <div class="scope-head">MVP — ship in weeks</div>
+        <div class="scope-head">MVP ship in weeks</div>
         <ul class="scope-list f">
           <li>Workflow definition: name, customer, outcome, value estimate</li>
           <li>Execution list with status, cost, and value per run</li>
-          <li>Evidence block per execution — exportable as PDF</li>
-          <li>Value view: total generated, contributing executions, recent events</li>
+          <li>Evidence block per execution exportable as PDF</li>
+          <li>Value view: total generated, recent value events</li>
           <li>Billing table with draft bill creation</li>
-          <li>Delivery report: workflows, outcomes, value, linked evidence</li>
+          <li>Delivery report: outcomes, value, linked evidence</li>
         </ul>
       </div>
       <div>
-        <div class="scope-head full">Full platform — the vision</div>
+        <div class="scope-head full">Full platform the vision</div>
         <ul class="scope-list v">
           <li>Home dashboard: revenue trends, value summary, customer table</li>
           <li>Full workflow builder with block library</li>
           <li>Executions with chart, trace, logs and evidence tabs</li>
           <li>Value intelligence: by workflow, by customer, over time</li>
-          <li>Billing lifecycle: draft → review → approved → exported</li>
+          <li>Billing lifecycle: draft, review, approved, exported</li>
           <li>Reports hub with automated insights</li>
-          <li>Credits &amp; observability system</li>
         </ul>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 05 THE PRODUCT — PROTOTYPE -->
-<div class="proto-section r">
+<div class="proto-wrap r">
   <div class="proto-header">
-    <div class="block-label" style="position:sticky;top:8rem;">
+    <div class="block-label" style="position:sticky;top:calc(var(--nav-h) + 1.5rem);">
       <div class="block-num">05</div>
       <div class="block-title">The product</div>
-      <div class="block-sub">Interactive prototype —<br>both scopes, fully clickable</div>
+      <div class="block-sub">Both scopes, fully<br>interactive.</div>
     </div>
-    <div class="proto-intro">
+    <div class="content">
       <h2>Navigate the product<br>as it was designed.</h2>
-      <p>The prototype below shows both scopes side by side. In the sidebar: <strong>AI Value MVP</strong> is the lean version shipped to early customers. <strong>AI Value</strong> is the full platform vision. Same design language, same loop, different maturity.</p>
+      <p>The prototype below shows both scopes. In the sidebar: <strong>AI Value MVP</strong> is the lean version shipped to early customers. <strong>AI Value</strong> is the full platform vision. Same design language, same loop, different maturity.</p>
       <div class="proto-hints">
         <div class="proto-hint">Click any workflow row to open the builder</div>
         <div class="proto-hint">Click any execution to see detail panel with evidence</div>
-        <div class="proto-hint">On the large product: Executions tab has trace, logs &amp; evidence</div>
-        <div class="proto-hint">Create bill and delivery report are both interactive</div>
+        <div class="proto-hint">Large product: Executions has Trace, Logs &amp; Evidence tabs</div>
+        <div class="proto-hint">Create bill and delivery report are fully interactive</div>
       </div>
     </div>
   </div>
-
-  <div class="proto-chrome r">
+  <div class="proto-chrome">
     <div class="proto-bar">
       <div class="proto-dot" style="background:#ff5f57;"></div>
       <div class="proto-dot" style="background:#febc2e;"></div>
       <div class="proto-dot" style="background:#28c840;"></div>
-      <span class="proto-bar-title">paid.ai &mdash; interactive prototype</span>
+      <span class="proto-bar-label">paid.ai interactive prototype</span>
     </div>
-
-    <!-- ===================== PROTOTYPE ===================== -->
     <div id="paidProto">
 
       <!-- SIDEBAR -->
@@ -745,7 +1038,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
                   <tr onclick="pOpenExec('r-003','Support Automation','Acme Corp','Success','2.1s','$0.03','Ticket Resolved','$45')"><td><span class="id-link">r-003</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td class="val-green">$45</td><td>15m ago</td></tr>
                   <tr onclick="pOpenExec('r-004','Document Processing','Global Systems','Success','1.5s','$0.08','Document Generated','$22')"><td><span class="id-link">r-004</span></td><td>Document Processing</td><td>Global Systems</td><td><span class="pill green">Success</span></td><td class="val-green">$22</td><td>22m ago</td></tr>
                   <tr onclick="pOpenExec('r-005','Data Enrichment','DataFlow AI','Success','2.1s','$0.12','Record Enriched','$20')"><td><span class="id-link">r-005</span></td><td>Data Enrichment</td><td>DataFlow AI</td><td><span class="pill green">Success</span></td><td class="val-green">$20</td><td>30m ago</td></tr>
-                  <tr onclick="pOpenExec('r-006','Support Automation','Acme Corp','Failed','1.2s','$0.02','—','—')"><td><span class="id-link">r-006</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill red">Failed</span></td><td>—</td><td>45m ago</td></tr>
+                  <tr onclick="pOpenExec('r-006','Support Automation','Acme Corp','Failed','1.2s','$0.02',' ',' ')"><td><span class="id-link">r-006</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill red">Failed</span></td><td> </td><td>45m ago</td></tr>
                 </tbody></table>
               </div>
             </div>
@@ -838,7 +1131,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
                 </div>
                 <div class="p-draft">
                   <div class="p-draft-label">Draft preview</div>
-                  <div class="p-draft-row"><span>Customer</span><span>—</span></div>
+                  <div class="p-draft-row"><span>Customer</span><span> </span></div>
                   <div class="p-draft-row"><span>Period</span><span>This month</span></div>
                   <div class="p-draft-row"><span>Type</span><span>Outcome-based</span></div>
                   <div class="p-draft-row"><span>Total</span><strong>$0</strong></div>
@@ -933,7 +1226,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
                   <tr onclick="pOpenExecLarge('EX-002','Sales Qualification','TechStart','Success','1.2s','$0.05','Lead Qualified','$120')"><td><span class="id-link">EX-002</span></td><td>Sales Qualification</td><td>TechStart</td><td><span class="pill green">Success</span></td><td>1.2s</td><td>$0.05</td><td>Lead Qualified</td><td class="val-green">$120</td></tr>
                   <tr onclick="pOpenExecLarge('EX-003','Document Processing','Global Systems','Success','1.5s','$0.08','Document Generated','$22')"><td><span class="id-link">EX-003</span></td><td>Document Processing</td><td>Global Systems</td><td><span class="pill green">Success</span></td><td>1.5s</td><td>$0.08</td><td>Document Generated</td><td class="val-green">$22</td></tr>
                   <tr onclick="pOpenExecLarge('EX-004','Data Enrichment','DataFlow AI','Success','2.1s','$0.12','Record Enriched','$20')"><td><span class="id-link">EX-004</span></td><td>Data Enrichment</td><td>DataFlow AI</td><td><span class="pill green">Success</span></td><td>2.1s</td><td>$0.12</td><td>Record Enriched</td><td class="val-green">$20</td></tr>
-                  <tr onclick="pOpenExecLarge('EX-005','Email Triage','CloudNine','Failed','2.8s','$0.03','—','$0')"><td><span class="id-link">EX-005</span></td><td>Email Triage</td><td>CloudNine</td><td><span class="pill red">Failed</span></td><td>2.8s</td><td>$0.03</td><td>—</td><td>$0</td></tr>
+                  <tr onclick="pOpenExecLarge('EX-005','Email Triage','CloudNine','Failed','2.8s','$0.03',' ','$0')"><td><span class="id-link">EX-005</span></td><td>Email Triage</td><td>CloudNine</td><td><span class="pill red">Failed</span></td><td>2.8s</td><td>$0.03</td><td> </td><td>$0</td></tr>
                   <tr onclick="pOpenExecLarge('EX-006','Invoice Matching','Acme Corp','Success','3.2s','$0.15','Invoice Matched','$30')"><td><span class="id-link">EX-006</span></td><td>Invoice Matching</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td>3.2s</td><td>$0.15</td><td>Invoice Matched</td><td class="val-green">$30</td></tr>
                 </tbody></table>
               </div>
@@ -1022,15 +1315,15 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
               <div class="p-table-wrap">
                 <table><thead><tr><th>Report</th><th>Customer</th><th>Period</th><th>Type</th><th>Status</th><th>Last updated</th></tr></thead>
                 <tbody>
-                  <tr onclick="pOpenDelivery()"><td>Acme Corp — Feb 2026 Value Report</td><td>Acme Corp</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill green">Published</span></td><td>1d ago</td></tr>
-                  <tr><td>TechStart — Customer Delivery Summary</td><td>TechStart</td><td>Feb 2026</td><td>Customer delivery summary</td><td><span class="pill gray">Draft</span></td><td>3h ago</td></tr>
+                  <tr onclick="pOpenDelivery()"><td>Acme Corp Feb 2026 Value Report</td><td>Acme Corp</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill green">Published</span></td><td>1d ago</td></tr>
+                  <tr><td>TechStart Customer Delivery Summary</td><td>TechStart</td><td>Feb 2026</td><td>Customer delivery summary</td><td><span class="pill gray">Draft</span></td><td>3h ago</td></tr>
                   <tr><td>Q1 2026 Billing Summary</td><td>All</td><td>Q1 2026</td><td>Billing summary</td><td><span class="pill gray">Draft</span></td><td>2h ago</td></tr>
-                  <tr><td>Support Automation — Performance Report</td><td>Acme Corp</td><td>Jan–Feb 2026</td><td>Workflow performance</td><td><span class="pill green">Published</span></td><td>4d ago</td></tr>
-                  <tr><td>CloudNine — Monthly Value Report</td><td>CloudNine</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill blue">Shared</span></td><td>1d ago</td></tr>
+                  <tr><td>Support Automation Performance Report</td><td>Acme Corp</td><td>Jan–Feb 2026</td><td>Workflow performance</td><td><span class="pill green">Published</span></td><td>4d ago</td></tr>
+                  <tr><td>CloudNine Monthly Value Report</td><td>CloudNine</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill blue">Shared</span></td><td>1d ago</td></tr>
                 </tbody></table>
               </div>
               <div class="p-insights">
-                <div class="p-insights-label">💡 Insights — Patterns across workflows, value, and billing</div>
+                <div class="p-insights-label">💡 Insights Patterns across workflows, value, and billing</div>
                 <div class="p-insight">Support Automation generated 34% more value this week compared to last week.<span class="p-insight-link">View workflow performance →</span></div>
                 <div class="p-insight">TechStart has $41,220 in unbilled value from the last two periods.<span class="p-insight-link">Review billing for TechStart →</span></div>
                 <div class="p-insight">Document Processing has the highest average value per outcome at $22 per document.<span class="p-insight-link">Explore value attribution →</span></div>
@@ -1043,7 +1336,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
           <!-- Large exec panel (with tabs) -->
           <div class="p-overlay" id="pExecPanelLarge" onclick="if(event.target===this)document.getElementById('pExecPanelLarge').classList.remove('open')">
             <div class="p-panel">
-              <div class="p-panel-head"><div><div class="p-panel-title" id="pLpId">EX-001</div><div class="p-panel-sub" id="pLpSub">Support Automation — Acme Corp</div></div><span class="p-close" onclick="document.getElementById('pExecPanelLarge').classList.remove('open')">✕</span></div>
+              <div class="p-panel-head"><div><div class="p-panel-title" id="pLpId">EX-001</div><div class="p-panel-sub" id="pLpSub">Support Automation Acme Corp</div></div><span class="p-close" onclick="document.getElementById('pExecPanelLarge').classList.remove('open')">✕</span></div>
               <div class="p-panel-tabs">
                 <div class="p-panel-tab active" onclick="pLpTab(this,'pLp-overview')">Overview</div>
                 <div class="p-panel-tab" onclick="pLpTab(this,'pLp-trace')">Trace</div>
@@ -1124,8 +1417,8 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
                 <textarea class="p-input" style="height:55px;resize:none;" placeholder="Optional billing notes..."></textarea>
                 <div class="p-draft">
                   <div class="p-draft-label">Bill preview</div>
-                  <div class="p-draft-row"><span>Customer</span><span>—</span></div>
-                  <div class="p-draft-row"><span>Period</span><span>—</span></div>
+                  <div class="p-draft-row"><span>Customer</span><span> </span></div>
+                  <div class="p-draft-row"><span>Period</span><span> </span></div>
                   <div class="p-draft-row"><span>Scope</span><span>All workflows</span></div>
                   <div class="p-draft-row"><span>Total</span><strong>$0</strong></div>
                   <div class="p-draft-row"><span>Status</span><strong>Draft</strong></div>
@@ -1143,7 +1436,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
           <div class="p-delivery-overlay" id="pDeliveryModal" onclick="if(event.target===this)document.getElementById('pDeliveryModal').classList.remove('open')">
             <div class="p-delivery-modal">
               <div class="p-delivery-head">
-                <div><div class="p-delivery-title">Delivery Report — Acme Corp</div></div>
+                <div><div class="p-delivery-title">Delivery Report Acme Corp</div></div>
                 <span class="p-close" onclick="document.getElementById('pDeliveryModal').classList.remove('open')" style="font-size:18px;">✕</span>
               </div>
               <div class="p-delivery-body">
@@ -1239,7 +1532,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
               <div class="p-detail-row"><span class="p-detail-label">Customer</span><span class="p-detail-value" id="pPropsCustomer">Acme Corp</span></div>
               <div class="p-detail-row"><span class="p-detail-label">Primary outcome</span><span class="p-detail-value" id="pPropsOutcome">Ticket Resolved</span></div>
               <div class="p-detail-row"><span class="p-detail-label">Version</span><span class="p-detail-value">v1</span></div>
-              <div class="p-detail-row"><span class="p-detail-label">Published</span><span class="p-detail-value" id="pPropsPublished">—</span></div>
+              <div class="p-detail-row"><span class="p-detail-label">Published</span><span class="p-detail-value" id="pPropsPublished"> </span></div>
               <div class="p-props-section">Value &amp; Billing</div>
               <div class="p-detail-row"><span class="p-detail-label">Expected value</span><span class="p-detail-value val-green" id="pPropsValue">$45</span></div>
               <div class="p-detail-row"><span class="p-detail-label">Billing eligibility</span><span class="p-detail-value val-green">Eligible</span></div>
@@ -1250,103 +1543,220 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
 
       </div><!-- /p-main -->
     </div><!-- /paidProto -->
-    <!-- ===================== END PROTOTYPE ===================== -->
-  </div><!-- /proto-chrome -->
-</div><!-- /proto-section -->
-
-<!-- 06 IMPACT -->
-<div class="block r">
-  <div class="block-label">
-    <div class="block-num">06</div>
-    <div class="block-title">Impact</div>
-    <div class="block-sub">What the work<br>moved</div>
-  </div>
-  <div class="content">
-    <h2>A clearer product that was easier<br>to sell, adopt, and build on.</h2>
-    <p>The design work shaped how Paid.ai's team thought about and explained their own product. By making the value loop explicit — and designing every screen to reinforce it — the MVP became something operators could understand immediately, and customers could evaluate confidently.</p>
-    <div class="impact-row r">
-      <div class="impact-cell">
-        <div class="impact-num">+25%</div>
-        <div class="impact-label">Faster onboarding — operators understood the product on first use</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-num">+20%</div>
-        <div class="impact-label">Adoption — clearer connection between AI work and measurable business value</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-num">30%</div>
-        <div class="impact-label">Improvement in billing accuracy — value attributed at source, not reconciled manually</div>
-      </div>
-    </div>
-    <p>The large product vision gave the engineering team a clear destination: not just what to build next, but how each addition would extend the same loop. The design system was shared across both scopes, so nothing built for the MVP had to be thrown away.</p>
   </div>
 </div>
 
-<!-- 07 LEARNINGS -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">07</div>
-    <div class="block-title">Learnings</div>
-    <div class="block-sub">What designing a new<br>category teaches you</div>
-  </div>
+<div class="block r">
+  <div class="block-label"><div class="block-num">06</div><div class="block-title">Learnings</div></div>
   <div class="content">
     <h2>What designing a new<br>category teaches you.</h2>
-    <div class="r">
-      <div class="learning">
-        <div class="l-n">01</div>
-        <div><div class="l-title">The mental model is the product</div><div class="l-body">In an established category, users arrive with a mental model. In a new category, you have to design both the interface and the concept. The loop — Define, Execute, Attribute, Bill, Prove — was not just a UX pattern. It was the core concept the product needed to teach. Every screen had to reinforce it.</div></div>
-      </div>
-      <div class="learning">
-        <div class="l-n">02</div>
-        <div><div class="l-title">Abstract concepts need concrete anchors</div><div class="l-body">"Value generated by AI" is meaningless without a number, an outcome, and evidence. The design had to translate every technical event into business language — at every level, in every screen. The atomic unit of the whole product was "Ticket Resolved — $45", not a token count.</div></div>
-      </div>
-      <div class="learning">
-        <div class="l-n">03</div>
-        <div><div class="l-title">Scope discipline is a design skill</div><div class="l-body">Designing MVP and large scope simultaneously is a trap if you don't hold the line. The MVP wasn't a simplified version of the big product — it was a separate deliverable with a separate constraint: something two engineers could ship in weeks. That discipline produced a better MVP and a more credible vision.</div></div>
-      </div>
-    </div>
+    <div class="learning"><div class="l-n">01</div><div><div class="l-title">The mental model is the product</div><div class="l-body">In an established category, users arrive with a mental model. In a new category, you design both the interface and the concept. The loop Define, Execute, Attribute, Bill, Prove was not just a UX pattern. Every screen had to reinforce it.</div></div></div>
+    <div class="learning"><div class="l-n">02</div><div><div class="l-title">Abstract concepts need concrete anchors</div><div class="l-body">The atomic unit of the whole product was "Ticket Resolved $45", not a token count. Clarity at the atomic level made everything else legible.</div></div></div>
+    <div class="learning"><div class="l-n">03</div><div><div class="l-title">Scope discipline is a design skill</div><div class="l-body">The MVP wasn't a simplified version of the big product it was a separate deliverable with its own constraint: something two engineers could ship in weeks. That discipline produced a better MVP and a more credible vision.</div></div></div>
   </div>
 </div>
 
-<footer>
-  <a href="index.html" class="f-back">&#8592; Back to portfolio</a>
-  <div class="f-credit">Isabel Casanova &middot; 2025</div>
-</footer>
-
+<footer><a href="index.html" class="f-back">← Back to all work</a><div class="f-credit">Isabel Casanova · 2026</div></footer>
 <script>
-(function() {
-  /* ======== CASE STUDY ======== */
-  window.addEventListener('scroll', () => {
-    const t = document.body.scrollHeight - window.innerHeight;
-    document.getElementById('progress').style.width = (window.scrollY / t * 100) + '%';
-    document.getElementById('nav').classList.toggle('s', window.scrollY > 60);
-  }, { passive: true });
 
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('on'), i * 80); obs.unobserve(e.target); }
-    });
-  }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+// Progress + nav
+function updateUI() {
+  const max = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.width = max > 0 ? (window.scrollY / max * 100) + '%' : '0%';
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30);
+}
+window.addEventListener('scroll', updateUI, { passive: true });
+updateUI();
 
+// Reveal
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('on'), i * 55); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+document.querySelectorAll('.r').forEach(el => revealObs.observe(el));
+setTimeout(() => document.querySelectorAll('.r').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('on');
+}), 80);
+
+// Block vis (green num)
+const blockObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => e.target.classList.toggle('vis', e.isIntersecting));
+}, { threshold: 0.25 });
+document.querySelectorAll('.block').forEach(el => blockObs.observe(el));
+
+// Pullquote line
+const pqObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); pqObs.unobserve(e.target); } });
+}, { threshold: 0.4 });
+document.querySelectorAll('.pq').forEach(el => pqObs.observe(el));
+
+// Count-up
+function countUp(el) {
+  const raw = el.textContent.trim();
+  const hasPct = raw.endsWith('%'), hasPlus = raw.startsWith('+'), hasTilde = raw.startsWith('~');
+  const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+  if (isNaN(num) || num > 9999) return;
+  const dur = 900, t0 = performance.now();
+  const tick = now => {
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = (hasPlus ? '+' : hasTilde ? '~' : '') + Math.round(ease * num) + (hasPct ? '%' : '');
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const numObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); numObs.unobserve(e.target); } });
+}, { threshold: 0.7 });
+document.querySelectorAll('.impact-num').forEach(el => numObs.observe(el));
+
+// Custom cursor (desktop)
+if (window.matchMedia('(pointer: fine)').matches) {
   const cur = document.createElement('div'); cur.id = 'cur';
   const ring = document.createElement('div'); ring.id = 'ring';
-  document.body.appendChild(cur); document.body.appendChild(ring);
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
-  (function animCur() {
-    rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14;
-    cur.style.cssText=`left:${mx}px;top:${my}px`;
-    ring.style.cssText=`left:${rx}px;top:${ry}px`;
-    requestAnimationFrame(animCur);
+  document.body.append(cur, ring);
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop() {
+    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+    cur.style.cssText = `left:${mx}px;top:${my}px`;
+    ring.style.cssText = `left:${rx}px;top:${ry}px`;
+    requestAnimationFrame(loop);
   })();
-  document.querySelectorAll('a,.problem-row,.finding,.learning,.journey').forEach(el => {
-    el.addEventListener('mouseenter', () => { cur.classList.add('hover'); ring.classList.add('hover'); });
-    el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); ring.classList.remove('hover'); });
+  const sel = 'a,button,.case-card,.challenge-card,.learning,.finding,.flow-step,.loop-step,.impact-cell,.scope-list li';
+  document.querySelectorAll(sel).forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.classList.add('h'); ring.classList.add('h'); });
+    el.addEventListener('mouseleave', () => { cur.classList.remove('h'); ring.classList.remove('h'); });
   });
-  setTimeout(() => document.querySelectorAll('.r').forEach(el => el.classList.add('on')), 600);
+}
 
-  /* ======== PROTOTYPE ======== */
+// Magnetic arrows
+document.querySelectorAll('.c-cta').forEach(cta => {
+  const card = cta.closest('.case-card');
+  const arrow = cta.querySelector('.c-arrow');
+  if (!card || !arrow) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) / r.width * 8;
+    const y = (e.clientY - r.top - r.height/2) / r.height * 8;
+    arrow.style.transform = `translate(${3+x}px,${-3+y}px)`;
+  });
+  card.addEventListener('mouseleave', () => { arrow.style.transform = ''; });
+});
+
+// Parallax images
+if (window.matchMedia('(pointer: fine)').matches) {
+  function doParallax() {
+    document.querySelectorAll('.img-wrap').forEach(wrap => {
+      const r = wrap.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      const p = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+      const img = wrap.querySelector('img');
+      if (img) img.style.transform = `translateY(${(p-.5)*12}px) scale(1.04)`;
+    });
+  }
+  window.addEventListener('scroll', doParallax, { passive: true });
+}
+
+// Page fade in
+document.body.style.cssText += 'opacity:0;transition:opacity .3s ease';
+window.addEventListener('load', () => { document.body.style.opacity = '1'; });
+setTimeout(() => { document.body.style.opacity = '1'; }, 250);
+
+// ── Hero word-by-word reveal ──
+(function() {
+  const h1 = document.querySelector('.hero h1');
+  if (!h1) return;
+  // Split inner HTML words but preserve .accent spans
+  const html = h1.innerHTML;
+  // Wrap each word in a span, preserving existing spans
+  const wrapped = html.replace(/(<[^>]+>|[^<\s]+)/g, (m) => {
+    if (m.startsWith('<')) return m;
+    return `<span class="hw" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1);">${m}</span>`;
+  });
+  h1.innerHTML = wrapped;
+  const words = h1.querySelectorAll('.hw');
+  words.forEach((w, i) => {
+    setTimeout(() => {
+      w.style.opacity = '1';
+      w.style.transform = 'none';
+    }, 400 + i * 80);
+  });
+})();
+
+// ── Case card tilt ──
+document.querySelectorAll('.case-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateX(${-y * 1.5}deg) rotateY(${x * 1.5}deg) translateZ(2px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ── Impact cells stagger on appear ──
+const impObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.impact-cell').forEach((cell, i) => {
+      setTimeout(() => {
+        cell.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+        cell.style.opacity = '1';
+        cell.style.transform = 'none';
+      }, i * 100);
+    });
+    impObs.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.impact-strip').forEach(strip => {
+  strip.querySelectorAll('.impact-cell').forEach(cell => {
+    cell.style.opacity = '0';
+    cell.style.transform = 'translateY(16px)';
+  });
+  impObs.observe(strip);
+});
+
+// ── Challenge grid stagger ──
+const cgObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.challenge-card').forEach((card, i) => {
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1), background 0.2s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'none';
+      }, i * 80);
+    });
+    cgObs.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.challenge-grid').forEach(grid => {
+  grid.querySelectorAll('.challenge-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(12px)';
+  });
+  cgObs.observe(grid);
+});
+
+// ── Active nav section highlight ──
+const sections = ['work','about'];
+const sectObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const link = document.querySelector('.nav-links a[href="#' + e.target.id + '"]');
+    if (link) link.classList.toggle('active', e.isIntersecting);
+  });
+}, { threshold: 0.3 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectObs.observe(el);
+});
+
+(function() {
+/* ======== PROTOTYPE ======== */
   // Page navigation
   window.pShowPage = function(id, el) {
     document.querySelectorAll('#paidProto .p-page').forEach(p => p.classList.remove('active'));
@@ -1397,7 +1807,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
     document.getElementById('pPropsCustomer').textContent = customer;
     document.getElementById('pPropsOutcome').textContent = outcome;
     document.getElementById('pPropsValue').textContent = value;
-    document.getElementById('pPropsPublished').textContent = '—';
+    document.getElementById('pPropsPublished').textContent = ' ';
     document.getElementById('pBldValSub').textContent = outcome + ' – ' + value;
     document.getElementById('pBldValTag').textContent = outcome + '    ' + value;
     document.getElementById('pPublishBtn').textContent = 'Publish';
@@ -1450,7 +1860,7 @@ footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4r
   // Large exec panel
   window.pOpenExecLarge = function(id, wf, cust, status, dur, cost, outcome, val) {
     document.getElementById('pLpId').textContent = id;
-    document.getElementById('pLpSub').textContent = wf + ' — ' + cust;
+    document.getElementById('pLpSub').textContent = wf + ' ' + cust;
     document.getElementById('pLpExec').textContent = id;
     document.getElementById('pLpWf').textContent = wf;
     document.getElementById('pLpCust').textContent = cust;

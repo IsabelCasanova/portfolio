@@ -3,1415 +3,868 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wecitio — Case Study</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<title>Wecitio Isabel Casanova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --black: #0d0d0d;
-    --off: #f5f3ef;
-    --muted: #8a8780;
-    --accent: #2563eb;
-    --border: #e2dfd8;
-    --white: #ffffff;
-  }
-  html { scroll-behavior: smooth; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--off); color: var(--black); font-size: 17px; line-height: 1.7; font-weight: 300; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+:root {
+  --white: #ffffff;
+  --cream: #f8f6f2;
+  --ink: #111110;
+  --dim: #5c5955;
+  --rule: #dedad1;
+  --green: #1a6e38;
+  --nav-h: 56px;
+}
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 1.25rem 3rem;
-    background: var(--off); border-bottom: 1px solid var(--border);
-  }
-  .nav-name { font-weight: 500; font-size: 14px; letter-spacing: 0.05em; text-transform: uppercase; }
-  .nav-links { display: flex; gap: 2rem; }
-  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; }
-  .nav-links a:hover { color: var(--black); }
+/* ── PROGRESS ── */
+#progress { position: fixed; top: 0; left: 0; z-index: 9999; height: 2px; background: var(--ink); width: 0%; transition: width .08s linear; }
 
-  .container { max-width: 820px; margin: 0 auto; padding: 0 2rem; }
-  .container-wide { max-width: 1060px; margin: 0 auto; padding: 0 2rem; }
+/* ── CURSOR ── */
+@media (pointer: fine) {
+  body { cursor: none; }
+  #cur { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .2s, height .2s, background .2s; }
+  #ring { position: fixed; width: 28px; height: 28px; border: 1.5px solid rgba(17,17,16,.18); border-radius: 50%; pointer-events: none; z-index: 9997; transform: translate(-50%,-50%); transition: width .3s cubic-bezier(.16,1,.3,1), height .3s cubic-bezier(.16,1,.3,1), border-color .25s; }
+  #cur.h { width: 8px; height: 8px; background: var(--green); }
+  #ring.h { width: 44px; height: 44px; border-color: var(--green); }
+}
 
-  .hero { padding: 9rem 0 5rem; border-bottom: 1px solid var(--border); }
-  .hero-tag { display: inline-block; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 1.5rem; }
-  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(2.8rem, 6vw, 5rem); line-height: 1.08; letter-spacing: -0.02em; margin-bottom: 1.5rem; font-weight: 400; }
-  .hero h1 em { font-style: italic; color: var(--muted); }
-  .hero-sub { font-size: 1.15rem; color: var(--muted); max-width: 560px; line-height: 1.65; margin-bottom: 3rem; }
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 2.5rem; height: var(--nav-h);
+}
+nav::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(255,255,255,0);
+  backdrop-filter: blur(0px);
+  border-bottom: 1px solid rgba(228,224,216,0);
+  transition: background .3s, backdrop-filter .3s, border-color .3s;
+  pointer-events: none;
+}
+nav.scrolled::before {
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(20px);
+  border-color: var(--rule);
+}
+.nav-home {
+  font-size: 11px; font-weight: 500; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--dim); text-decoration: none;
+  transition: color .2s; position: relative; z-index: 1;
+}
+.nav-home:hover { color: var(--ink); }
+.nav-links { display: flex; gap: 2rem; position: relative; z-index: 1; }
+.nav-links a {
+  font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--dim); text-decoration: none;
+  transition: color .2s; position: relative; padding-bottom: 2px;
+}
+.nav-links a::after {
+  content: ""; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 1px; background: var(--ink);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .25s cubic-bezier(.16,1,.3,1);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
-  .impact-strip { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--border); background: var(--white); border-radius: 2px; }
-  .impact-cell { padding: 2rem; border-right: 1px solid var(--border); }
-  .impact-cell:last-child { border-right: none; }
-  .impact-num { font-family: 'DM Serif Display', serif; font-size: 3rem; line-height: 1; color: var(--black); margin-bottom: 0.4rem; font-weight: 400; }
-  .impact-label { font-size: 13px; color: var(--muted); line-height: 1.5; }
+/* ── HERO ── */
+.hero {
+  padding: calc(var(--nav-h) + 4rem) 2.5rem 4.5rem;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+}
+.hero-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: 2rem;
+  opacity: 0; transform: translateY(10px);
+  animation: fadeUp .6s ease .2s forwards;
+}
+.hero h1 {
+  font-size: clamp(2.8rem, 6vw, 6.2rem); font-weight: 200;
+  line-height: 1.02; letter-spacing: -.04em; color: var(--ink);
+  max-width: 900px;
+  opacity: 0; transform: translateY(18px);
+  animation: fadeUp .8s ease .35s forwards;
+}
+.hero-sub {
+  font-size: 1rem; color: var(--dim); line-height: 1.8; font-weight: 300;
+  max-width: 500px; margin-top: 1.5rem;
+  opacity: 0; animation: fadeUp .7s ease .6s forwards;
+}
+.hero-meta {
+  display: flex; gap: 3rem; flex-wrap: wrap;
+  margin-top: 3rem; padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  opacity: 0; animation: fadeIn .6s ease .9s forwards;
+}
+.meta-item { display: flex; flex-direction: column; gap: .3rem; }
+.meta-label { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); }
+.meta-val { font-size: 13px; color: var(--ink); }
 
-  .team-row { display: flex; flex-wrap: wrap; gap: 2rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
-  .team-col { flex: 1; min-width: 180px; }
-  .team-col-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.5rem; }
-  .team-col-val { font-size: 14px; font-weight: 400; line-height: 1.8; }
+@keyframes fadeUp { to { opacity: 1; transform: none; } }
+@keyframes fadeIn { to { opacity: 1; } }
 
-  section { padding: 5rem 0; border-bottom: 1px solid var(--border); }
-  section:last-of-type { border-bottom: none; }
+/* ── BLOCKS ── */
+.block {
+  display: grid; grid-template-columns: 240px 1fr;
+  gap: 3rem; padding: 5rem 2.5rem;
+  border-bottom: 1px solid var(--rule); align-items: start;
+}
+.block.alt { background: var(--cream); }
+.block-label { position: sticky; top: calc(var(--nav-h) + 1.5rem); }
+.block-num {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--dim); margin-bottom: .35rem;
+  transition: color .3s;
+}
+.block.vis .block-num { color: var(--green); }
+.block-title { font-size: 12px; font-weight: 500; letter-spacing: .04em; color: var(--ink); }
+.block-sub { font-size: 11px; color: #9a958f; margin-top: .25rem; line-height: 1.5; }
 
-  .section-num { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; }
-  .section-num::after { content: ''; flex: 0 0 32px; height: 1px; background: var(--border); }
+/* ── CONTENT ── */
+.content h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2.6rem); font-weight: 300;
+  line-height: 1.12; letter-spacing: -.025em; color: var(--ink); margin-bottom: 1.75rem;
+}
+.content p { font-size: 1rem; color: #4a4744; line-height: 1.85; font-weight: 300; margin-bottom: 1.4rem; max-width: 640px; }
+.content p:last-child { margin-bottom: 0; }
+.content p strong { color: var(--ink); font-weight: 500; }
 
-  h2 { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 1.5rem; }
-  h3 { font-size: 1rem; font-weight: 500; letter-spacing: 0.02em; margin-bottom: 0.75rem; }
-  p { color: #3a3834; margin-bottom: 1rem; }
-  p:last-child { margin-bottom: 0; }
+/* ── PULLQUOTE ── */
+.pq {
+  padding: 2rem 0; margin: 2rem 0;
+  border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);
+  position: relative; overflow: hidden;
+}
+.pq::before {
+  content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+  background: var(--green); transform: scaleY(0); transform-origin: top;
+  transition: transform .5s cubic-bezier(.16,1,.3,1);
+}
+.pq.vis::before { transform: scaleY(1); }
+.pq p {
+  font-size: clamp(1.1rem, 2vw, 1.45rem); font-weight: 400;
+  color: var(--ink); line-height: 1.5; letter-spacing: -.01em; max-width: 560px;
+}
 
-  .pullquote { border-left: 3px solid var(--accent); padding: 0.25rem 0 0.25rem 1.75rem; margin: 2.5rem 0; }
-  .pullquote p { font-family: 'DM Serif Display', serif; font-size: 1.4rem; font-style: italic; color: var(--black); line-height: 1.4; }
+/* ── CHALLENGE CARDS ── */
+.challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2rem 0; }
+.challenge-card { background: var(--white); padding: 1.6rem; transition: background .2s, transform .25s cubic-bezier(.16,1,.3,1); }
+.block.alt .challenge-card { background: var(--cream); }
+.challenge-card:hover { background: #f2efea; transform: translateY(-1px); }
+.block.alt .challenge-card:hover { background: #eeeae4; }
+.challenge-card h3 { font-size: .78rem; font-weight: 500; text-transform: uppercase; letter-spacing: .09em; color: var(--green); margin-bottom: .6rem; transition: letter-spacing .25s; }
+.challenge-card:hover h3 { letter-spacing: .13em; }
+.challenge-card p { font-size: .93rem; color: #4a4744; font-weight: 300; line-height: 1.65; }
 
-  .img-full { width: 100%; border-radius: 4px; border: 1px solid var(--border); display: block; margin: 2.5rem 0; background: var(--white); }
-  .img-caption { font-size: 12px; color: var(--muted); text-align: center; margin-top: -1.5rem; margin-bottom: 2.5rem; letter-spacing: 0.02em; }
-  .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
-  .img-grid img { width: 100%; border-radius: 4px; border: 1px solid var(--border); background: var(--white); }
+/* ── FLOW ── */
+.flow { display: flex; background: var(--white); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2.5rem 0; }
+.block.alt .flow { background: #f2efea; }
+.flow-step { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--rule); transition: background .2s; }
+.flow-step:last-child { border-right: none; }
+.flow-step:hover { background: var(--cream); }
+.block.alt .flow-step:hover { background: #eceae3; }
+.flow-icon { font-size: 1.2rem; display: block; margin-bottom: .4rem; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.flow-step:hover .flow-icon { transform: scale(1.3) translateY(-2px); }
+.flow-step h3 { font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink); font-weight: 500; margin-bottom: .2rem; }
+.flow-step p { font-size: .72rem; color: var(--dim); margin: 0; line-height: 1.4; }
 
-  .challenge-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
-  .challenge-card { background: var(--white); padding: 1.75rem; }
-  .challenge-card h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent); margin-bottom: 0.75rem; }
-  .challenge-card p { font-size: 0.95rem; color: #3a3834; }
+/* ── IMPACT STRIP ── */
+.impact-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; margin: 2.5rem 0; }
+.impact-cell { background: var(--white); padding: 2rem 1.75rem; transition: background .2s; }
+.impact-cell:hover { background: var(--cream); }
+.impact-num { font-size: 2.8rem; font-weight: 200; line-height: 1; color: var(--ink); margin-bottom: .35rem; letter-spacing: -.035em; display: block; transition: color .3s; }
+.impact-cell:hover .impact-num { color: var(--green); }
+.impact-label { font-size: 12px; color: var(--dim); line-height: 1.5; }
 
-  .learnings-list { list-style: none; margin: 1.5rem 0; }
-  .learnings-list li { display: flex; gap: 1.25rem; padding: 1.5rem 0; border-bottom: 1px solid var(--border); align-items: flex-start; }
-  .learnings-list li:last-child { border-bottom: none; }
-  .learning-num { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); line-height: 1; flex-shrink: 0; min-width: 1.5rem; }
-  .learning-body h3 { font-size: 1rem; font-weight: 500; margin-bottom: 0.35rem; }
-  .learning-body p { font-size: 0.95rem; color: #3a3834; }
+/* ── FINDINGS ── */
+.finding { display: grid; grid-template-columns: 100px 1fr; gap: 1.75rem; padding: 1.75rem; border-bottom: 1px solid var(--rule); transition: background .2s, padding-left .3s cubic-bezier(.16,1,.3,1); }
+.finding:first-child { border-top: 1px solid var(--rule); }
+.finding:hover { background: var(--cream); padding-left: 2.25rem; }
+.block.alt .finding:hover { background: #eeeae4; }
+.finding:hover .f-tag, .finding:hover .f-title { color: var(--green); }
+.f-tag { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: .08em; padding-top: .15rem; transition: color .2s; }
+.f-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: .35rem; transition: color .2s; }
+.f-body { font-size: 13px; color: var(--dim); line-height: 1.7; font-weight: 300; }
 
-  /* BEFORE/AFTER */
-  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
-  .before-after-item { border-radius: 4px; overflow: hidden; border: 1px solid var(--border); }
-  .before-after-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; padding: 0.5rem 1rem; font-weight: 500; }
-  .before-after-label.before { background: #f1efe8; color: var(--muted); }
-  .before-after-label.after { background: #eff6ff; color: #1d4ed8; }
-  .before-after-item img { width: 100%; display: block; }
+/* ── LEARNINGS ── */
+.learning { display: grid; grid-template-columns: 48px 1fr; gap: 2rem; padding: 2.5rem 1.75rem; border-bottom: 1px solid var(--rule); transition: background .2s, padding-left .3s cubic-bezier(.16,1,.3,1); }
+.learning:first-child { border-top: 1px solid var(--rule); }
+.learning:hover { background: var(--cream); padding-left: 2.25rem; }
+.block.alt .learning:hover { background: #eeeae4; }
+.learning:hover .l-title { color: var(--green); }
+.l-n { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: .08em; padding-top: .25rem; }
+.l-title { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: .6rem; line-height: 1.3; letter-spacing: -.01em; transition: color .2s; }
+.l-body { font-size: 13px; color: var(--dim); line-height: 1.8; font-weight: 300; }
 
-  /* PROTOTYPE */
-  .prototype-wrapper {
-    margin: 2.5rem 0;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--white);
-  }
-  .prototype-bar {
-    background: #1e293b;
-    padding: 0.6rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .proto-dot { width: 10px; height: 10px; border-radius: 50%; }
-  .proto-dot.r { background: #ef4444; }
-  .proto-dot.y { background: #f59e0b; }
-  .proto-dot.g { background: #22c55e; }
-  .proto-url { background: #334155; border-radius: 4px; padding: 0.2rem 0.75rem; font-size: 12px; color: #94a3b8; margin-left: 0.5rem; flex: 1; max-width: 300px; }
+/* ── SCOPE ── */
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin: 2.5rem 0; padding-top: 2.5rem; border-top: 1px solid var(--rule); }
+.scope-head { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.25rem; }
+.scope-head.full { color: var(--ink); }
+.scope-list { list-style: none; }
+.scope-list li { font-size: 13px; color: var(--dim); font-weight: 300; padding: .65rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: .65rem; transition: color .2s, padding-left .2s ease; }
+.scope-list li:hover { color: var(--ink); padding-left: .4rem; }
+.scope-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
+.scope-list.f li::before { background: var(--rule); }
+.scope-list.v li::before { background: var(--ink); }
 
-  .prototype-frame {
-    display: flex;
-    height: 680px;
-    font-family: 'DM Sans', sans-serif;
-  }
+/* ── LOOP ── */
+.loop-flow { display: flex; border: 1px solid var(--rule); border-radius: 3px; overflow: hidden; background: var(--white); margin: 2.5rem 0; }
+.block.alt .loop-flow { background: #f2efea; }
+.loop-step { flex: 1; padding: 1.4rem 1rem; text-align: center; border-right: 1px solid var(--rule); transition: background .2s; }
+.loop-step:last-child { border-right: none; }
+.loop-step:hover { background: var(--cream); }
+.block.alt .loop-step:hover { background: #eceae3; }
+.loop-step:hover .ls-num { color: var(--green); }
+.ls-num { font-size: 10px; font-weight: 500; letter-spacing: .15em; text-transform: uppercase; color: var(--dim); margin-bottom: .35rem; transition: color .25s; }
+.ls-label { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: .25rem; }
+.ls-sub { font-size: 11px; color: var(--dim); line-height: 1.4; }
 
-  .proto-sidebar {
-    width: 180px;
-    background: #ffffff;
-    border-right: 1px solid #e2e8f0;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-  }
-  .proto-sidebar-header {
-    padding: 1rem;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .proto-logo { width: 28px; height: 28px; background: #2563eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-  .proto-logo svg { width: 16px; height: 16px; fill: white; }
-  .proto-logo-name { font-size: 13px; font-weight: 500; color: #0f172a; }
-  .proto-nav { padding: 0.75rem 0; flex: 1; }
-  .proto-sidebar .proto-nav-item {
-    display: flex !important;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.55rem 1rem;
-    font-size: 13px;
-    color: #64748b;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.15s;
-    background: transparent;
-    border: none;
-    width: 100%;
-    text-align: left;
-    line-height: 1.4;
-  }
-  .proto-sidebar .proto-nav-item:hover { background: #f8fafc; color: #0f172a; }
-  .proto-sidebar .proto-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 500; }
-  .proto-sidebar .proto-nav-item.active::before { content: ''; position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: #2563eb; border-radius: 0 2px 2px 0; }
-  .proto-nav-dot { width: 6px; height: 6px; background: #2563eb; border-radius: 50%; margin-left: auto; }
-  .proto-sidebar-footer { padding: 1rem; border-top: 1px solid #e2e8f0; }
-  .proto-user { display: flex; align-items: center; gap: 0.5rem; }
-  .proto-avatar { width: 28px; height: 28px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 500; flex-shrink: 0; }
-  .proto-user-info p { font-size: 11px; color: #0f172a; font-weight: 500; margin: 0; line-height: 1.3; }
-  .proto-user-info span { font-size: 10px; color: #94a3b8; }
+/* ── IMAGES ── */
+.img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
+.img-wrap img { width: 100%; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
+.img-wrap:hover img { transform: scale(1.015); }
+.img-cap { font-size: 11.5px; color: var(--dim); text-align: center; margin-top: .5rem; margin-bottom: 2.5rem; line-height: 1.5; }
+.img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+.img-grid .img-wrap { margin: 0; }
+.img-trio { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
+.img-trio .img-wrap { margin: 0; }
 
-  /* Prototype main content */
-  .proto-main {
-    flex: 1;
-    overflow: hidden;
-    position: relative;
-  }
-  .proto-topbar {
-    background: #0f172a;
-    padding: 0.6rem 1.25rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .proto-search {
-    background: #1e293b;
-    border: none;
-    border-radius: 6px;
-    padding: 0.35rem 0.75rem;
-    font-size: 12px;
-    color: #94a3b8;
-    width: 220px;
-    outline: none;
-    font-family: inherit;
-  }
-  .proto-org { font-size: 11px; color: #94a3b8; text-align: right; line-height: 1.4; }
-  .proto-org strong { color: #e2e8f0; font-size: 12px; font-weight: 500; }
+/* ── BEFORE/AFTER ── */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+.ba-item { border: 1px solid var(--rule); border-radius: 4px; overflow: hidden; }
+.ba-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; font-weight: 500; padding: .5rem 1rem; background: var(--cream); color: var(--dim); }
 
-  .proto-view { display: none; height: calc(680px - 40px); overflow-y: auto; }
-  .proto-view.active { display: block; }
-  .proto-view-inner { padding: 1.5rem; }
+/* ── PROTO ── */
+.proto-wrap { padding: 5rem 2.5rem; border-bottom: 1px solid var(--rule); }
+.proto-header { display: grid; grid-template-columns: 240px 1fr; gap: 3rem; margin-bottom: 2.5rem; align-items: start; }
+.proto-hints { display: flex; gap: 1.25rem; flex-wrap: wrap; padding-top: 1.25rem; border-top: 1px solid var(--rule); margin-top: 1.5rem; }
+.proto-hint { font-size: 11.5px; color: var(--dim); display: flex; align-items: flex-start; gap: 5px; }
+.proto-hint::before { content: "↗"; color: var(--green); font-size: 10px; flex-shrink: 0; margin-top: 2px; }
+.proto-chrome { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 20px rgba(0,0,0,.04); transition: box-shadow .35s; }
+.proto-chrome:hover { box-shadow: 0 8px 50px rgba(0,0,0,.08); }
+.proto-bar { background: #1a1a18; padding: 10px 14px; display: flex; align-items: center; gap: 6px; }
+.proto-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.proto-bar-label { font-size: 11px; color: #555; margin-left: 8px; }
 
-  /* Metric cards */
-  .proto-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.25rem; }
-  .proto-metric { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-  .proto-metric-trend { font-size: 11px; font-weight: 500; margin-bottom: 0.35rem; }
-  .proto-metric-trend.up { color: #16a34a; }
-  .proto-metric-trend.down { color: #dc2626; }
-  .proto-metric-label { font-size: 11px; color: #64748b; margin-bottom: 0.25rem; }
-  .proto-metric-val { font-size: 18px; font-weight: 600; color: #0f172a; margin-bottom: 0.4rem; }
-  .proto-metric-status { font-size: 10px; font-weight: 500; }
-  .proto-metric-status.high { color: #16a34a; }
-  .proto-metric-status.med { color: #d97706; }
-  .proto-metric-time { font-size: 10px; color: #94a3b8; }
+/* ── FOOTER ── */
+footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.5rem 2.5rem; border-top: 1px solid var(--rule); }
+.f-back { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; transition: color .2s, gap .25s cubic-bezier(.34,1.56,.64,1); }
+.f-back:hover { color: var(--ink); gap: .75rem; }
+.f-credit { font-size: 11px; color: var(--dim); }
 
-  /* Page header */
-  .proto-page-header { margin-bottom: 1.25rem; }
-  .proto-page-title { font-size: 20px; font-weight: 600; color: #0f172a; margin-bottom: 0.2rem; }
-  .proto-page-sub { font-size: 12px; color: #64748b; }
-  .proto-role-bar { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; }
-  .proto-badge { font-size: 10px; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 500; }
-  .proto-badge.role { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
-  .proto-badge.green { background: #f0fdf4; color: #16a34a; }
-  .proto-badge.blue { background: #eff6ff; color: #2563eb; }
-  .proto-badge.orange { background: #fff7ed; color: #ea580c; }
+/* ── INDEX specific ── */
+.work-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: var(--dim); padding: 3rem 2.5rem 1.5rem; display: flex; align-items: center; gap: .75rem; }
+.work-label::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+.case-list { display: flex; flex-direction: column; gap: 1px; background: var(--rule); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.case-card { display: block; background: var(--white); text-decoration: none; color: inherit; position: relative; overflow: hidden; transition: background .2s; }
+.case-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--green); transform: scaleY(0); transform-origin: bottom; transition: transform .3s cubic-bezier(.16,1,.3,1); }
+.case-card:hover::before { transform: scaleY(1); }
+.case-card:hover { background: var(--cream); }
+.case-card:hover .c-arrow { transform: translate(4px,-4px); }
+.c-eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--dim); margin-bottom: .65rem; }
+.c-title { font-size: clamp(1.5rem, 2.8vw, 2.4rem); font-weight: 300; line-height: 1.1; letter-spacing: -.03em; color: var(--ink); margin-bottom: .85rem; }
+.c-desc { font-size: 13px; color: var(--dim); line-height: 1.7; font-weight: 300; max-width: 520px; }
+.c-num { font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 200; line-height: 1; letter-spacing: -.04em; color: var(--ink); text-align: right; }
+.c-num-label { font-size: 10px; color: var(--dim); text-align: right; margin-top: 3px; }
+.c-cta { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--ink); white-space: nowrap; letter-spacing: .06em; text-transform: uppercase; margin-top: 1.75rem; }
+.c-arrow { display: inline-block; transition: transform .25s cubic-bezier(.34,1.56,.64,1); font-size: 13px; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; padding: 5rem 2.5rem; border-top: 1px solid var(--rule); }
+.about-grid h2 { font-size: clamp(1.6rem, 3vw, 2.8rem); font-weight: 200; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1.25rem; }
+.about-grid p { font-size: 13.5px; color: var(--dim); line-height: 1.85; font-weight: 300; margin-bottom: .85rem; }
+.contact-row { display: flex; align-items: center; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--rule); font-size: 13px; transition: padding-left .2s ease; }
+.contact-row:first-of-type { border-top: 1px solid var(--rule); }
+.contact-row:hover { padding-left: .4rem; }
+.contact-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); min-width: 60px; }
+.contact-val { color: var(--ink); text-decoration: none; transition: color .2s; }
+.contact-val:hover { color: var(--green); }
+.site-footer { padding: 2rem 2.5rem; border-top: 1px solid var(--rule); font-size: 11px; color: var(--dim); }
 
-  /* Charts area */
-  .proto-charts { display: grid; grid-template-columns: 1fr 220px; gap: 0.75rem; margin-bottom: 1.25rem; }
-  .proto-chart-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-  .proto-chart-title { font-size: 13px; font-weight: 500; color: #0f172a; margin-bottom: 0.75rem; }
+/* ── REVEAL ── */
+.r { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
+.r.on { opacity: 1; transform: none; }
 
-  /* Simple SVG chart */
-  .proto-chart-area { width: 100%; height: 120px; }
+/* ── MOBILE ── */
+@media (max-width: 768px) {
+  :root { --nav-h: 50px; }
+  nav { padding: 0 1.25rem; }
+  .nav-links { gap: 1.25rem; }
+  .hero { padding: calc(var(--nav-h) + 2.5rem) 1.25rem 3rem; }
+  .hero h1 { font-size: clamp(2.4rem, 8vw, 3.4rem); }
+  .hero-meta { gap: 1.5rem; }
+  .meta-item { flex: 0 0 calc(50% - .75rem); }
+  .block { grid-template-columns: 1fr; padding: 3rem 1.25rem; gap: 1.5rem; }
+  .block-label { position: static; }
+  .challenge-grid { grid-template-columns: 1fr; }
+  .finding { grid-template-columns: 80px 1fr; }
+  .scope-grid, .before-after, .img-grid, .img-trio { grid-template-columns: 1fr; }
+  .loop-flow, .flow { flex-direction: column; }
+  .loop-step, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+  .loop-step:last-child, .flow-step:last-child { border-bottom: none; }
+  .impact-strip { grid-template-columns: 1fr 1fr; }
+  .impact-cell:last-child { grid-column: 1/-1; }
+  footer { grid-template-columns: 1fr; gap: .75rem; padding: 2.5rem 1.25rem; }
+  .proto-wrap { padding: 3rem 1.25rem; }
+  .proto-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .work-label { padding: 2.5rem 1.25rem 1.25rem; }
+  .case-card > div { grid-template-columns: 1fr !important; }
+  .case-card > div > div:last-child { align-items: flex-start !important; }
+  .about-grid { grid-template-columns: 1fr; padding: 3rem 1.25rem; gap: 2.5rem; }
+  .site-footer { padding: 1.75rem 1.25rem; }
+}
 
-  /* Activity table */
-  .proto-table-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-  .proto-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .proto-table th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; padding: 0.4rem 0.5rem; border-bottom: 1px solid #f1f5f9; font-weight: 500; }
-  .proto-table td { padding: 0.6rem 0.5rem; border-bottom: 1px solid #f8fafc; color: #334155; vertical-align: middle; }
-  .proto-table tr:last-child td { border-bottom: none; }
-  .proto-status { font-size: 10px; font-weight: 500; padding: 0.15rem 0.5rem; border-radius: 4px; display: inline-block; }
-  .proto-status.aprobado { background: #f0fdf4; color: #16a34a; }
-  .proto-status.completado { background: #eff6ff; color: #2563eb; }
-  .proto-status.pendiente { background: #fff7ed; color: #ea580c; }
-  .proto-status.generado { background: #f8fafc; color: #64748b; }
 
-  /* Presupuesto view */
-  .proto-budget-header { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
-  .proto-budget-card { border-radius: 8px; padding: 1.25rem; }
-  .proto-budget-card.income { background: #2563eb; color: white; }
-  .proto-budget-card.expense { background: white; border: 1px solid #e2e8f0; }
-  .proto-budget-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; opacity: 0.8; }
-  .proto-budget-amount { font-size: 24px; font-weight: 700; margin-bottom: 0.25rem; }
-  .proto-budget-sub { font-size: 11px; opacity: 0.75; }
-  .proto-budget-bar { height: 4px; border-radius: 2px; margin-top: 0.75rem; background: rgba(255,255,255,0.3); }
-  .proto-budget-bar-fill { height: 100%; border-radius: 2px; }
-  .proto-partida { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 0.5rem; }
-  .proto-partida-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; }
-  .proto-partida-code { font-size: 11px; color: #2563eb; font-weight: 600; margin-right: 0.5rem; }
-  .proto-partida-name { font-size: 13px; font-weight: 500; color: #0f172a; }
-  .proto-partida-sub { font-size: 11px; color: #94a3b8; }
-  .proto-partida-amounts { text-align: right; }
-  .proto-partida-exec { font-size: 12px; color: #334155; font-weight: 500; }
-  .proto-partida-budget { font-size: 11px; color: #94a3b8; }
-  .proto-progress { height: 3px; background: #f1f5f9; border-radius: 2px; margin-top: 0.5rem; }
-  .proto-progress-fill { height: 100%; border-radius: 2px; }
+/* ══ HERO bigger, bolder, expressivo ══ */
+.hero h1 {
+  font-size: clamp(3.2rem, 7.5vw, 8rem) !important;
+  font-weight: 600 !important;
+  line-height: 0.96 !important;
+  letter-spacing: -0.05em !important;
+}
+.hero h1 .accent {
+  color: var(--green);
+  font-weight: 300;
+}
+.hero-label {
+  font-size: 10px !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 500 !important;
+}
 
-  /* Transacciones */
-  .proto-tx-filters { display: flex; gap: 0.5rem; margin-bottom: 1rem; align-items: center; }
-  .proto-tx-search { flex: 1; background: white; border: 1px solid #e2e8f0; border-radius: 6px; padding: 0.5rem 0.75rem; font-size: 12px; color: #64748b; outline: none; font-family: inherit; }
-  .proto-tx-tab { font-size: 11px; padding: 0.4rem 0.75rem; border-radius: 6px; border: 1px solid #e2e8f0; background: white; color: #64748b; cursor: pointer; font-family: inherit; font-weight: 500; }
-  .proto-tx-tab.active { background: #2563eb; color: white; border-color: #2563eb; }
-  .proto-tx-row { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem 1rem; margin-bottom: 0.4rem; display: grid; grid-template-columns: 120px 140px 1fr 100px 90px; align-items: center; gap: 0.5rem; }
-  .proto-tx-id { font-size: 11px; font-weight: 600; color: #2563eb; }
-  .proto-tx-date { font-size: 10px; color: #94a3b8; }
-  .proto-tx-vendor { font-size: 12px; font-weight: 500; color: #0f172a; }
-  .proto-tx-concept { font-size: 11px; color: #64748b; }
-  .proto-tx-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; background: #f8fafc; border-radius: 3px; padding: 0.1rem 0.35rem; display: inline-block; margin-top: 0.2rem; }
-  .proto-tx-amount { font-size: 13px; font-weight: 600; }
-  .proto-tx-amount.neg { color: #dc2626; }
-  .proto-tx-amount.pos { color: #16a34a; }
+/* ══ CASE CARDS bigger title, dramatic hover ══ */
+.case-card {
+  transition: background 0.25s ease !important;
+}
+.c-title {
+  font-size: clamp(1.7rem, 3.2vw, 2.8rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.04em !important;
+  transition: color 0.2s ease;
+}
+.case-card:hover .c-title { color: var(--green); }
+.c-eyebrow {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+}
+.c-num {
+  font-size: clamp(2.5rem, 5vw, 4.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+  transition: color 0.2s ease;
+}
+.case-card:hover .c-num { color: var(--green); }
 
-  /* Insights */
-  .proto-insight-banner { background: #2563eb; border-radius: 8px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-  .proto-insight-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
-  .proto-insight-text { flex: 1; }
-  .proto-insight-title { font-size: 14px; font-weight: 600; color: white; margin-bottom: 0.25rem; }
-  .proto-insight-desc { font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5; }
-  .proto-insight-btn { background: white; color: #2563eb; font-size: 12px; font-weight: 600; padding: 0.5rem 1rem; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap; font-family: inherit; }
-  .proto-insight-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem; }
-  .proto-insight-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
-  .proto-kpi { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-  .proto-kpi-icon { font-size: 16px; margin-bottom: 0.4rem; }
-  .proto-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; margin-bottom: 0.25rem; }
-  .proto-kpi-val { font-size: 20px; font-weight: 700; color: #0f172a; }
+/* ══ IMPACT NUMBERS much bigger ══ */
+.impact-num {
+  font-size: clamp(3.5rem, 6vw, 5.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+}
 
-  /* Bar chart */
-  .proto-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; margin: 0.5rem 0; }
-  .proto-bar { border-radius: 3px 3px 0 0; flex: 1; }
-  .proto-bar-labels { display: flex; gap: 6px; }
-  .proto-bar-label { flex: 1; font-size: 9px; color: #94a3b8; text-align: center; }
+/* ══ CONTENT H2 more weight and size ══ */
+.content h2 {
+  font-size: clamp(1.8rem, 3.2vw, 3.2rem) !important;
+  font-weight: 300 !important;
+  line-height: 1.06 !important;
+  letter-spacing: -0.035em !important;
+}
 
-  footer { padding: 3rem 0; text-align: center; font-size: 13px; color: var(--muted); border-top: 1px solid var(--border); }
-  footer a { color: var(--black); text-decoration: none; font-weight: 500; }
+/* ══ BLOCK LABEL green accent when visible ══ */
+.block-num {
+  transition: color 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1) !important;
+}
+.block.vis .block-num {
+  color: var(--green) !important;
+  transform: translateX(4px);
+}
+.block-title {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.06em !important;
+  text-transform: uppercase !important;
+}
 
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
+/* ══ PULLQUOTE larger, more presence ══ */
+.pq p {
+  font-size: clamp(1.25rem, 2.4vw, 1.75rem) !important;
+  font-weight: 300 !important;
+  font-style: italic;
+  letter-spacing: -0.015em !important;
+}
 
-  @media (max-width: 640px) {
-    nav { padding: 1rem 1.25rem; }
-    .container, .container-wide { padding: 0 1.25rem; }
-    .impact-strip { grid-template-columns: 1fr; }
-    .impact-cell { border-right: none; border-bottom: 1px solid var(--border); }
-    .challenge-grid, .img-grid, .before-after { grid-template-columns: 1fr; }
-    .proto-metrics { grid-template-columns: 1fr 1fr; }
-    .proto-tx-row { grid-template-columns: 1fr 1fr; }
-  }
+/* ══ CHALLENGE CARD H3 more spacing on hover ══ */
+.challenge-card h3 {
+  transition: letter-spacing 0.3s ease, color 0.2s ease !important;
+}
+.challenge-card:hover h3 { letter-spacing: 0.16em !important; }
+
+/* ══ FINDING hover stronger ══ */
+.finding:hover .f-title {
+  color: var(--green) !important;
+  letter-spacing: 0.01em;
+}
+.f-title { transition: color 0.2s ease, letter-spacing 0.3s ease; }
+
+/* ══ LEARNING title ══ */
+.l-title {
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* ══ NAV tighter, smaller ══ */
+.nav-home {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+}
+.nav-links a { font-size: 10px !important; letter-spacing: 0.12em !important; }
+
+/* ══ FOOTER accent on hover ══ */
+.f-back { transition: color 0.2s ease, gap 0.3s cubic-bezier(0.34,1.56,0.64,1) !important; }
+.f-back:hover { color: var(--green) !important; }
+
+/* ══ SCROLL REVEAL staggered and springy ══ */
+.r {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1) !important;
+}
+
+/* ══ ABOUT H2 giant ══ */
+.about-grid h2 {
+  font-size: clamp(2rem, 4.5vw, 4.5rem) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.05em !important;
+  line-height: 0.98 !important;
+}
+
+/* ══ LOOP STEP label ══ */
+.ls-label {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
+}
+.ls-num {
+  font-size: 9px !important;
+  letter-spacing: 0.18em !important;
+}
+
+/* ══ SCOPE HEAD full ══ */
+.scope-head.full { color: var(--ink) !important; font-weight: 500 !important; }
+
+/* ══ PROTO HINT ══ */
+.proto-hint { font-size: 12px; }
+
+/* ══ WORK LABEL ══ */
+.work-label {
+  font-size: 10px !important;
+  letter-spacing: 0.22em !important;
+  font-weight: 500 !important;
+}
+
+/* ══ HERO META label ══ */
+.meta-label { letter-spacing: 0.18em !important; }
+.meta-val { font-size: 14px !important; }
+
+/* ══ IMPACT LABEL ══ */
+.impact-label { font-size: 13px !important; line-height: 1.6 !important; }
+
+/* ══ c-desc ══ */
+.c-desc { font-size: 14px !important; line-height: 1.75 !important; }
+
+/* ══ CASE CTA ══ */
+.c-cta {
+  font-size: 10px !important;
+  letter-spacing: 0.18em !important;
+  font-weight: 600 !important;
+}
+
+/* ══ HERO sub ══ */
+.hero-sub {
+  font-size: 1.05rem !important;
+  color: var(--dim) !important;
+  max-width: 480px !important;
+}
+
+/* ══ content p ══ */
+.content p { font-size: 1.02rem !important; }
+
+/* ══ Magnetic CTA arrow animation ══ */
+.c-arrow { display: inline-block; }
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: clamp(2.6rem, 9vw, 4rem) !important; }
+  .c-title { font-size: clamp(1.5rem, 6vw, 2.2rem) !important; }
+  .impact-num { font-size: clamp(2.8rem, 8vw, 4rem) !important; }
+  .content h2 { font-size: clamp(1.6rem, 5vw, 2.4rem) !important; }
+  .about-grid h2 { font-size: clamp(1.8rem, 7vw, 3rem) !important; }
+}
 </style>
 </head>
 <body>
-
-<nav>
-  <a href="index.html" class="nav-name" style="text-decoration:none;color:inherit;">← Isabel Casanova</a>
-  <div class="nav-links">
-    <a href="factorial-case-study.html">Factorial</a>
-    <a href="wicitio-case-study.html" style="color:var(--black);font-weight:500;">Wecitio</a>
-    <a href="paid-case-study.html">Paid.ai</a>
-  </div>
-</nav>
-
-<!-- HERO -->
+<div id="progress"></div>
+<nav id="nav"><a href="index.html" class="nav-home">← Isabel Casanova</a><div class="nav-links"><a href="factorial-case-study.html">Factorial</a><a href="wicitio-case-study.html" class='active'>Wecitio</a><a href="paid-case-study.html">Paid.ai</a></div></nav>
 <div class="hero">
-  <div class="container">
-    <span class="hero-tag">Case study · Wecitio / Sicalwin · 2023–2025</span>
-    <h1>Modernising a city's<br>accounting system <em>without<br>breaking anything</em></h1>
-    <p class="hero-sub">How I led the product vision and design strategy to transform a legacy Visual Basic accounting platform used by Spanish municipalities into a modern, modular, API-first system.</p>
-
-    <div class="impact-strip reveal">
-      <div class="impact-cell">
-        <div class="impact-num">~100</div>
-        <div class="impact-label">Municipalities progressively migrated<br>through the Diputació de Girona pilot</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-num">4</div>
-        <div class="impact-label">Distinct user profiles researched<br>and designed for simultaneously</div>
-      </div>
-      <div class="impact-cell">
-        <div class="impact-num">Legacy</div>
-        <div class="impact-label">20-year Visual Basic system replaced<br>with modular, API-first architecture</div>
-      </div>
-    </div>
-
-    <div class="team-row reveal">
-      <div class="team-col">
-        <div class="team-col-label">My role</div>
-        <div class="team-col-val">Head of Product and Design</div>
-      </div>
-      <div class="team-col">
-        <div class="team-col-label">Focus</div>
-        <div class="team-col-val">Vision · Strategy · Modernisation</div>
-      </div>
-      <div class="team-col">
-        <div class="team-col-label">Users</div>
-        <div class="team-col-val">Interventors, HR admins,<br>Municipal finance teams</div>
-      </div>
-      <div class="team-col">
-        <div class="team-col-label">Timeline</div>
-        <div class="team-col-val">2023–2025</div>
-      </div>
-    </div>
+  <div class="hero-label">Case study · Wecitio / Sicalwin · 2023–2025</div>
+  <h1>Modernising a city's accounting system <span class="accent">without breaking anything</span></h1>
+  <p class="hero-sub">Led the product vision and design strategy to transform a legacy Visual Basic platform into a modern, API-first system for Spanish municipalities.</p>
+  <div class="hero-meta">
+    <div class="meta-item"><div class="meta-label">My role</div><div class="meta-val">Head of Product and Design</div></div>
+    <div class="meta-item"><div class="meta-label">Focus</div><div class="meta-val">Vision · Strategy · Modernisation</div></div>
+    <div class="meta-item"><div class="meta-label">Users</div><div class="meta-val">Interventors, Tesoreros,<br>Municipal finance teams</div></div>
+    <div class="meta-item"><div class="meta-label">Timeline</div><div class="meta-val">2023–2025</div></div>
   </div>
 </div>
 
-<!-- CONTEXT -->
-<section>
-  <div class="container">
-    <div class="section-num">01 Context</div>
-    <h2>A 20-year-old system<br>running critical public infrastructure.</h2>
-    <p>Sicalwin is the accounting platform used by hundreds of Spanish municipalities to manage public budgets, execute spending, track transactions, and generate the reports required by law. It had been running for over two decades on a Visual Basic architecture — functional, deeply embedded in institutional workflows, and completely unfit for what municipalities needed in 2023.</p>
-    <p>The system worked. That was the problem. Because it worked, nobody had replaced it. And because nobody had replaced it, the codebase had calcified around workarounds, the UX had never been designed intentionally, and the technical debt had become a compliance risk. New regulations required capabilities the system simply couldn't support.</p>
-
-    <div class="pullquote reveal">
-      <p>"The hardest part wasn't designing the new system. It was convincing institutions that had used the old one for 20 years that change was worth the risk."</p>
-    </div>
-
-    <p>I joined as Head of Product and Design to lead the transition: defining the product vision for Wecitio — the new platform — and building the strategy to migrate municipalities without disrupting the operations that kept cities running.</p>
+<div style="padding:0 2.5rem 4rem;border-bottom:1px solid var(--rule);">
+  <div class="impact-strip r">
+    <div class="impact-cell"><span class="impact-num">~100</span><div class="impact-label">Municipalities progressively<br>migrated via Diputació de Girona</div></div>
+    <div class="impact-cell"><span class="impact-num">4</span><div class="impact-label">Distinct user profiles<br>researched and designed for</div></div>
+    <div class="impact-cell"><span class="impact-num">Legacy</span><div class="impact-label">20-year Visual Basic system<br>replaced with API-first architecture</div></div>
   </div>
-</section>
+</div>
 
-<!-- BEFORE/AFTER -->
-<section>
-  <div class="container">
-    <div class="section-num">02 The starting point</div>
+<div class="block r">
+  <div class="block-label"><div class="block-num">01</div><div class="block-title">Context</div><div class="block-sub">A 20-year-old system running<br>critical public infrastructure.</div></div>
+  <div class="content">
+    <h2>A 20-year-old system running<br>critical public infrastructure.</h2>
+    <p>Sicalwin is the accounting platform used by hundreds of Spanish municipalities to manage public budgets, execute spending, track transactions, and generate the reports required by law. It had been running for over two decades on a Visual Basic architecture functional, deeply embedded in institutional workflows, and completely unfit for what municipalities needed in 2023.</p>
+    <p>The system worked. That was the problem. The technical debt had become a compliance risk new regulations required capabilities the system simply couldn't support.</p>
+    <div class="pq r"><p>"The hardest part wasn't designing the new system. It was convincing institutions that had used the old one for 20 years that change was worth the risk."</p></div>
+  </div>
+</div>
+
+<div class="block alt r">
+  <div class="block-label"><div class="block-num">02</div><div class="block-title">The starting point</div><div class="block-sub">What we were replacing<br>and why it couldn't stay.</div></div>
+  <div class="content">
     <h2>What we were replacing<br>and why it couldn't stay.</h2>
-    <p>The legacy system was a dense, menu-driven application with hundreds of nested options, no visual hierarchy, and a form-based interaction model that required deep institutional knowledge to operate. New staff took months to onboard. Errors were common and hard to trace. There was no audit trail that regulators could easily interpret.</p>
-    <p>The compliance risk was the forcing function. Spanish public accounting law was evolving, and the legacy system couldn't generate the new required reports without manual intervention. That's what opened the door to modernisation.</p>
-  </div>
-  <div class="container-wide">
-    <div class="before-after reveal">
-      <div class="before-after-item">
-        <div class="before-after-label before">Before — Sicalwin (Visual Basic) · menú principal</div>
-        <div style="background:#d4d0c8; padding: 0; font-family: 'Tahoma', 'Arial', sans-serif;">
-          <!-- Toolbar -->
-          <div style="background:#d4d0c8; border-bottom: 1px solid #808080; padding: 3px 4px; display:flex; gap:2px;">
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">🖨</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">💾</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">✂</div>
-            <div style="width:1px;height:20px;background:#808080;margin:0 2px;"></div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">🔍</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">📊</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">?</div>
-          </div>
-          <!-- Window -->
-          <div style="margin:4px; background:white; border:2px inset #808080;">
-            <!-- Title bar -->
-            <div style="background:#000080; color:white; font-size:10px; padding:2px 4px; display:flex; justify-content:space-between; align-items:center;">
-              <span>Menú Principal</span>
-              <span style="font-size:9px; cursor:default;">▼</span>
-            </div>
-            <!-- Search box -->
-            <div style="padding:3px 4px; background:#d4d0c8; border-bottom:1px solid #808080; font-size:10px; display:flex; align-items:center; gap:4px;">
-              <span style="color:#000;">Menú de SICAL</span>
-              <input style="flex:1; font-size:10px; border:2px inset #808080; padding:1px 3px; background:white;" value="" placeholder="" readonly>
-            </div>
-            <!-- Tree menu -->
-            <div style="padding:4px; font-size:10px; line-height:1.8; background:white; min-height:280px;">
-              <div style="color:#000;">◇ Presupuesto de Gastos</div>
-              <div style="padding-left:12px; color:#000;">◇ Presu<span style="background:#000080;color:white;padding:0 2px;">Justificantes de Gastos</span></div>
-              <div style="padding-left:24px; background:#000080; color:white; padding:1px 4px 1px 28px;">Registros de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Anticipos de Caja Fija</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Pagos a Justificar</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Monitor de Contabilización de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Cambio de Situación de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Fases de Uso Restringido</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Datos Asociados por Defecto a Terceros</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Consulta General de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Consulta de Fases de Uso Restringido</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Listado de Terceros por Situación de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Listado de Justificantes Registrados a una Fecha</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Incorporación de Facturas Externas</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Incorporación de Facturas Telemáticas</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Anulación de Facturas Telemáticas</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Monitor de Actividad AytosFactura</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Consulta de Justificantes</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Listado de Justificantes Agrupados por Situación</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Informes Trimestrales Ley Morosidad</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Período Medio de Pago RD 635/2014</div>
-              <div style="padding-left:24px; color:#000; padding-left:28px;">Auditoría Registro Contable de Facturas art. 12 Ley 25/2013</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="before-after-item">
-        <div class="before-after-label before">Before — Sicalwin · formulario de entrada de datos</div>
-        <div style="background:#d4d0c8; padding: 0; font-family: 'Tahoma', 'Arial', sans-serif;">
-          <!-- Toolbar -->
-          <div style="background:#d4d0c8; border-bottom: 1px solid #808080; padding: 3px 4px; display:flex; gap:2px; flex-wrap:wrap;">
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">🖨</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">💾</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">✗</div>
-            <div style="width:1px;height:20px;background:#808080;margin:0 2px;"></div>
-            <div style="width:28px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold;">ΣRP</div>
-            <div style="width:28px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold;">IVA</div>
-            <div style="width:28px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:bold;">DIO</div>
-            <div style="width:1px;height:20px;background:#808080;margin:0 2px;"></div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">🔍</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">📊</div>
-            <div style="width:20px;height:20px;background:#d4d0c8;border:1px solid #808080;border-top-color:#fff;border-left-color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;">?</div>
-          </div>
-          <!-- Form window -->
-          <div style="margin:4px; background:white; border:2px inset #808080;">
-            <div style="background:#000080; color:white; font-size:10px; padding:2px 4px;">Operaciones de Ejecución de Gastos</div>
-            <div style="padding:8px; font-size:10px; display:grid; grid-template-columns:1fr 1fr; gap:4px 8px; background:#d4d0c8; min-height:280px;">
-              <!-- Row 1 -->
-              <div style="display:flex; align-items:center; gap:4px;">
-                <span style="white-space:nowrap; min-width:80px;">Centro Gestor:</span>
-                <input style="width:50px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-              </div>
-              <div style="display:flex; align-items:center; gap:4px;">
-                <span style="white-space:nowrap;">Oficina que Contabiliza:</span>
-                <input style="width:40px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 2 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Operación:</span>
-                <input style="width:60px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="margin-left:8px;">Signo:</span>
-                <input style="width:40px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="margin-left:auto; font-size:9px;">Fecha</span>
-                <input style="width:70px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 3 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Op. anterior:</span>
-                <input style="width:60px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="margin-left:auto; font-size:9px;">Fecha</span>
-                <input style="width:70px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 4 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Documento:</span>
-                <input style="width:80px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="margin-left:4px; font-size:9px;">Fecha Doc.: / /</span>
-                <span style="margin-left:8px; font-size:9px;">Tipo de expediente</span>
-                <input style="width:30px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-                <span style="font-size:9px;">Año</span>
-                <input style="width:30px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-                <span style="font-size:9px;">Código de exped.</span>
-                <input style="width:40px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 5 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Proyecto:</span>
-                <input style="flex:1; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 6 classification -->
-              <div style="grid-column:1/-1; display:flex; align-items:center; gap:12px; margin-top:4px;">
-                <span>Orgánica</span>
-                <input style="width:80px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span>Funcional</span>
-                <input style="width:80px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span>Económica</span>
-                <input style="width:80px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Separator -->
-              <div style="grid-column:1/-1; height:1px; background:#808080; margin:4px 0;"></div>
-              <!-- Row 7 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Préstamo:</span>
-                <input style="flex:1; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="font-size:9px;">Contrato (Tipo/Proc./Criter.)</span>
-                <input style="width:40px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-                <input style="width:30px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-                <input style="width:30px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 8 -->
-              <div style="display:flex; align-items:center; gap:4px; grid-column:1/-1;">
-                <span style="min-width:80px;">Referencia:</span>
-                <input style="width:120px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-                <span style="margin-left:8px; font-size:9px;">Cuenta PGCP:</span>
-                <input style="width:80px; border:2px inset #808080; padding:1px 2px; font-size:9px; font-family:inherit; background:white;" readonly>
-              </div>
-              <!-- Row 9 -->
-              <div style="display:flex; align-items:center; gap:4px;">
-                <span style="min-width:80px;">Importe:</span>
-                <input style="width:100px; border:2px inset #808080; padding:1px 2px; font-size:10px; font-family:inherit; background:white;" readonly>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p class="img-caption">The legacy system: a Visual Basic application with hundreds of nested menu items, no visual hierarchy, and form-based data entry that required expert knowledge to operate correctly.</p>
-  </div>
-</section>
-
-<!-- CHALLENGE -->
-<section>
-  <div class="container">
-    <div class="section-num">03 The challenge</div>
-    <h2>Three hard problems<br>that had to be solved together.</h2>
-    <p>This wasn't a typical product redesign. The constraints were institutional, technical, and political at the same time. Getting any one of them wrong would have stalled the whole programme.</p>
-
-    <div class="challenge-grid reveal">
-      <div class="challenge-card">
-        <h3>Convincing municipalities to migrate</h3>
-        <p>Public institutions don't take technology risk lightly. Every municipality that switched was betting their year-end close on a new system. We had to earn that trust incrementally, starting with the municipalities most willing to co-build with us.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>Deciding what to modernise first</h3>
-        <p>The legacy system had hundreds of features. We couldn't rebuild everything at once. The roadmap decision — which workflows to prioritise, which to defer, which to drop entirely — was the most strategically consequential work I did on this project.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>Backward compatibility during migration</h3>
-        <p>Municipalities couldn't stop operating while they migrated. The new system had to run alongside the old one, import historical data accurately, and maintain continuity of reporting obligations throughout.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>Compliance by design</h3>
-        <p>Public accounting in Spain operates under strict regulatory frameworks. Every design decision had to support audit readiness, role-based access control, and the specific reporting formats required by law — not as an afterthought, but as a foundation.</p>
+    <p>The legacy system was a dense, menu-driven application with hundreds of nested options, no visual hierarchy, and a form-based interaction model requiring deep institutional knowledge to operate.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:2rem 0;">
+  <div class="ba-item">
+    <div class="ba-label">Before Sicalwin · main menu</div>
+    <div style="background:#d4d0c8;font-family:Tahoma,Arial,sans-serif;">
+      <div style="background:#000080;color:white;font-size:10px;padding:3px 6px;">Menú Principal</div>
+      <div style="padding:5px;font-size:10px;line-height:1.9;min-height:200px;">
+        <div>◇ Presupuesto de Gastos</div>
+        <div style="padding-left:10px;">◇ Justificantes de Gastos</div>
+        <div style="padding-left:18px;background:#000080;color:white;padding:1px 4px 1px 22px;">Registros de Justificantes</div>
+        <div style="padding-left:22px;">Anticipos de Caja Fija</div>
+        <div style="padding-left:22px;">Monitor de Contabilización</div>
+        <div style="padding-left:22px;">Cambio de Situación</div>
+        <div style="padding-left:22px;">Consulta General</div>
+        <div style="padding-left:22px;">Incorporación de Facturas</div>
+        <div style="padding-left:22px;">Informes Trimestrales</div>
       </div>
     </div>
   </div>
-</section>
-
-<!-- HOW -->
-<section>
-  <div class="container">
-    <div class="section-num">04 How I worked</div>
-    <h2>Designing with the people<br>who run public money.</h2>
-    <p>Working in public sector requires a different kind of research. The users aren't product-savvy early adopters — they're civil servants with legal accountability, decades of institutional memory, and zero tolerance for disruption. Getting them to talk honestly about how they work took time, trust, and a lot of field visits.</p>
-    <p>Our pilot programme was anchored at the <strong>Diputació de Girona</strong>, which acted as a co-building partner and coordination hub for municipalities in the province. Through them, we progressively onboarded close to a hundred municipalities during my tenure — starting with the most open to change and expanding as confidence in the platform grew. This phased approach wasn't just a migration strategy; it was a continuous research engine. Every new municipality we onboarded surfaced edge cases, workflow variations, and compliance nuances we hadn't anticipated.</p>
-
-    <div class="pullquote reveal">
-      <p>"Every municipality had the same legal obligations but a completely different way of working. The product had to be consistent enough to be learnable and flexible enough to be real."</p>
-    </div>
-
-    <p>I mapped and researched four distinct user profiles, each with fundamentally different needs, mental models, and risk tolerances:</p>
-
-    <div class="challenge-grid reveal">
-      <div class="challenge-card">
-        <h3>The Interventor</h3>
-        <p>The most powerful and most cautious user. Legally responsible for every financial operation in the municipality. Needed complete audit trails, role-based access controls, and the ability to approve or block any transaction. Trusted data above everything — if a number was wrong, even once, the platform lost all credibility.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>The Tesorero</h3>
-        <p>Focused on cash flow, payment execution, and banking reconciliation. Needed to close cycles fast and generate the reports required by the Ministry of Finance — PMP, debt status, execution summaries. Frustrated by the manual work the legacy system required every month-end.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>The administrative functionary</h3>
-        <p>The daily operator. Creating expedientes, attaching documents, moving workflows through approval steps. High volume, repetitive tasks, often shared across departments. Their biggest pain was the cognitive load of navigating a system with hundreds of nested menu options — and the fear of making an irreversible mistake.</p>
-      </div>
-      <div class="challenge-card">
-        <h3>The IT technician</h3>
-        <p>Responsible for deployment, configuration, and first-line support across multiple municipalities. Needed the platform to be configurable without code, stable enough to not require constant intervention, and clear enough in its error states to diagnose problems without calling developers.</p>
+  <div class="ba-item">
+    <div class="ba-label">Before Sicalwin · data entry</div>
+    <div style="background:#d4d0c8;font-family:Tahoma,Arial,sans-serif;">
+      <div style="background:#000080;color:white;font-size:10px;padding:3px 6px;">Operaciones de Ejecución de Gastos</div>
+      <div style="padding:8px;font-size:10px;background:#d4d0c8;min-height:200px;display:flex;flex-direction:column;gap:6px;">
+        <div style="display:flex;align-items:center;gap:4px;"><span style="min-width:80px;">Centro Gestor:</span><input style="width:50px;border:2px inset #808080;padding:1px 2px;font-size:10px;" readonly></div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="min-width:80px;">Operación:</span><input style="width:55px;border:2px inset #808080;padding:1px 2px;font-size:10px;" readonly><span style="margin-left:4px;font-size:9px;">Fecha</span><input style="width:60px;border:2px inset #808080;padding:1px 2px;font-size:9px;" readonly></div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="min-width:80px;">Documento:</span><input style="width:80px;border:2px inset #808080;padding:1px 2px;font-size:10px;" readonly></div>
+        <div style="height:1px;background:#808080;"></div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="min-width:80px;">Referencia:</span><input style="width:110px;border:2px inset #808080;padding:1px 2px;font-size:10px;" readonly></div>
+        <div style="display:flex;align-items:center;gap:4px;"><span style="min-width:80px;">Importe:</span><input style="width:100px;border:2px inset #808080;padding:1px 2px;font-size:10px;" readonly></div>
       </div>
     </div>
-
-    <p>I was hands-on throughout: leading co-design sessions at the Diputació, facilitating workshops with the engineering team, and making the key design decisions myself. Working with civil servants taught me that institutional trust is earned through consistency, not features — and that the most important design decision is often what you choose not to show.</p>
   </div>
-</section>
-
-<!-- THE PRODUCT -->
-<section>
-  <div class="container">
-    <div class="section-num">05 The product</div>
-    <h2>What Wecitio became.</h2>
-    <p>Wecitio is a modern municipal accounting platform built around four core workflows: budget management, transaction tracking, financial reporting, and advanced insights. Each was designed with the specific needs of public-sector users — role-based access, audit trails, compliance-first data structures, and the ability to handle the complexity of Spanish municipal accounting without hiding it behind false simplicity.</p>
-    <p>Below is the working prototype. The navigation on the left reflects the real information architecture of the platform — each section corresponds to a core workflow we designed from scratch.</p>
-  </div>
-
-  <div class="container-wide">
-    <div style="border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:2.5rem 0;">
-      <style>
-.proto-embed { font-family: 'DM Sans', sans-serif; font-size: 13px; line-height: 1.5; color: #0f172a; }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'DM Sans', sans-serif; background: #f8fafc; color: #0f172a; font-size: 13px; line-height: 1.5; }
-
-/* LAYOUT */
-.app { display: grid; grid-template-rows: 48px 1fr; grid-template-columns: 200px 1fr; height: 740px; overflow: hidden; }
-.topbar { grid-column: 1 / -1; background: #0f172a; display: flex; align-items: center; justify-content: space-between; padding: 0 1.25rem; border-bottom: 1px solid #1e293b; }
-.sidebar { background: #fff; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; overflow-y: auto; }
-.main { overflow-y: auto; background: #f8fafc; }
-
-/* TOPBAR */
-.topbar-left { display: flex; align-items: center; gap: 0.75rem; }
-.app-logo { width: 28px; height: 28px; background: #2563eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.app-logo svg { width: 15px; height: 15px; fill: white; }
-.app-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
-.topbar-search { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #94a3b8; width: 240px; outline: none; font-family: inherit; }
-.topbar-search::placeholder { color: #475569; }
-.topbar-right { display: flex; align-items: center; gap: 1rem; }
-.topbar-org { text-align: right; line-height: 1.35; }
-.topbar-org-name { font-size: 12px; font-weight: 600; color: #e2e8f0; }
-.topbar-org-sub { font-size: 10px; color: #64748b; }
-.topbar-bell { width: 28px; height: 28px; background: #1e293b; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
-.topbar-bell svg { width: 14px; height: 14px; stroke: #94a3b8; fill: none; }
-.bell-badge { position: absolute; top: 4px; right: 4px; width: 7px; height: 7px; background: #ef4444; border-radius: 50%; border: 1.5px solid #0f172a; }
-.back-link { font-size: 11px; color: #64748b; text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 4px; transition: background 0.15s; }
-.back-link:hover { background: #1e293b; color: #94a3b8; }
-
-/* SIDEBAR */
-.sidebar-section-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 600; padding: 12px 14px 4px; }
-.nav-item { display: flex; align-items: center; gap: 8px; padding: 7px 14px; font-size: 12px; color: #64748b; cursor: pointer; position: relative; transition: all 0.12s; user-select: none; }
-.nav-item:hover { background: #f8fafc; color: #334155; }
-.nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 500; }
-.nav-item.active::before { content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px; background: #2563eb; border-radius: 0 2px 2px 0; }
-.nav-item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
-.nav-badge { margin-left: auto; background: #ef4444; color: white; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; }
-.nav-badge.orange { background: #f59e0b; }
-.sidebar-footer { margin-top: auto; padding: 10px 14px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 8px; }
-.user-avatar { width: 28px; height: 28px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 600; flex-shrink: 0; }
-.user-name { font-size: 11px; font-weight: 500; color: #334155; line-height: 1.3; }
-.user-role { font-size: 10px; color: #94a3b8; }
-
-/* PAGE CONTENT */
-.page { display: none; padding: 1.5rem; }
-.page.active { display: block; }
-.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
-.page-title { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
-.page-sub { font-size: 12px; color: #64748b; }
-.role-bar { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-.badge { font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
-.badge-gray { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
-.badge-green { background: #f0fdf4; color: #16a34a; }
-.badge-blue { background: #eff6ff; color: #2563eb; }
-.badge-orange { background: #fff7ed; color: #ea580c; }
-.badge-red { background: #fee2e2; color: #dc2626; }
-.badge-yellow { background: #fefce8; color: #ca8a04; }
-
-/* BUTTONS */
-.btn { border: none; border-radius: 6px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.15s; }
-.btn:hover { opacity: 0.85; }
-.btn-primary { background: #2563eb; color: white; }
-.btn-secondary { background: white; color: #334155; border: 1px solid #e2e8f0; }
-.btn-danger { background: #dc2626; color: white; }
-.btn-sm { padding: 4px 10px; font-size: 11px; }
-
-/* CARDS */
-.card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; }
-.card-body { padding: 1rem 1.25rem; }
-.card-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
-.card-title { font-size: 13px; font-weight: 600; color: #0f172a; }
-
-/* METRIC CARDS */
-.metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 1.25rem; }
-.metric-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
-.metric-trend { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
-.metric-trend.up { color: #16a34a; }
-.metric-trend.down { color: #dc2626; }
-.metric-trend.blue { color: #2563eb; }
-.metric-label { font-size: 11px; color: #64748b; margin-bottom: 3px; }
-.metric-value { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 5px; }
-.metric-footer { display: flex; justify-content: space-between; align-items: center; }
-.metric-status { font-size: 10px; font-weight: 600; }
-.metric-status.high { color: #16a34a; }
-.metric-status.med { color: #f59e0b; }
-.metric-time { font-size: 10px; color: #94a3b8; }
-
-/* TABLE */
-.table-wrap { background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
-.table { width: 100%; border-collapse: collapse; }
-.table th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; padding: 8px 12px; border-bottom: 1px solid #f1f5f9; font-weight: 600; background: #f8fafc; }
-.table td { padding: 10px 12px; border-bottom: 1px solid #f8fafc; font-size: 12px; color: #334155; vertical-align: middle; }
-.table tr:last-child td { border-bottom: none; }
-.table tr:hover td { background: #f8fafc; }
-.tx-id { font-size: 11px; font-weight: 700; color: #2563eb; display: block; }
-.tx-date { font-size: 10px; color: #94a3b8; }
-.tx-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; background: #f8fafc; border-radius: 3px; padding: 1px 4px; display: inline-block; margin-top: 2px; }
-.amount-neg { font-weight: 700; color: #dc2626; }
-.amount-pos { font-weight: 700; color: #16a34a; }
-.status-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; display: inline-block; }
-.status-pagado { background: #f0fdf4; color: #16a34a; }
-.status-pendiente { background: #fff7ed; color: #ea580c; }
-.status-completado { background: #eff6ff; color: #2563eb; }
-.status-revision { background: #fefce8; color: #ca8a04; }
-.status-autorizado { background: #eff6ff; color: #2563eb; }
-.status-contabilizado { background: #f0fdf4; color: #16a34a; }
-
-/* CHARTS */
-.charts-row { display: grid; grid-template-columns: 1fr 220px; gap: 10px; margin-bottom: 1.25rem; }
-.chart-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-.chart-title { font-size: 12px; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; }
-.chart-legend { display: flex; gap: 0.75rem; }
-.legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #64748b; }
-.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-
-/* DONUT */
-.donut-list { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
-.donut-row { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; }
-.donut-label { display: flex; align-items: center; gap: 4px; }
-.donut-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.donut-val { font-weight: 600; color: #334155; }
-
-/* PROGRESS BAR */
-.progress-bar { height: 3px; background: #f1f5f9; border-radius: 2px; overflow: hidden; }
-.progress-fill { height: 100%; border-radius: 2px; }
-
-/* EXPEDIENTES */
-.exp-timeline { display: flex; margin-bottom: 1rem; }
-.exp-step { flex: 1; text-align: center; position: relative; }
-.exp-step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 10px; font-weight: 700; }
-.exp-step-dot.done { background: #2563eb; color: white; }
-.exp-step-dot.current { background: #f59e0b; color: white; }
-.exp-step-dot.pending { background: #e2e8f0; color: #94a3b8; }
-.exp-step-label { font-size: 9px; font-weight: 600; }
-.exp-step-label.done { color: #2563eb; }
-.exp-step-label.current { color: #f59e0b; }
-.exp-step-label.pending { color: #94a3b8; }
-.exp-step-date { font-size: 8px; color: #94a3b8; }
-.exp-line { position: absolute; top: 13px; left: calc(50% + 13px); right: 0; height: 2px; }
-.exp-line.done { background: #2563eb; }
-.exp-line.pending { background: #e2e8f0; }
-
-/* INFORMES */
-.report-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 0.75rem; }
-.report-type-card { border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; cursor: pointer; transition: all 0.15s; }
-.report-type-card:hover { border-color: #93c5fd; background: #f0f9ff; }
-.report-type-card.selected { border: 2px solid #2563eb; background: #eff6ff; }
-.report-type-name { font-size: 11px; font-weight: 700; color: #334155; }
-.report-type-name.selected { color: #2563eb; }
-.report-type-sub { font-size: 9px; color: #94a3b8; }
-
-/* ALERTAS */
-.alert-critical { background: white; border: 1.5px solid #fca5a5; border-radius: 8px; padding: 1rem; display: flex; gap: 0.75rem; margin-bottom: 6px; }
-.alert-medium { background: white; border: 1px solid #fed7aa; border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; margin-bottom: 5px; }
-.alert-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-.compliance-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
-.compliance-item { text-align: center; padding: 12px 8px; border-radius: 6px; }
-.compliance-item.ok { background: #f0fdf4; border: 1px solid #bbf7d0; }
-.compliance-item.fail { background: #fee2e2; border: 1px solid #fca5a5; }
-.compliance-item.warn { background: #fff7ed; border: 1px solid #fed7aa; }
-.compliance-icon { font-size: 16px; font-weight: 800; margin-bottom: 2px; }
-
-/* SIDEBAR FILTERS */
-.filter-section { padding: 0 1.25rem 1rem; }
-.filter-title { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 600; margin-bottom: 6px; }
-.filter-option { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #334155; padding: 3px 0; cursor: pointer; }
-.filter-option input { accent-color: #2563eb; }
-
-/* PRESUPUESTO */
-.budget-header { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
-.budget-card-income { background: #2563eb; border-radius: 8px; padding: 1.25rem; color: white; }
-.budget-card-expense { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; }
-.budget-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; margin-bottom: 4px; font-weight: 500; }
-.budget-amount { font-size: 24px; font-weight: 800; margin-bottom: 2px; }
-.budget-sub { font-size: 11px; opacity: 0.7; margin-bottom: 10px; }
-.budget-bar-bg { height: 4px; border-radius: 2px; }
-.partida { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 6px; cursor: pointer; transition: border-color 0.15s; }
-.partida:hover { border-color: #93c5fd; }
-.partida-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
-.partida-code { font-size: 11px; font-weight: 700; color: #2563eb; margin-right: 6px; }
-.partida-name { font-size: 13px; font-weight: 500; color: #0f172a; }
-.partida-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; }
-.partida-amounts { text-align: right; }
-.partida-exec { font-size: 12px; font-weight: 600; color: #334155; }
-.partida-budget { font-size: 11px; color: #94a3b8; }
-.tabs { display: flex; gap: 2px; margin-bottom: 1rem; background: #f1f5f9; border-radius: 6px; padding: 3px; }
-.tab-btn { flex: 1; padding: 5px; font-size: 11px; font-weight: 500; border: none; background: transparent; border-radius: 4px; cursor: pointer; color: #64748b; font-family: inherit; transition: all 0.15s; }
-.tab-btn.active { background: white; color: #2563eb; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
-
-/* INSIGHTS */
-.insight-banner { background: #2563eb; border-radius: 8px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-.insight-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-.insight-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 3px; }
-.insight-desc { font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.5; }
-.insight-btn { background: white; color: #2563eb; border: none; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
-.kpi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-.kpi-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
-.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 600; margin-bottom: 4px; }
-.kpi-value { font-size: 22px; font-weight: 800; color: #0f172a; }
-.bar-chart { display: flex; flex-direction: column; gap: 6px; }
-.bar-row { display: flex; align-items: center; gap: 8px; }
-.bar-label { font-size: 10px; color: #64748b; width: 40px; flex-shrink: 0; }
-.bar-track { flex: 1; height: 14px; background: #f1f5f9; border-radius: 3px; overflow: hidden; }
-.bar-fill { height: 100%; border-radius: 3px; }
-
-/* REPORT PREVIEW */
-.report-preview { border: 1px solid #e2e8f0; border-radius: 6px; padding: 1rem; background: #fafafa; }
-.report-row { display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding: 3px 0; font-size: 10px; color: #334155; }
-.report-row:last-child { border-bottom: none; }
-.report-row strong { font-weight: 600; }
-
-.proto-embed .app { height: 740px; }
-      </style>
-      <div class="proto-embed">
-<div class="app">
-
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="topbar-left">
-      <div class="app-logo">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
-      </div>
-      <span class="app-name">Sede Electrónica</span>
-      <input class="topbar-search" placeholder="Buscar partidas, expedientes, transacciones...">
-    </div>
-    <div class="topbar-right">
-      <div class="topbar-bell" onclick="navigateTo('alertas')" style="cursor:pointer;">
-        <svg viewBox="0 0 24 24" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg>
-        <div class="bell-badge"></div>
-      </div>
-      <div class="topbar-org">
-        <div class="topbar-org-name">Ayuntamiento de Villa Real</div>
-        <div class="topbar-org-sub">Ejercicio 2025</div>
-      </div>
-    </div>
-  </header>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="sidebar-section-label">Principal</div>
-    <div class="nav-item active" data-page="dashboard">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-      Panel Principal
-      <span class="nav-badge orange">3</span>
-    </div>
-
-    <div class="sidebar-section-label">Gestión</div>
-    <div class="nav-item" data-page="presupuesto">
-      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
-      Presupuesto
-    </div>
-    <div class="nav-item" data-page="transacciones">
-      <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
-      Transacciones
-    </div>
-    <div class="nav-item" data-page="expedientes">
-      <svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
-      Expedientes
-    </div>
-
-    <div class="sidebar-section-label">Reporting</div>
-    <div class="nav-item" data-page="informes">
-      <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/></svg>
-      Informes Oficiales
-    </div>
-    <div class="nav-item" data-page="insights">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      Insights y Análisis
-    </div>
-
-    <div class="sidebar-footer">
-      <div class="user-avatar">AD</div>
-      <div>
-        <div class="user-name">Ana Rodríguez</div>
-        <div class="user-role">Intervención de Fondos</div>
-      </div>
-    </div>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="main">
-
-    <!-- DASHBOARD -->
-    <div class="page active" id="page-dashboard">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div>
-            <div class="page-title">Panel de Control Contable</div>
-            <div class="page-sub">Resumen del estado financiero del Ayuntamiento de Villa Real.</div>
-            <div class="role-bar">
-              <span class="badge badge-gray">Ana Rodríguez · Intervención de Fondos</span>
-              <span class="badge badge-green">✓ Puede aprobar</span>
-              <span class="badge badge-blue">✓ Puede editar</span>
-              <span class="badge badge-orange">✓ Acceso datos sensibles</span>
-            </div>
-          </div>
-          <button class="btn btn-primary">Filtros Avanzados</button>
-        </div>
-
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-trend up">↑ +2.5%</div>
-            <div class="metric-label">Presupuesto Total</div>
-            <div class="metric-value">€12,450,000</div>
-            <div class="metric-footer"><span class="metric-status high">● ALTA FIABILIDAD</span><span class="metric-time">Hace 2h</span></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-trend blue">58% ejecutado</div>
-            <div class="metric-label">Ingresos Recaudados</div>
-            <div class="metric-value">€7,230,000</div>
-            <div class="metric-footer"><span class="metric-status high">● ALTA FIABILIDAD</span><span class="metric-time">Hace 30min</span></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-trend down">↓ -1.2% vs prev.</div>
-            <div class="metric-label">Gastos Comprometidos</div>
-            <div class="metric-value">€5,890,000</div>
-            <div class="metric-footer"><span class="metric-status high">● ALTA FIABILIDAD</span><span class="metric-time">Hace 1h</span></div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-trend down">↓ -5% amortizado</div>
-            <div class="metric-label">Deuda Pública</div>
-            <div class="metric-value">€2,120,000</div>
-            <div class="metric-footer"><span class="metric-status med">● FIABILIDAD MEDIA</span><span class="metric-time">Hace 3h</span></div>
-          </div>
-        </div>
-
-        <div class="charts-row">
-          <div class="chart-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
-              <div class="chart-title">Ejecución Presupuestaria (Semestre)</div>
-              <div class="chart-legend">
-                <div class="legend-item"><div class="legend-dot" style="background:#22c55e;"></div>Ingresos</div>
-                <div class="legend-item"><div class="legend-dot" style="background:#3b82f6;"></div>Gastos</div>
-              </div>
-            </div>
-            <svg width="100%" viewBox="0 0 400 110" preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="gI" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#22c55e" stop-opacity="0.3"/><stop offset="100%" stop-color="#22c55e" stop-opacity="0"/></linearGradient>
-                <linearGradient id="gE" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2"/><stop offset="100%" stop-color="#3b82f6" stop-opacity="0"/></linearGradient>
-              </defs>
-              <line x1="0" y1="80" x2="400" y2="80" stroke="#f1f5f9" stroke-width="1"/>
-              <line x1="0" y1="55" x2="400" y2="55" stroke="#f1f5f9" stroke-width="1"/>
-              <line x1="0" y1="30" x2="400" y2="30" stroke="#f1f5f9" stroke-width="1"/>
-              <path d="M0,75 C60,68 110,55 165,45 C220,35 270,22 330,14 C365,9 385,6 400,4" stroke="#22c55e" stroke-width="2" fill="none"/>
-              <path d="M0,75 C60,68 110,55 165,45 C220,35 270,22 330,14 C365,9 385,6 400,4 L400,110 L0,110Z" fill="url(#gI)"/>
-              <path d="M0,78 C60,75 110,70 165,65 C220,60 270,56 330,52 C365,49 385,47 400,45" stroke="#3b82f6" stroke-width="2" fill="none"/>
-              <path d="M0,78 C60,75 110,70 165,65 C220,60 270,56 330,52 C365,49 385,47 400,45 L400,110 L0,110Z" fill="url(#gE)"/>
-              <text x="2" y="105" font-size="9" fill="#94a3b8">Ene</text>
-              <text x="68" y="105" font-size="9" fill="#94a3b8">Feb</text>
-              <text x="143" y="105" font-size="9" fill="#94a3b8">Mar</text>
-              <text x="213" y="105" font-size="9" fill="#94a3b8">Abr</text>
-              <text x="285" y="105" font-size="9" fill="#94a3b8">May</text>
-              <text x="360" y="105" font-size="9" fill="#94a3b8">Jun</text>
-            </svg>
-          </div>
-          <div class="chart-card">
-            <div class="chart-title">Distribución por Áreas</div>
-            <svg viewBox="0 0 100 80" width="100%" style="display:block;margin:0 auto">
-              <circle cx="50" cy="40" r="28" fill="none" stroke="#e2e8f0" stroke-width="12"/>
-              <circle cx="50" cy="40" r="28" fill="none" stroke="#6366f1" stroke-width="12" stroke-dasharray="44 132" stroke-dashoffset="0"/>
-              <circle cx="50" cy="40" r="28" fill="none" stroke="#22c55e" stroke-width="12" stroke-dasharray="33 143" stroke-dashoffset="-44"/>
-              <circle cx="50" cy="40" r="28" fill="none" stroke="#f59e0b" stroke-width="12" stroke-dasharray="22 154" stroke-dashoffset="-77"/>
-              <circle cx="50" cy="40" r="28" fill="none" stroke="#06b6d4" stroke-width="12" stroke-dasharray="17 159" stroke-dashoffset="-99"/>
-            </svg>
-            <div class="donut-list">
-              <div class="donut-row"><div class="donut-label"><div class="donut-dot" style="background:#6366f1"></div>Infraestructura</div><div class="donut-val">400k€</div></div>
-              <div class="donut-row"><div class="donut-label"><div class="donut-dot" style="background:#22c55e"></div>Educación</div><div class="donut-val">300k€</div></div>
-              <div class="donut-row"><div class="donut-label"><div class="donut-dot" style="background:#f59e0b"></div>Salud</div><div class="donut-val">200k€</div></div>
-              <div class="donut-row"><div class="donut-label"><div class="donut-dot" style="background:#06b6d4"></div>Seguridad</div><div class="donut-val">150k€</div></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <div class="card-header">
-            <span class="card-title">Actividad Reciente e Intervenciones</span>
-            <a href="#" style="font-size:11px;color:#2563eb;text-decoration:none;font-weight:500;">Ver Historial Completo</a>
-          </div>
-          <table class="table">
-            <thead><tr><th>Concepto</th><th>Importe</th><th>Estado</th><th>Fecha/Hora</th></tr></thead>
-            <tbody>
-              <tr><td>Licitación Alumbrado LED</td><td style="font-weight:600;">€85,000</td><td><span class="status-pill status-pagado">Aprobado</span></td><td style="color:#94a3b8;">Hace 2 horas</td></tr>
-              <tr><td>Recaudación IBI Trimestral</td><td style="font-weight:600;">€324,500</td><td><span class="status-pill status-completado">Completado</span></td><td style="color:#94a3b8;">Hace 5 horas</td></tr>
-              <tr><td>Desviación Partida Urbanismo</td><td style="font-weight:600;">+12%</td><td><span class="status-pill status-revision">Pendiente Revisión</span></td><td style="color:#94a3b8;">Hace 1 día</td></tr>
-              <tr><td>Informe Trimestral de Tesorería</td><td style="font-weight:600;">PDF</td><td><span class="status-pill" style="background:#f8fafc;color:#64748b;">Generado</span></td><td style="color:#94a3b8;">Hace 2 días</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- PRESUPUESTO -->
-    <div class="page" id="page-presupuesto">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Presupuesto Municipal</div><div class="page-sub">Gestión y seguimiento de partidas presupuestarias.</div></div>
-          <div style="display:flex;gap:6px;"><button class="btn btn-secondary">↓ Exportar BOE</button><button class="btn btn-primary">+ Nueva Partida</button></div>
-        </div>
-        <div class="budget-header">
-          <div class="budget-card-income">
-            <div class="budget-type">Ingresos totales</div>
-            <div class="budget-amount">€8,500,000</div>
-            <div class="budget-sub">Previsión Anual — Finalizada al 48%</div>
-            <div class="budget-bar-bg" style="background:rgba(255,255,255,0.3);"><div class="progress-fill" style="width:48%;background:rgba(255,255,255,0.7);height:4px;border-radius:2px;"></div></div>
-          </div>
-          <div class="budget-card-expense">
-            <div class="budget-type" style="color:#64748b;">Gastos totales</div>
-            <div class="budget-amount" style="color:#0f172a;">€8,900,000</div>
-            <div class="budget-sub" style="color:#94a3b8;">Ejecución de gasto al 44%</div>
-            <div class="progress-bar"><div class="progress-fill" style="width:44%;background:#f59e0b;"></div></div>
-          </div>
-        </div>
-        <div class="tabs">
-          <button class="tab-btn active" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Capítulos de Ingreso</button>
-          <button class="tab-btn" onclick="this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Capítulos de Gasto</button>
-        </div>
-        <div class="partida">
-          <div class="partida-header"><div><span class="partida-code">100-0</span><span class="partida-name">Impuestos Directos</span><div class="partida-sub">Ejecución del 47% de la partida asignada.</div></div><div class="partida-amounts"><div class="partida-exec">€2,100,000</div><div class="partida-budget">de €4,500,000</div></div></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:47%;background:#22c55e;"></div></div>
-        </div>
-        <div class="partida">
-          <div class="partida-header"><div><span class="partida-code">100-1</span><span class="partida-name">Tasas y Precios Públicos</span><div class="partida-sub">Ejecución del 78% de la partida asignada.</div></div><div class="partida-amounts"><div class="partida-exec">€620,000</div><div class="partida-budget">de €800,000</div></div></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:78%;background:#22c55e;"></div></div>
-        </div>
-        <div class="partida">
-          <div class="partida-header"><div><span class="partida-code">100-2</span><span class="partida-name">Transferencias Corrientes</span><div class="partida-sub">Ejecución del 45% de la partida asignada.</div></div><div class="partida-amounts"><div class="partida-exec">€1,450,000</div><div class="partida-budget">de €3,200,000</div></div></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:45%;background:#22c55e;"></div></div>
-        </div>
-        <div class="partida" style="border-color:#fca5a5;">
-          <div class="partida-header"><div><span class="partida-code">451-0</span><span class="partida-name" style="color:#dc2626;">Urbanismo y Obras</span><div class="partida-sub" style="color:#dc2626;">⚠ Ejecución al 94% — Riesgo de rebase</div></div><div class="partida-amounts"><div class="partida-exec" style="color:#dc2626;">€1,880,000</div><div class="partida-budget">de €2,000,000</div></div></div>
-          <div class="progress-bar"><div class="progress-fill" style="width:94%;background:#dc2626;"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRANSACCIONES -->
-    <div class="page" id="page-transacciones">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Libro Diario y Registro</div><div class="page-sub">Listado detallado de todas las operaciones contables.</div></div>
-          <div style="display:flex;gap:6px;"><button class="btn btn-secondary">Filtros</button><button class="btn btn-secondary">↓ Descargar</button></div>
-        </div>
-        <div style="display:flex;gap:8px;margin-bottom:1rem;align-items:center;">
-          <input placeholder="Buscar por ID, proveedor, concepto..." style="flex:1;border:1px solid #e2e8f0;border-radius:6px;padding:7px 10px;font-size:12px;outline:none;font-family:inherit;">
-          <button class="btn btn-primary btn-sm">Todas</button>
-          <button class="btn btn-secondary btn-sm">Solo Gastos</button>
-          <button class="btn btn-secondary btn-sm">Solo Ingresos</button>
-          <button class="btn btn-secondary btn-sm">Pendientes</button>
-        </div>
-        <div class="table-wrap">
-          <table class="table">
-            <thead><tr><th>ID / Fecha</th><th>Tercero</th><th>Concepto</th><th>Importe</th><th>Estado</th></tr></thead>
-            <tbody>
-              <tr><td><span class="tx-id">TRX-001</span><span class="tx-date">2025-02-18</span></td><td style="font-weight:500;">Sacyr Infraestructuras</td><td>Certificación Obra Polideportivo<br><span class="tx-tag">Inversiones</span></td><td class="amount-neg">-45.200,50€</td><td><span class="status-pill status-pagado">Pagado</span></td></tr>
-              <tr><td><span class="tx-id">TRX-002</span><span class="tx-date">2025-02-17</span></td><td style="font-weight:500;">AEAT</td><td>Devolución IVA IV Trimestre<br><span class="tx-tag">Impuestos</span></td><td class="amount-pos">124.500,00€</td><td><span class="status-pill status-pendiente">Pendiente</span></td></tr>
-              <tr><td><span class="tx-id">TRX-003</span><span class="tx-date">2025-02-17</span></td><td style="font-weight:500;">Endesa Energía</td><td>Suministro Eléctrico Edificios<br><span class="tx-tag">Suministros</span></td><td class="amount-neg">-12.340,20€</td><td><span class="status-pill status-pagado">Pagado</span></td></tr>
-              <tr><td><span class="tx-id">TRX-004</span><span class="tx-date">2025-02-16</span></td><td style="font-weight:500;">Banco Santander</td><td>Amortización Préstamo ICO<br><span class="tx-tag">Deuda</span></td><td class="amount-neg">-350.000,00€</td><td><span class="status-pill status-pagado">Pagado</span></td></tr>
-              <tr><td><span class="tx-id">TRX-005</span><span class="tx-date">2025-02-15</span></td><td style="font-weight:500;">Ciudadano - Varios</td><td>Recaudación Impuesto Circulación<br><span class="tx-tag">Impuestos</span></td><td class="amount-pos">45.670,00€</td><td><span class="status-pill status-completado">Completado</span></td></tr>
-              <tr><td><span class="tx-id">TRX-006</span><span class="tx-date">2025-02-15</span></td><td style="font-weight:500;">Microsoft Ireland</td><td>Licencias Office 365 Trimestral<br><span class="tx-tag">Tecnología</span></td><td class="amount-neg">-2.450,00€</td><td><span class="status-pill status-pagado">Pagado</span></td></tr>
-            </tbody>
-          </table>
-          <div style="padding:0.75rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9;">
-            <span style="font-size:11px;color:#64748b;">Mostrando <strong>1–6</strong> de 124 transacciones</span>
-            <div style="display:flex;gap:6px;"><button class="btn btn-secondary btn-sm">Anterior</button><button class="btn btn-secondary btn-sm" style="font-weight:600;">Siguiente</button></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- EXPEDIENTES -->
-    <div class="page" id="page-expedientes">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Gestión de Expedientes</div><div class="page-sub">Seguimiento y trazabilidad de expedientes de gasto e ingreso.</div></div>
-          <button class="btn btn-primary">+ Nuevo Expediente</button>
-        </div>
-
-        <div class="card" style="margin-bottom:1rem;">
-          <div class="card-header">
-            <div><span style="font-size:11px;font-weight:700;color:#2563eb;margin-right:8px;">EXP-2025-0089</span><span style="font-size:13px;font-weight:600;color:#0f172a;">Obras de rehabilitación — Piscina Municipal</span></div>
-            <span class="badge badge-yellow">En revisión</span>
-          </div>
-          <div class="card-body">
-            <div class="exp-timeline">
-              <div class="exp-step"><div class="exp-step-dot done">✓</div><div class="exp-step-label done">Iniciado</div><div class="exp-step-date">12 ene</div><div class="exp-line done"></div></div>
-              <div class="exp-step"><div class="exp-step-dot done">✓</div><div class="exp-step-label done">Autorizado</div><div class="exp-step-date">18 ene</div><div class="exp-line done"></div></div>
-              <div class="exp-step"><div class="exp-step-dot current">⋯</div><div class="exp-step-label current">En revisión</div><div class="exp-step-date">Hoy</div><div class="exp-line pending"></div></div>
-              <div class="exp-step"><div class="exp-step-dot pending">4</div><div class="exp-step-label pending">Aprobado</div><div class="exp-step-date">Pendiente</div><div class="exp-line pending"></div></div>
-              <div class="exp-step"><div class="exp-step-dot pending">5</div><div class="exp-step-label pending">Contabilizado</div><div class="exp-step-date">Pendiente</div></div>
-            </div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem;">
-              <div class="kpi-card" style="padding:8px;"><div class="kpi-label">Importe</div><div style="font-size:16px;font-weight:800;color:#0f172a;">€145,000</div></div>
-              <div class="kpi-card" style="padding:8px;"><div class="kpi-label">Partida</div><div style="font-size:14px;font-weight:700;color:#2563eb;">450.22</div></div>
-              <div class="kpi-card" style="padding:8px;"><div class="kpi-label">Contratista</div><div style="font-size:11px;font-weight:600;color:#334155;">Constructora Levante SA</div></div>
-              <div class="kpi-card" style="padding:8px;border-color:#fca5a5;background:#fff5f5;"><div class="kpi-label">Vencimiento</div><div style="font-size:12px;font-weight:700;color:#dc2626;">28 feb 2025</div></div>
-            </div>
-            <div style="font-size:11px;font-weight:600;color:#334155;margin-bottom:6px;">Documentación adjunta</div>
-            <div style="display:flex;flex-direction:column;gap:4px;">
-              <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;"><span class="badge badge-blue" style="font-size:9px;">PDF</span><span style="font-size:11px;color:#334155;flex:1;">Memoria_Proyecto_Piscina_v2.pdf</span><span style="font-size:10px;color:#94a3b8;">2.4 MB</span><span style="font-size:10px;color:#16a34a;font-weight:600;">✓ Validado</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;"><span class="badge badge-blue" style="font-size:9px;">PDF</span><span style="font-size:11px;color:#334155;flex:1;">Contrato_Constructora_Levante_2025.pdf</span><span style="font-size:10px;color:#94a3b8;">1.1 MB</span><span style="font-size:10px;color:#16a34a;font-weight:600;">✓ Validado</span></div>
-              <div style="display:flex;align-items:center;gap:8px;padding:7px 10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:5px;"><span class="badge badge-orange" style="font-size:9px;">XLSX</span><span style="font-size:11px;color:#334155;flex:1;">Presupuesto_desglosado_v1.xlsx</span><span style="font-size:10px;color:#94a3b8;">0.8 MB</span><span style="font-size:10px;color:#ea580c;font-weight:600;">⚠ Pendiente</span></div>
-            </div>
-            <div style="display:flex;gap:6px;margin-top:1rem;">
-              <button class="btn btn-primary btn-sm">Aprobar revisión</button>
-              <button class="btn btn-secondary btn-sm">Solicitar corrección</button>
-              <button class="btn btn-secondary btn-sm">Ver historial completo</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="table-wrap">
-          <div class="card-header"><span class="card-title">Todos los expedientes</span><input placeholder="Buscar..." style="border:1px solid #e2e8f0;border-radius:5px;padding:4px 8px;font-size:11px;outline:none;font-family:inherit;"></div>
-          <table class="table">
-            <thead><tr><th>Referencia</th><th>Descripción</th><th>Importe</th><th>Estado</th><th>Fecha</th></tr></thead>
-            <tbody>
-              <tr><td><span class="tx-id">EXP-2025-0088</span></td><td>Suministro material oficina</td><td style="font-weight:600;">€8,450</td><td><span class="status-pill status-pagado">Aprobado</span></td><td style="color:#94a3b8;">10 ene</td></tr>
-              <tr><td><span class="tx-id">EXP-2025-0087</span></td><td>Servicio limpieza edificios Q1</td><td style="font-weight:600;">€24,000</td><td><span class="status-pill status-contabilizado">Contabilizado</span></td><td style="color:#94a3b8;">8 ene</td></tr>
-              <tr><td><span class="tx-id">EXP-2025-0086</span></td><td>Mantenimiento alumbrado LED</td><td style="font-weight:600;">€85,000</td><td><span class="status-pill status-autorizado">Autorizado</span></td><td style="color:#94a3b8;">5 ene</td></tr>
-              <tr><td><span class="tx-id">EXP-2025-0085</span></td><td>Pago nóminas enero</td><td style="font-weight:600;">€420,000</td><td><span class="status-pill status-completado">Contabilizado</span></td><td style="color:#94a3b8;">31 dic</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- INFORMES -->
-    <div class="page" id="page-informes">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Informes Oficiales</div><div class="page-sub">Generación de informes regulatorios para BOE, IGAE y organismos de control.</div></div>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
-          <div class="card">
-            <div class="card-header"><span class="card-title">Generar nuevo informe</span></div>
-            <div class="card-body">
-              <div style="font-size:11px;font-weight:500;color:#64748b;margin-bottom:6px;">Tipo de informe</div>
-              <div class="report-type-grid">
-                <div class="report-type-card selected"><div class="report-type-name selected">IGAE</div><div class="report-type-sub">Rendición de cuentas</div></div>
-                <div class="report-type-card"><div class="report-type-name">BOE</div><div class="report-type-sub">Publicación oficial</div></div>
-                <div class="report-type-card"><div class="report-type-name">Ministerio</div><div class="report-type-sub">Hacienda y AAPP</div></div>
-                <div class="report-type-card"><div class="report-type-name">Interno</div><div class="report-type-sub">Pleno municipal</div></div>
-              </div>
-              <div style="font-size:11px;font-weight:500;color:#64748b;margin:0.75rem 0 6px;">Período</div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0.75rem;">
-                <div style="border:1px solid #e2e8f0;border-radius:5px;padding:6px 8px;font-size:11px;color:#334155;">Desde: 01/01/2025</div>
-                <div style="border:1px solid #e2e8f0;border-radius:5px;padding:6px 8px;font-size:11px;color:#334155;">Hasta: 31/03/2025</div>
-              </div>
-              <div style="font-size:11px;font-weight:500;color:#64748b;margin-bottom:6px;">Incluir en el informe</div>
-              <div style="display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;">
-                <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;"><input type="checkbox" checked style="accent-color:#2563eb;"> Ejecución presupuestaria</label>
-                <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;"><input type="checkbox" checked style="accent-color:#2563eb;"> Estado de la deuda</label>
-                <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;"><input type="checkbox" checked style="accent-color:#2563eb;"> Período medio de pago</label>
-                <label style="display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;"><input type="checkbox" style="accent-color:#2563eb;"> Morosidad por departamento</label>
-              </div>
-              <button class="btn btn-primary" style="width:100%;">Generar informe PDF</button>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header"><span class="card-title">Previsualización</span><span style="font-size:11px;color:#2563eb;cursor:pointer;font-weight:500;">↓ Descargar</span></div>
-            <div class="card-body">
-              <div class="report-preview">
-                <div style="text-align:center;margin-bottom:0.75rem;">
-                  <div style="font-size:11px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.05em;">Ayuntamiento de Villa Real</div>
-                  <div style="font-size:10px;color:#64748b;">Informe de Rendición de Cuentas — IGAE</div>
-                  <div style="font-size:10px;color:#64748b;">1.er Trimestre 2025</div>
-                  <div style="height:1px;background:#e2e8f0;margin:8px 0;"></div>
-                </div>
-                <div class="report-row"><span><strong>Presupuesto total aprobado</strong></span><span>€12,450,000</span></div>
-                <div class="report-row"><span>Ingresos recaudados (48%)</span><span>€7,230,000</span></div>
-                <div class="report-row"><span>Gastos comprometidos (44%)</span><span>€5,890,000</span></div>
-                <div class="report-row"><span>Deuda pública vigente</span><span>€2,120,000</span></div>
-                <div class="report-row"><span><strong>Período medio de pago</strong></span><span style="color:#dc2626;font-weight:700;">34.2 días ⚠</span></div>
-                <div style="margin-top:0.75rem;padding-top:0.5rem;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;">
-                  <span style="font-size:9px;color:#94a3b8;">Generado: 11/04/2025 · Wecitio v2.1</span>
-                  <span class="badge badge-green" style="font-size:9px;">✓ Validado</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="table-wrap">
-          <div class="card-header"><span class="card-title">Informes generados recientemente</span></div>
-          <table class="table">
-            <thead><tr><th>Tipo</th><th>Descripción</th><th>Fecha</th><th>Estado</th></tr></thead>
-            <tbody>
-              <tr><td><span class="badge badge-red" style="font-size:9px;">IGAE</span></td><td>Rendición Q4 2024 — Cuenta General</td><td style="color:#94a3b8;">15/01/2025</td><td><span class="status-pill status-completado">Enviado</span></td></tr>
-              <tr><td><span class="badge badge-blue" style="font-size:9px;">BOE</span></td><td>Presupuesto municipal aprobado 2025</td><td style="color:#94a3b8;">02/01/2025</td><td><span class="status-pill status-pagado">Publicado</span></td></tr>
-              <tr><td><span class="badge" style="background:#f3e8ff;color:#7c3aed;font-size:9px;">MIN</span></td><td>Informe PMP trimestral — Hacienda</td><td style="color:#94a3b8;">10/01/2025</td><td><span class="status-pill status-completado">Enviado</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ALERTAS -->
-    <div class="page" id="page-alertas">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Alertas y Compliance</div><div class="page-sub">Desviaciones presupuestarias, riesgos de cumplimiento y notificaciones activas.</div></div>
-          <div style="display:flex;gap:6px;"><span class="badge badge-red" style="font-size:12px;padding:5px 12px;">3 críticas</span><span class="badge badge-orange" style="font-size:12px;padding:5px 12px;">5 medias</span></div>
-        </div>
-
-        <div style="font-size:11px;font-weight:600;color:#dc2626;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">Alertas críticas</div>
-        <div class="alert-critical">
-          <div class="alert-icon" style="background:#fee2e2;">⚠️</div>
-          <div style="flex:1;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;font-weight:700;color:#dc2626;">Período medio de pago supera 30 días</span><span style="font-size:10px;color:#94a3b8;">Hace 2h</span></div>
-            <div style="font-size:11px;color:#64748b;margin-bottom:8px;">El PMP actual es de <strong>34.2 días</strong>, superando el límite legal de 30 días (Ley 3/2004). Riesgo de sanción del Ministerio de Hacienda si no se regulariza antes del próximo informe.</div>
-            <div style="display:flex;gap:6px;"><button class="btn btn-danger btn-sm">Revisar expedientes</button><button class="btn btn-secondary btn-sm">Generar informe PMP</button></div>
-          </div>
-        </div>
-        <div class="alert-critical">
-          <div class="alert-icon" style="background:#fee2e2;">📋</div>
-          <div style="flex:1;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;font-weight:700;color:#dc2626;">Partida de Urbanismo al 94% de ejecución</span><span style="font-size:10px;color:#94a3b8;">Hace 5h</span></div>
-            <div style="font-size:11px;color:#64748b;margin-bottom:8px;">La partida <strong>451.0 — Urbanismo</strong> ha alcanzado el 94% de su dotación (€1,880,000 de €2,000,000). Riesgo de rebase antes de fin de trimestre.</div>
-            <div style="display:flex;gap:6px;"><button class="btn btn-danger btn-sm">Ver partida</button><button class="btn btn-secondary btn-sm">Solicitar ampliación</button></div>
-          </div>
-        </div>
-        <div class="alert-critical">
-          <div class="alert-icon" style="background:#fee2e2;">🔒</div>
-          <div style="flex:1;">
-            <div style="display:flex;justify-content:space-between;margin-bottom:3px;"><span style="font-size:12px;font-weight:700;color:#dc2626;">Expediente sin firma digital del Interventor</span><span style="font-size:10px;color:#94a3b8;">Hace 1 día</span></div>
-            <div style="font-size:11px;color:#64748b;margin-bottom:8px;">El expediente <strong>EXP-2025-0082</strong> (Contrato servicios informáticos — €32,000) está pendiente de firma del Interventor desde hace 5 días hábiles. Paraliza el pago al proveedor.</div>
-            <div style="display:flex;gap:6px;"><button class="btn btn-danger btn-sm">Firmar expediente</button><button class="btn btn-secondary btn-sm">Ver expediente</button></div>
-          </div>
-        </div>
-
-        <div style="font-size:11px;font-weight:600;color:#ea580c;text-transform:uppercase;letter-spacing:0.06em;margin:1rem 0 8px;">Alertas medias</div>
-        <div class="alert-medium"><div style="width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;"></div><div style="flex:1;"><span style="font-size:11px;font-weight:600;color:#92400e;">3 expedientes sin documentación completa</span><span style="font-size:11px;color:#64748b;"> — Vencen en los próximos 7 días</span></div><button class="btn btn-secondary btn-sm">Ver</button></div>
-        <div class="alert-medium"><div style="width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;"></div><div style="flex:1;"><span style="font-size:11px;font-weight:600;color:#92400e;">Informe trimestral IGAE pendiente de envío</span><span style="font-size:11px;color:#64748b;"> — Plazo: 30 abril 2025</span></div><button class="btn btn-secondary btn-sm">Generar</button></div>
-        <div class="alert-medium"><div style="width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;"></div><div style="flex:1;"><span style="font-size:11px;font-weight:600;color:#92400e;">Usuario sin acceso renovado: J. Martínez</span><span style="font-size:11px;color:#64748b;"> — Caducó hace 3 días</span></div><button class="btn btn-secondary btn-sm">Renovar</button></div>
-
-        <div style="margin-top:1.25rem;">
-          <div style="font-size:12px;font-weight:600;color:#334155;margin-bottom:0.75rem;">Estado de compliance regulatorio</div>
-          <div class="compliance-grid">
-            <div class="compliance-item ok"><div class="compliance-icon" style="color:#16a34a;">✓</div><div style="font-size:10px;font-weight:600;color:#16a34a;">Ley Morosidad</div><div style="font-size:9px;color:#4ade80;">Cumpliendo</div></div>
-            <div class="compliance-item fail"><div class="compliance-icon" style="color:#dc2626;">✗</div><div style="font-size:10px;font-weight:600;color:#dc2626;">PMP 30 días</div><div style="font-size:9px;color:#f87171;">34.2 días</div></div>
-            <div class="compliance-item ok"><div class="compliance-icon" style="color:#16a34a;">✓</div><div style="font-size:10px;font-weight:600;color:#16a34a;">Estabilidad pres.</div><div style="font-size:9px;color:#4ade80;">Superávit</div></div>
-            <div class="compliance-item warn"><div class="compliance-icon" style="color:#ea580c;">!</div><div style="font-size:10px;font-weight:600;color:#ea580c;">IGAE trimestral</div><div style="font-size:9px;color:#fb923c;">Pendiente envío</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- INSIGHTS -->
-    <div class="page" id="page-insights">
-      <div style="padding:1.5rem;">
-        <div class="page-header">
-          <div><div class="page-title">Insights y Análisis Avanzado</div><div class="page-sub">Métricas clave de rendimiento y eficiencia financiera municipal.</div></div>
-          <div style="display:flex;gap:4px;"><button class="btn btn-primary btn-sm">Trimestral</button><button class="btn btn-secondary btn-sm">Semestral</button><button class="btn btn-secondary btn-sm">Anual</button></div>
-        </div>
-        <div class="insight-banner">
-          <div class="insight-icon">⚡</div>
-          <div style="flex:1;"><div class="insight-title">Optimización Detectada</div><div class="insight-desc">Se ha detectado una infrautilización del 15% en el presupuesto de mantenimiento de parques. Considera redistribuir €45,000 hacia el programa "Verano Juvenil" para mejorar el impacto social sin exceder el techo de gasto.</div></div>
-          <button class="insight-btn">Ver Recomendación</button>
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;">
-          <div class="chart-card">
-            <div class="chart-title">Tendencia Mensual Acumulada</div>
-            <svg width="100%" viewBox="0 0 300 100" preserveAspectRatio="none">
-              <line x1="0" y1="70" x2="300" y2="70" stroke="#f1f5f9" stroke-width="1" stroke-dasharray="4"/>
-              <polyline points="0,80 50,75 100,65 150,60 200,52 250,38 300,18" stroke="#22c55e" stroke-width="2.5" fill="none"/>
-              <circle cx="0" cy="80" r="3.5" fill="#22c55e"/><circle cx="50" cy="75" r="3.5" fill="#22c55e"/><circle cx="100" cy="65" r="3.5" fill="#22c55e"/><circle cx="150" cy="60" r="3.5" fill="#22c55e"/><circle cx="200" cy="52" r="3.5" fill="#22c55e"/><circle cx="250" cy="38" r="3.5" fill="#22c55e"/><circle cx="300" cy="18" r="3.5" fill="#22c55e"/>
-              <text x="0" y="98" font-size="9" fill="#94a3b8">Jul</text><text x="44" y="98" font-size="9" fill="#94a3b8">Ago</text><text x="94" y="98" font-size="9" fill="#94a3b8">Sep</text><text x="144" y="98" font-size="9" fill="#94a3b8">Oct</text><text x="194" y="98" font-size="9" fill="#94a3b8">Nov</text><text x="244" y="98" font-size="9" fill="#94a3b8">Dic</text>
-            </svg>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;">
-              <div style="text-align:center;"><div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Superávit</div><div style="font-size:15px;font-weight:800;color:#16a34a;">+€12.4k</div></div>
-              <div style="text-align:center;"><div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Ahorro medio</div><div style="font-size:15px;font-weight:800;color:#0f172a;">8.2%</div></div>
-              <div style="text-align:center;"><div style="font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;">Desviación</div><div style="font-size:15px;font-weight:800;color:#0f172a;">1.2%</div></div>
-            </div>
-          </div>
-          <div class="chart-card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;"><div class="chart-title">Eficiencia en Ejecución por Área</div><a href="#" style="font-size:10px;color:#2563eb;text-decoration:none;font-weight:500;">Ver Auditoría</a></div>
-            <div class="bar-chart">
-              <div class="bar-row"><span class="bar-label">Urb.</span><div class="bar-track"><div class="bar-fill" style="width:82%;background:#6366f1;"></div></div><span style="font-size:10px;color:#64748b;margin-left:4px;">82%</span></div>
-              <div class="bar-row"><span class="bar-label">Educ.</span><div class="bar-track"><div class="bar-fill" style="width:91%;background:#22c55e;"></div></div><span style="font-size:10px;color:#64748b;margin-left:4px;">91%</span></div>
-              <div class="bar-row"><span class="bar-label">Cult.</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:#f59e0b;"></div></div><span style="font-size:10px;color:#64748b;margin-left:4px;">78%</span></div>
-              <div class="bar-row"><span class="bar-label">Seg.</span><div class="bar-track"><div class="bar-fill" style="width:95%;background:#06b6d4;"></div></div><span style="font-size:10px;color:#64748b;margin-left:4px;">95%</span></div>
-              <div class="bar-row"><span class="bar-label">Adm.</span><div class="bar-track"><div class="bar-fill" style="width:88%;background:#8b5cf6;"></div></div><span style="font-size:10px;color:#64748b;margin-left:4px;">88%</span></div>
-            </div>
-            <div style="margin-top:0.75rem;font-size:10px;color:#64748b;display:flex;flex-direction:column;gap:3px;">
-              <div style="display:flex;justify-content:space-between;"><span>Área más eficiente: Seguridad</span><span style="font-weight:700;color:#0f172a;">95%</span></div>
-              <div style="display:flex;justify-content:space-between;"><span>Cuello de botella: Cultura</span><span style="font-weight:700;color:#f59e0b;">78%</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="kpi-grid">
-          <div class="kpi-card"><div class="kpi-label">Período Medio Pago</div><div class="kpi-value" style="color:#dc2626;">34.2 días</div><div style="font-size:10px;color:#dc2626;margin-top:2px;">⚠ Supera límite legal</div></div>
-          <div class="kpi-card"><div class="kpi-label">Carga Fiscal / Hab.</div><div class="kpi-value">€452.00</div></div>
-          <div class="kpi-card"><div class="kpi-label">Informes Exportados</div><div class="kpi-value">12 <span style="font-size:14px;font-weight:400;color:#64748b;">este mes</span></div></div>
-        </div>
-      </div>
-    </div>
-
-  </main>
 </div>
+<p style="font-size:11.5px;color:var(--dim);text-align:center;">The legacy system: hundreds of nested menu items, no visual hierarchy, form-based data entry requiring expert knowledge.</p>
+  </div>
+</div>
+
+<div class="block r">
+  <div class="block-label"><div class="block-num">03</div><div class="block-title">The challenge</div><div class="block-sub">Three hard problems<br>that had to be solved together.</div></div>
+  <div class="content">
+    <h2>Three hard problems<br>that had to be solved together.</h2>
+    <div class="challenge-grid r">
+      <div class="challenge-card"><h3>Convincing municipalities</h3><p>Every municipality that switched was betting their year-end close on a new system. We had to earn trust incrementally, starting with the most willing to co-build with us.</p></div>
+      <div class="challenge-card"><h3>Prioritising the right workflows</h3><p>Deciding which features to rebuild first, which to defer, and which to drop entirely was the most strategically consequential work on this project.</p></div>
+      <div class="challenge-card"><h3>Backward compatibility</h3><p>Municipalities couldn't stop operating while migrating. The new system had to run alongside the old one and maintain continuity of legal reporting throughout.</p></div>
+      <div class="challenge-card"><h3>Compliance by design</h3><p>Audit readiness, role-based access, and specific reporting formats had to be foundational not afterthoughts. They shaped every data model decision.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="block alt r">
+  <div class="block-label"><div class="block-num">04</div><div class="block-title">How I worked</div><div class="block-sub">Designing with the people<br>who run public money.</div></div>
+  <div class="content">
+    <h2>Designing with the people<br>who run public money.</h2>
+    <p>Working in public sector requires a different kind of research. Users aren't product-savvy early adopters they're civil servants with legal accountability, decades of institutional memory, and zero tolerance for disruption.</p>
+    <p>Our pilot programme was anchored at the <strong>Diputació de Girona</strong>, which co-built with us and coordinated municipalities in the province. We progressively onboarded close to a hundred municipalities, starting with the most open to change.</p>
+    <div class="pq r"><p>"Every municipality had the same legal obligations but a completely different way of working. The product had to be consistent enough to be learnable and flexible enough to be real."</p></div>
+  </div>
+</div>
+
+<div class="proto-wrap r">
+  <div class="proto-header">
+    <div class="block-label" style="position:sticky;top:calc(var(--nav-h) + 1.5rem);">
+      <div class="block-num">05</div>
+      <div class="block-title">The product</div>
+      <div class="block-sub">Navigate Wecitio<br>as it was designed.</div>
+    </div>
+    <div class="content">
+      <h2>What Wecitio became.</h2>
+      <p>A modern municipal accounting platform built around four core workflows: budget management, transaction tracking, financial reporting, and automated insights. Designed compliance-first, with role-based access and full audit trails.</p>
+      <div class="proto-hints">
+        <div class="proto-hint">Navigate between sections using the sidebar</div>
+        <div class="proto-hint">Filters and table interactions are live</div>
       </div>
     </div>
-    <p class="img-caption">Interactive prototype — click the sidebar to navigate between all seven workflows.</p>
   </div>
+  <div class="proto-chrome">
+    <div class="proto-bar">
+      <div class="proto-dot" style="background:#ff5f57;"></div>
+      <div class="proto-dot" style="background:#febc2e;"></div>
+      <div class="proto-dot" style="background:#28c840;"></div>
+      <span class="proto-bar-label">wecitio.app interactive prototype</span>
+    </div>
+    <iframe src="wicitio-prototype.html" style="width:100%;height:700px;border:none;display:block;" title="Wecitio interactive prototype"></iframe>
+  </div>
+</div>
+
+<div class="block r">
+  <div class="block-label"><div class="block-num">06</div><div class="block-title">Key screens</div><div class="block-sub">Dashboard, transactions,<br>insights, and budget views.</div></div>
+  <div class="content">
+    <h2>The product in detail.</h2>
+    <div class="img-wrap r"><img src="wicitio-dashboard.png" alt="Wecitio dashboard"></div>
+    <p class="img-cap">The main dashboard: financial health at a glance budget execution, recent transactions, and compliance indicators.</p>
+    <div class="img-grid r">
+      <div class="img-wrap"><img src="wicitio-transacciones.png" alt="Transactions view"></div>
+      <div class="img-wrap"><img src="wicitio-presupuesto.png" alt="Budget view"></div>
+    </div>
+    <p class="img-cap">Left: transactions with filters and status indicators. Right: budget management with partida-level breakdown.</p>
+    <div class="img-grid r">
+      <div class="img-wrap"><img src="wicitio-insights.png" alt="Insights view"></div>
+      <div class="img-wrap"><img src="wicitio-filters.png" alt="Advanced filters"></div>
+    </div>
+    <p class="img-cap">Left: automated insights surfacing patterns. Right: advanced filtering for transaction search.</p>
+  </div>
+</div>
+
+<div class="block alt r">
+  <div class="block-label"><div class="block-num">07</div><div class="block-title">Learnings</div></div>
+  <div class="content">
+    <h2>What institutional design<br>teaches you.</h2>
+    <div class="learning"><div class="l-n">01</div><div><div class="l-title">Trust is the product</div><div class="l-body">In public sector, institutional trust isn't a nice-to-have it's the prerequisite for adoption. The pilot strategy wasn't just a migration plan. Every successful migration made the next one easier.</div></div></div>
+    <div class="learning"><div class="l-n">02</div><div><div class="l-title">Compliance is architecture, not a feature</div><div class="l-body">Role-based access, immutable audit trails, structured data models for legal reporting these couldn't be layered on later. The most important UX decisions happen at the data architecture level, not the interface level.</div></div></div>
+    <div class="learning"><div class="l-n">03</div><div><div class="l-title">The most important decision is what you choose not to show</div><div class="l-body">Information density that felt comprehensive to power users was cognitive overload for administrators doing repetitive tasks. Ruthless subtraction was one of the highest-value design moves on this project.</div></div></div>
+  </div>
+</div>
+
+<footer><a href="index.html" class="f-back">← Back to all work</a><div class="f-credit">Isabel Casanova · 2025</div></footer>
 <script>
-function navigateTo(pageId) {
-  navItems.forEach(function(n) { n.classList.remove('active'); });
-  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  var target = document.querySelector('.nav-item[data-page="' + pageId + '"]');
-  if (target) target.classList.add('active');
-  document.getElementById('page-' + pageId).classList.add('active');
+// Progress + nav
+function updateUI() {
+  const max = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('progress').style.width = max > 0 ? (window.scrollY / max * 100) + '%' : '0%';
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30);
+}
+window.addEventListener('scroll', updateUI, { passive: true });
+updateUI();
+
+// Reveal
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) { setTimeout(() => e.target.classList.add('on'), i * 55); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+document.querySelectorAll('.r').forEach(el => revealObs.observe(el));
+setTimeout(() => document.querySelectorAll('.r').forEach(el => {
+  if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('on');
+}), 80);
+
+// Block vis (green num)
+const blockObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => e.target.classList.toggle('vis', e.isIntersecting));
+}, { threshold: 0.25 });
+document.querySelectorAll('.block').forEach(el => blockObs.observe(el));
+
+// Pullquote line
+const pqObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('vis'); pqObs.unobserve(e.target); } });
+}, { threshold: 0.4 });
+document.querySelectorAll('.pq').forEach(el => pqObs.observe(el));
+
+// Count-up
+function countUp(el) {
+  const raw = el.textContent.trim();
+  const hasPct = raw.endsWith('%'), hasPlus = raw.startsWith('+'), hasTilde = raw.startsWith('~');
+  const num = parseFloat(raw.replace(/[^0-9.]/g, ''));
+  if (isNaN(num) || num > 9999) return;
+  const dur = 900, t0 = performance.now();
+  const tick = now => {
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = (hasPlus ? '+' : hasTilde ? '~' : '') + Math.round(ease * num) + (hasPct ? '%' : '');
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const numObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { countUp(e.target); numObs.unobserve(e.target); } });
+}, { threshold: 0.7 });
+document.querySelectorAll('.impact-num').forEach(el => numObs.observe(el));
+
+// Custom cursor (desktop)
+if (window.matchMedia('(pointer: fine)').matches) {
+  const cur = document.createElement('div'); cur.id = 'cur';
+  const ring = document.createElement('div'); ring.id = 'ring';
+  document.body.append(cur, ring);
+  let mx = -100, my = -100, rx = -100, ry = -100;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function loop() {
+    rx += (mx - rx) * 0.13; ry += (my - ry) * 0.13;
+    cur.style.cssText = `left:${mx}px;top:${my}px`;
+    ring.style.cssText = `left:${rx}px;top:${ry}px`;
+    requestAnimationFrame(loop);
+  })();
+  const sel = 'a,button,.case-card,.challenge-card,.learning,.finding,.flow-step,.loop-step,.impact-cell,.scope-list li';
+  document.querySelectorAll(sel).forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.classList.add('h'); ring.classList.add('h'); });
+    el.addEventListener('mouseleave', () => { cur.classList.remove('h'); ring.classList.remove('h'); });
+  });
 }
 
-var navItems = document.querySelectorAll('.nav-item[data-page]');
-navItems.forEach(function(item) {
-  item.addEventListener('click', function() {
-    var pageId = this.getAttribute('data-page');
-    navItems.forEach(function(n) { n.classList.remove('active'); });
-    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-    this.classList.add('active');
-    document.getElementById('page-' + pageId).classList.add('active');
+// Magnetic arrows
+document.querySelectorAll('.c-cta').forEach(cta => {
+  const card = cta.closest('.case-card');
+  const arrow = cta.querySelector('.c-arrow');
+  if (!card || !arrow) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width/2) / r.width * 8;
+    const y = (e.clientY - r.top - r.height/2) / r.height * 8;
+    arrow.style.transform = `translate(${3+x}px,${-3+y}px)`;
   });
+  card.addEventListener('mouseleave', () => { arrow.style.transform = ''; });
 });
 
-document.querySelectorAll('.report-type-card').forEach(function(card) {
-  card.addEventListener('click', function() {
-    document.querySelectorAll('.report-type-card').forEach(function(c) {
-      c.classList.remove('selected');
-      c.querySelector('.report-type-name').classList.remove('selected');
+// Parallax images
+if (window.matchMedia('(pointer: fine)').matches) {
+  function doParallax() {
+    document.querySelectorAll('.img-wrap').forEach(wrap => {
+      const r = wrap.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      const p = (window.innerHeight - r.top) / (window.innerHeight + r.height);
+      const img = wrap.querySelector('img');
+      if (img) img.style.transform = `translateY(${(p-.5)*12}px) scale(1.04)`;
     });
-    this.classList.add('selected');
-    this.querySelector('.report-type-name').classList.add('selected');
+  }
+  window.addEventListener('scroll', doParallax, { passive: true });
+}
+
+// Page fade in
+document.body.style.cssText += 'opacity:0;transition:opacity .3s ease';
+window.addEventListener('load', () => { document.body.style.opacity = '1'; });
+setTimeout(() => { document.body.style.opacity = '1'; }, 250);
+
+// ── Hero word-by-word reveal ──
+(function() {
+  const h1 = document.querySelector('.hero h1');
+  if (!h1) return;
+  // Split inner HTML words but preserve .accent spans
+  const html = h1.innerHTML;
+  // Wrap each word in a span, preserving existing spans
+  const wrapped = html.replace(/(<[^>]+>|[^<\s]+)/g, (m) => {
+    if (m.startsWith('<')) return m;
+    return `<span class="hw" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s cubic-bezier(0.16,1,0.3,1);">${m}</span>`;
+  });
+  h1.innerHTML = wrapped;
+  const words = h1.querySelectorAll('.hw');
+  words.forEach((w, i) => {
+    setTimeout(() => {
+      w.style.opacity = '1';
+      w.style.transform = 'none';
+    }, 400 + i * 80);
+  });
+})();
+
+// ── Case card tilt ──
+document.querySelectorAll('.case-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateX(${-y * 1.5}deg) rotateY(${x * 1.5}deg) translateZ(2px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
   });
 });
-</script>
-</section>
 
-<!-- OUTCOME -->
-<section>
-  <div class="container">
-    <div class="section-num">06 Outcome</div>
-    <h2>What the modernisation<br>made possible.</h2>
-    <p>Wecitio established the foundation for a scalable, secure, and maintainable municipal accounting platform. The phased migration approach — co-built with pilot municipalities — reduced adoption risk and created genuine buy-in from the institutions that would use it.</p>
-    <p>The shift from a Visual Basic monolith to a modular, API-first architecture meant that new regulatory requirements could now be addressed in weeks rather than months. Audit readiness, which had previously required days of manual report preparation, became a real-time capability built into the platform from the ground up.</p>
-    <p>Most importantly, the platform changed how municipalities could think about their own financial data. Moving from a system that stored transactions to one that surfaced insights gave finance teams the ability to make decisions proactively rather than reactively.</p>
-  </div>
-</section>
+// ── Impact cells stagger on appear ──
+const impObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.impact-cell').forEach((cell, i) => {
+      setTimeout(() => {
+        cell.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+        cell.style.opacity = '1';
+        cell.style.transform = 'none';
+      }, i * 100);
+    });
+    impObs.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.impact-strip').forEach(strip => {
+  strip.querySelectorAll('.impact-cell').forEach(cell => {
+    cell.style.opacity = '0';
+    cell.style.transform = 'translateY(16px)';
+  });
+  impObs.observe(strip);
+});
 
-<!-- LEARNINGS -->
-<section>
-  <div class="container">
-    <div class="section-num">07 Learnings</div>
-    <h2>What this project<br>taught me about change.</h2>
-    <ul class="learnings-list">
-      <li>
-        <span class="learning-num">1</span>
-        <div class="learning-body">
-          <h3>Trust is the first product you build in public sector</h3>
-          <p>No municipality was going to migrate because the new system looked better. They migrated because we showed up consistently, listened to their concerns, involved them in the design, and proved we understood the consequences of getting it wrong. The co-building model with pilot municipalities wasn't just a research method — it was a trust-building strategy.</p>
-        </div>
-      </li>
-      <li>
-        <span class="learning-num">2</span>
-        <div class="learning-body">
-          <h3>Roadmap decisions are product decisions</h3>
-          <p>Deciding what to build first in a legacy modernisation is the hardest design problem on the project. Every feature you defer is a municipality that can't fully migrate yet. I learned to be much more explicit about sequencing criteria: compliance necessity, adoption dependency, and migration risk. Without a clear framework, the backlog becomes a political negotiation rather than a strategic plan.</p>
-        </div>
-      </li>
-      <li>
-        <span class="learning-num">3</span>
-        <div class="learning-body">
-          <h3>Simplicity in complex domains requires deep understanding</h3>
-          <p>The temptation in a domain as complex as public accounting is to expose the complexity and let users navigate it. The better answer is to understand it deeply enough to hide it where it doesn't need to be seen. That requires more research, more domain knowledge, and more willingness to push back on "but that's how it's always worked" as a design rationale.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
-</section>
+// ── Challenge grid stagger ──
+const cgObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.challenge-card').forEach((card, i) => {
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.55s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1), background 0.2s ease';
+        card.style.opacity = '1';
+        card.style.transform = 'none';
+      }, i * 80);
+    });
+    cgObs.unobserve(e.target);
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.challenge-grid').forEach(grid => {
+  grid.querySelectorAll('.challenge-card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(12px)';
+  });
+  cgObs.observe(grid);
+});
 
-<footer>
-  <div class="container">
-    <p>← <a href="factorial-case-study.html">Back to Factorial case study</a></p>
-    <p style="margin-top: 0.5rem;"><a href="#">Back to top</a></p>
-  </div>
-</footer>
-
-<script>
-const reveals = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-reveals.forEach(el => observer.observe(el));
-setTimeout(() => document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible')), 300);
+// ── Active nav section highlight ──
+const sections = ['work','about'];
+const sectObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    const link = document.querySelector('.nav-links a[href="#' + e.target.id + '"]');
+    if (link) link.classList.toggle('active', e.isIntersecting);
+  });
+}, { threshold: 0.3 });
+sections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) sectObs.observe(el);
+});
 </script>
 </body>
 </html>
