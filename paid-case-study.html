@@ -3,204 +3,68 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paid.ai &mdash; Isabel Casanova</title>
+<title>Paid.ai — Isabel Casanova</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
+/* ====== CASE STUDY STYLES ====== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { font-size: 16px; scroll-behavior: smooth; }
 :root {
-  --white: #ffffff;
-  --off: #f7f6f4;
-  --ink: #111110;
-  --dim: #5c5955;
-  --rule: #e8e5e0;
-  --green: #1a6e38;
-  --sans: "Inter", system-ui, sans-serif;
+  --white: #ffffff; --off: #f7f6f4; --ink: #111110; --dim: #5c5955;
+  --rule: #e8e5e0; --green: #1a6e38; --sans: "Inter", system-ui, sans-serif;
 }
-body {
-  font-family: var(--sans);
-  background: var(--white);
-  color: var(--ink);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  cursor: none;
-}
-/* cursor */
-#cur {
-  position: fixed; width: 6px; height: 6px;
-  background: var(--ink); border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: width .25s ease, height .25s ease, background .25s ease;
-}
-#ring {
-  position: fixed; width: 32px; height: 32px;
-  border: 1px solid rgba(17,17,16,.25); border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width .35s ease, height .35s ease, border-color .25s ease;
-}
+body { font-family: var(--sans); background: var(--white); color: var(--ink); -webkit-font-smoothing: antialiased; overflow-x: hidden; cursor: none; }
+#cur { position: fixed; width: 6px; height: 6px; background: var(--ink); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: width .25s, height .25s, background .25s; }
+#ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(17,17,16,.25); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .35s, height .35s, border-color .25s; }
 #cur.hover { width: 10px; height: 10px; background: var(--green); }
 #ring.hover { width: 48px; height: 48px; border-color: var(--green); }
-#cur.img { width: 48px; height: 48px; background: var(--green); opacity: .12; }
-#ring.img { width: 72px; height: 72px; border-color: var(--green); opacity: .4; }
-.img-wrap { overflow: hidden; }
-.img-wrap img { display: block; width: 100%; }
-/* ---- PROGRESS ---- */
-#progress {
-  position: fixed; top: 0; left: 0; z-index: 999;
-  height: 1px; background: var(--ink);
-  width: 0%; transition: width 0.1s linear;
-}
-/* ---- NAV ---- */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.75rem 3rem;
-}
-nav::after {
-  content: "";
-  position: absolute; inset: 0;
-  background: rgba(255,255,255,0.92);
-  backdrop-filter: blur(16px);
-  z-index: -1;
-  opacity: 0; transition: opacity 0.4s;
-}
+#progress { position: fixed; top: 0; left: 0; z-index: 999; height: 1px; background: var(--ink); width: 0%; transition: width 0.1s linear; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 1.75rem 3rem; }
+nav::after { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.92); backdrop-filter: blur(16px); z-index: -1; opacity: 0; transition: opacity 0.4s; }
 nav.s::after { opacity: 1; }
-.nav-home {
-  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--dim);
-  text-decoration: none; transition: color 0.2s;
-}
+.nav-home { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
 .nav-home:hover { color: var(--ink); }
 .nav-links { display: flex; gap: 2rem; }
-.nav-links a {
-  font-size: 11px; font-weight: 400; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--dim);
-  text-decoration: none; transition: color 0.2s;
-}
+.nav-links a { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
 .nav-links a:hover, .nav-links a.active { color: var(--ink); }
-/* ---- HERO ---- */
-.hero {
-  min-height: 100svh;
-  display: flex; flex-direction: column;
-  justify-content: flex-end;
-  padding: 0 3rem 5rem;
-  border-bottom: 1px solid var(--rule);
-}
-.hero-label {
-  font-size: 11px; font-weight: 400; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--dim);
-  margin-bottom: 3rem;
-  opacity: 0; transform: translateY(12px);
-  animation: up 0.7s ease 0.3s forwards;
-}
-.hero h1 {
-  font-size: clamp(3rem, 5.5vw, 5.8rem);
-  font-weight: 300; line-height: 1.08;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-  max-width: 980px;
-  opacity: 0; transform: translateY(20px);
-  animation: up 0.9s ease 0.5s forwards;
-}
-.hero-meta {
-  display: flex; gap: 4rem;
-  margin-top: 4rem; padding-top: 2.5rem;
-  border-top: 1px solid var(--rule);
-  opacity: 0; animation: fadeIn 0.8s ease 1s forwards;
-}
+.hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 3rem 5rem; border-bottom: 1px solid var(--rule); }
+.hero-label { font-size: 11px; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dim); margin-bottom: 3rem; opacity: 0; transform: translateY(12px); animation: up 0.7s ease 0.3s forwards; }
+.hero h1 { font-size: clamp(3rem, 5.5vw, 5.8rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.025em; color: var(--ink); max-width: 980px; opacity: 0; transform: translateY(20px); animation: up 0.9s ease 0.5s forwards; }
+.hero-meta { display: flex; gap: 4rem; margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid var(--rule); opacity: 0; animation: fadeIn 0.8s ease 1s forwards; }
 .meta-item { display: flex; flex-direction: column; gap: 0.3rem; }
 .meta-label { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); }
 .meta-val { font-size: 13px; font-weight: 400; color: var(--ink); }
 @keyframes up { to { opacity: 1; transform: none; } }
 @keyframes fadeIn { to { opacity: 1; } }
-/* ---- SECTIONS ---- */
-.block {
-  display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 3rem;
-  padding: 6rem 3rem;
-  border-bottom: 1px solid var(--rule);
-  align-items: start;
-}
+.block { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 6rem 3rem; border-bottom: 1px solid var(--rule); align-items: start; }
 .block.bg { background: var(--off); }
 .block-label { position: sticky; top: 8rem; }
 .block-num { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.4rem; }
 .block-title { font-size: 12px; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); }
 .block-sub { font-size: 11px; font-weight: 400; color: #8a8683; margin-top: 0.25rem; line-height: 1.5; }
-/* ---- IMAGES escape right column ---- */
-.content .img-wrap,
-.content .img-duo,
-.content .img-trio {
-  margin-left: calc(-280px - 3rem);
-  margin-right: 0;
-  width: calc(100% + 280px + 3rem);
-  max-width: 1100px;
-}
-.content .img-label { margin-left: 0; }
-/* ---- RIGHT COLUMN ---- */
-.content h2 {
-  font-size: clamp(1.6rem, 2.8vw, 2.8rem);
-  font-weight: 300; line-height: 1.15;
-  letter-spacing: -0.02em;
-  color: var(--ink); margin-bottom: 2rem;
-}
-.content p {
-  font-size: 1.05rem; color: #4a4744;
-  line-height: 1.85; font-weight: 300;
-  margin-bottom: 1.5rem; max-width: 640px;
-}
+.content h2 { font-size: clamp(1.6rem, 2.8vw, 2.8rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 2rem; }
+.content p { font-size: 1.05rem; color: #4a4744; line-height: 1.85; font-weight: 300; margin-bottom: 1.5rem; max-width: 640px; }
 .content p:last-child { margin-bottom: 0; }
 .content p strong { color: var(--ink); font-weight: 500; }
-/* ---- PULLQUOTE ---- */
-.pq {
-  padding: 2.5rem 0; margin: 2.5rem 0;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-}
-.pq p {
-  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
-  font-weight: 400; color: var(--ink);
-  line-height: 1.5; letter-spacing: -0.01em; max-width: 580px;
-}
-/* ---- PROBLEM ROWS ---- */
+.pq { padding: 2.5rem 0; margin: 2.5rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.pq p { font-size: clamp(1.2rem, 2.2vw, 1.65rem); font-weight: 400; color: var(--ink); line-height: 1.5; letter-spacing: -0.01em; max-width: 580px; }
 .problem-rows { margin: 3rem 0; }
-.problem-row {
-  display: grid; grid-template-columns: 40px 1fr;
-  gap: 2rem; padding: 2rem;
-  border-bottom: 1px solid var(--rule);
-  transition: background 0.25s ease, padding-left 0.25s ease;
-  border-radius: 2px; margin: 0 -2rem;
-}
+.problem-row { display: grid; grid-template-columns: 40px 1fr; gap: 2rem; padding: 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
 .problem-row:first-child { border-top: 1px solid var(--rule); }
 .problem-row:hover { background: var(--off); padding-left: 2.5rem; }
 .problem-row:hover .pr-title { color: var(--green); }
-.pr-num { font-size: 11px; font-weight: 400; color: var(--dim); padding-top: 0.2rem; letter-spacing: 0.05em; }
+.pr-num { font-size: 11px; font-weight: 400; color: var(--dim); padding-top: 0.2rem; }
 .pr-title { font-size: 13px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink); margin-bottom: 0.5rem; }
 .pr-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-/* ---- LOOP ---- */
-.loop {
-  display: flex; align-items: center; flex-wrap: nowrap;
-  gap: 0; margin: 3rem 0; overflow-x: auto;
-  padding: 3rem 0; border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-}
-.ln { display: flex; flex-direction: column; align-items: flex-start; gap: 0.5rem; min-width: 130px; flex-shrink: 0; padding-right: 1rem; }
+.loop { display: flex; align-items: center; flex-wrap: nowrap; gap: 0; margin: 3rem 0; overflow-x: auto; padding: 3rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.ln { display: flex; flex-direction: column; gap: 0.5rem; min-width: 130px; flex-shrink: 0; padding-right: 1rem; }
 .ln-step { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); }
 .ln-label { font-size: 14px; font-weight: 400; color: var(--ink); }
 .ln-sub { font-size: 12px; color: var(--dim); line-height: 1.4; max-width: 110px; }
 .la { font-size: 18px; color: var(--rule); margin: 0 1rem; padding-bottom: 2rem; flex-shrink: 0; }
-/* ---- FINDINGS ---- */
 .findings { margin: 3rem 0; }
-.finding {
-  display: grid; grid-template-columns: 120px 1fr;
-  gap: 2rem; padding: 2rem;
-  border-bottom: 1px solid var(--rule);
-  transition: background 0.25s ease, padding-left 0.25s ease;
-  margin: 0 -2rem;
-}
+.finding { display: grid; grid-template-columns: 120px 1fr; gap: 2rem; padding: 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
 .finding:first-child { border-top: 1px solid var(--rule); }
 .finding:hover { background: var(--off); padding-left: 2.5rem; }
 .finding:hover .f-title { color: var(--green); }
@@ -208,115 +72,650 @@ nav.s::after { opacity: 1; }
 .f-tag { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.15rem; transition: color 0.2s; }
 .f-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.4rem; transition: color 0.2s; }
 .f-body { font-size: 14px; color: var(--dim); line-height: 1.7; font-weight: 300; }
-/* ---- IA SKETCH ---- */
-.ia-row {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3rem; margin: 3rem 0;
-  padding: 3rem 0; border-top: 1px solid var(--rule);
-}
+.ia-row { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; padding: 3rem 0; border-top: 1px solid var(--rule); }
 .ia-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; }
 .ia-tree { font-family: "Courier New", monospace; font-size: 12px; color: var(--dim); line-height: 2.1; }
 .ia-tree .hl { color: var(--ink); font-weight: 500; }
-.journeys { display: flex; flex-direction: column; gap: 0; }
-.journey {
-  display: flex; align-items: flex-start; gap: 1rem;
-  padding: 1rem 0; border-bottom: 1px solid var(--rule);
-  transition: padding-left 0.2s;
-}
+.journeys { display: flex; flex-direction: column; }
+.journey { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); transition: padding-left 0.2s; }
 .journey:hover { padding-left: 0.4rem; }
-.journey:last-child { border-bottom: 1px solid var(--rule); }
 .j-dot { width: 6px; height: 6px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
 .j-role { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink); margin-bottom: 3px; }
 .j-flow { font-size: 13px; color: var(--dim); line-height: 1.5; }
-/* ---- IMAGES ---- */
-.img-wrap {
-  position: relative; overflow: hidden; margin: 4rem 0;
-}
-.img-wrap img { width: 100%; display: block; will-change: transform; }
-.img-duo {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--rule); margin: 4rem 0;
-}
-.img-trio {
-  display: grid; grid-template-columns: 1fr 1fr 1fr;
-  gap: 1px; background: var(--rule); margin: 4rem 0;
-}
-.img-duo .img-wrap,
-.img-trio .img-wrap { margin: 0; }
-.img-label {
-  font-size: 11px; color: var(--dim);
-  margin-top: 0.75rem; margin-bottom: 0;
-  line-height: 1.5; letter-spacing: 0.02em;
-}
-/* ---- SCOPE ---- */
-.scope {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 3rem; margin: 3rem 0;
-  padding: 3rem 0; border-top: 1px solid var(--rule);
-}
+/* PROTOTYPE WRAPPER */
+.proto-block { padding: 6rem 3rem; border-bottom: 1px solid var(--rule); }
+.proto-grid { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; align-items: start; margin-bottom: 3rem; }
+.proto-intro h2 { font-size: clamp(1.6rem, 2.8vw, 2.8rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1.5rem; }
+.proto-intro p { font-size: 1.05rem; color: #4a4744; line-height: 1.85; font-weight: 300; margin-bottom: 1rem; max-width: 640px; }
+.proto-hints { display: flex; gap: 1.5rem; flex-wrap: wrap; padding: 1.25rem 0; border-top: 1px solid var(--rule); margin-top: 1.5rem; }
+.proto-hint { font-size: 12px; color: var(--dim); display: flex; align-items: flex-start; gap: 6px; }
+.proto-hint::before { content: "↗"; color: var(--green); font-size: 11px; flex-shrink: 0; margin-top: 1px; }
+.proto-chrome { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 24px rgba(0,0,0,0.05); }
+.proto-chrome-bar { background: #1a1a18; padding: 10px 16px; display: flex; align-items: center; gap: 7px; }
+.proto-chrome-dot { width: 10px; height: 10px; border-radius: 50%; }
+.proto-chrome-title { font-size: 11px; color: #555; margin-left: 8px; font-family: var(--sans); }
+/* SCOPE */
+.scope-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 3rem 0; padding: 3rem 0; border-top: 1px solid var(--rule); }
 .scope-head { font-size: 10px; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-bottom: 1.5rem; }
 .scope-head.full { color: var(--ink); }
-.scope-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-.scope-list li {
-  font-size: 14px; color: var(--dim); font-weight: 300;
-  padding: 0.75rem 0; border-bottom: 1px solid var(--rule);
-  display: flex; align-items: flex-start; gap: 0.75rem;
-  transition: color 0.2s, padding-left 0.2s;
-}
-.scope-list li:hover { color: var(--ink); padding-left: 0.5rem; background: var(--off); }
-.scope-list li:last-child { border-bottom: 1px solid var(--rule); }
+.scope-list { list-style: none; display: flex; flex-direction: column; }
+.scope-list li { font-size: 14px; color: var(--dim); font-weight: 300; padding: 0.75rem 0; border-bottom: 1px solid var(--rule); display: flex; align-items: flex-start; gap: 0.75rem; transition: color 0.2s, padding-left 0.2s; }
+.scope-list li:hover { color: var(--ink); padding-left: 0.5rem; }
 .scope-list li::before { content: ""; width: 4px; height: 4px; border-radius: 50%; margin-top: 8px; flex-shrink: 0; }
 .scope-list.f li::before { background: var(--rule); }
 .scope-list.v li::before { background: var(--ink); }
-/* ---- LEARNINGS ---- */
-.learning {
-  display: grid; grid-template-columns: 60px 1fr;
-  gap: 2.5rem; padding: 3rem 2rem;
-  border-bottom: 1px solid var(--rule);
-  transition: background 0.25s ease, padding-left 0.25s ease;
-  margin: 0 -2rem;
-}
+.learning { display: grid; grid-template-columns: 60px 1fr; gap: 2.5rem; padding: 3rem 2rem; border-bottom: 1px solid var(--rule); transition: background 0.25s, padding-left 0.25s; margin: 0 -2rem; }
 .learning:first-child { border-top: 1px solid var(--rule); }
 .learning:hover { background: var(--off); padding-left: 2.5rem; }
 .learning:hover .l-title { color: var(--green); }
-.learning:hover .l-n { color: var(--green); }
 .l-n { font-size: 11px; font-weight: 500; color: var(--dim); letter-spacing: 0.08em; padding-top: 0.3rem; transition: color 0.2s; }
 .l-title { font-size: 1.15rem; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; line-height: 1.3; letter-spacing: -0.01em; transition: color 0.2s; }
 .l-body { font-size: 14px; color: var(--dim); line-height: 1.8; font-weight: 300; }
-/* ---- FOOTER ---- */
-footer {
-  display: grid; grid-template-columns: 280px 1fr;
-  gap: 3rem; padding: 4rem 3rem;
-  border-top: 1px solid var(--rule);
-}
+footer { display: grid; grid-template-columns: 280px 1fr; gap: 3rem; padding: 4rem 3rem; border-top: 1px solid var(--rule); }
 .f-back { font-size: 11px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim); text-decoration: none; transition: color 0.2s; }
 .f-back:hover { color: var(--ink); }
 .f-credit { font-size: 11px; color: var(--dim); }
-/* ---- REVEAL ---- */
 .r { opacity: 0; transform: translateY(28px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
 .r.on { opacity: 1; transform: none; }
-/* ---- RESPONSIVE ---- */
 @media (max-width: 860px) {
-  nav, .hero { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .block { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+  nav, .hero, .proto-block { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .block, .proto-grid { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
   .block-label { position: static; }
   .hero h1 { font-size: 2.6rem; }
-  .img-duo, .img-trio, .scope, .ia-row { grid-template-columns: 1fr; }
+  .ia-row, .scope-grid { grid-template-columns: 1fr; }
   footer { grid-template-columns: 1fr; gap: 1rem; padding: 3rem 1.5rem; }
-  .loop { flex-direction: column; align-items: flex-start; }
-  .la { transform: rotate(90deg); }
+  .loop { flex-direction: column; }
   .finding { grid-template-columns: 1fr; gap: 0.5rem; }
-  .content .img-wrap,
-  .content .img-duo,
-  .content .img-trio { margin-left: 0; width: 100%; }
 }
+
+/* ====== SCOPED PROTOTYPE STYLES ====== */
+
+#paidProto {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+  font-size: 13px;
+  --bg: #ffffff;
+  --bg2: #f8f8f7;
+  --bg3: #f0f0ee;
+  --ink: #111110;
+  --ink2: #4a4a48;
+  --ink3: #8a8a87;
+  --border: #e4e4e1;
+  --green: #1a6e38;
+  --green-bg: #eaf5ee;
+  --green-light: #d4eddd;
+  --sidebar: #111110;
+  --sidebar-text: #a8a8a5;
+  --sidebar-active: #ffffff;
+  --sidebar-active-bg: #2a2a28;
+  --red: #dc2626;
+  --red-bg: #fee2e2;
+  --amber: #d97706;
+  --amber-bg: #fef3c7;
+  --blue: #1d4ed8;
+  --blue-bg: #eff6ff;
+}
+#paidProto *, #paidProto *::before, #paidProto *::after { box-sizing: border-box; }
+#paidProto /* ─── SHELL ─── */
+.shell {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+#paidProto /* ─── SIDEBAR ─── */
+.sidebar {
+  width: 200px;
+  background: var(--sidebar);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow-y: auto;
+  padding-bottom: 16px;
+}
+#paidProto .sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid #2a2a28;
+  margin-bottom: 4px;
+}
+#paidProto .sidebar-logo-icon {
+  width: 26px; height: 26px;
+  background: var(--green);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: white; font-weight: 600;
+}
+#paidProto .sidebar-logo-name { color: #e8e8e6; font-size: 13px; font-weight: 500; }
+#paidProto .sidebar-askpaid {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  margin: 4px 8px;
+  border-radius: 6px;
+  color: var(--sidebar-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+#paidProto .sidebar-askpaid:hover { background: #2a2a28; color: #e8e8e6; }
+#paidProto .sidebar-askpaid-icon { color: var(--green); font-size: 14px; }
+#paidProto .sidebar-section {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #555552;
+  font-weight: 600;
+  padding: 12px 14px 4px;
+}
+#paidProto .nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 14px;
+  margin: 1px 6px;
+  border-radius: 6px;
+  color: var(--sidebar-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+  user-select: none;
+}
+#paidProto .nav-item:hover { background: #2a2a28; color: #e8e8e6; }
+#paidProto .nav-item.active { background: var(--sidebar-active-bg); color: var(--sidebar-active); }
+#paidProto .nav-item svg { width: 14px; height: 14px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.75; }
+#paidProto .nav-item .badge {
+  margin-left: auto;
+  background: var(--green);
+  color: white;
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+#paidProto .nav-item .badge.mvp {
+  background: transparent;
+  border: 1px solid #3a3a38;
+  color: #888884;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+}
+#paidProto .nav-sub-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 6px 14px 6px 32px;
+  margin: 0px 6px;
+  border-radius: 6px;
+  color: #666663;
+  font-size: 11px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+#paidProto .nav-sub-item:hover { background: #2a2a28; color: #e8e8e6; }
+#paidProto .nav-sub-item.active { background: #2a2a28; color: #e8e8e6; }
+#paidProto .sidebar-footer {
+  margin-top: auto;
+  padding: 12px 14px 0;
+  border-top: 1px solid #2a2a28;
+  display: flex; align-items: center; gap: 8px;
+}
+#paidProto .avatar {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #334155;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: white; font-weight: 600;
+  flex-shrink: 0;
+}
+#paidProto .avatar-name { font-size: 11px; color: #888884; }
+#paidProto /* ─── MAIN ─── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg);
+}
+#paidProto /* ─── TOPBAR ─── */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 20px;
+  height: 44px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+#paidProto .topbar-tabs { display: flex; gap: 0; }
+#paidProto .topbar-tab {
+  padding: 0 14px;
+  height: 44px;
+  display: flex; align-items: center;
+  font-size: 12px;
+  color: var(--ink3);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+#paidProto .topbar-tab:hover { color: var(--ink); }
+#paidProto .topbar-tab.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+#paidProto .topbar-actions { display: flex; gap: 8px; align-items: center; }
+#paidProto .btn {
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: opacity 0.15s, background 0.1s;
+  font-family: inherit;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--ink);
+}
+#paidProto .btn:hover { background: var(--bg2); }
+#paidProto .btn.primary {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+#paidProto .btn.primary:hover { opacity: 0.85; }
+#paidProto .btn.green {
+  background: var(--green);
+  color: white;
+  border-color: var(--green);
+}
+#paidProto /* ─── CONTENT AREA ─── */
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  position: relative;
+}
+#paidProto .page { display: none; }
+#paidProto .page.active { display: block; }
+#paidProto /* ─── PAGE HEADER ─── */
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 16px;
+}
+#paidProto .page-title { font-size: 18px; font-weight: 600; color: var(--ink); }
+#paidProto .page-sub { font-size: 12px; color: var(--ink3); margin-top: 2px; }
+#paidProto /* ─── METRIC CARDS ─── */
+.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+#paidProto .metric {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+#paidProto .metric-trend { font-size: 10px; font-weight: 600; color: var(--green); margin-bottom: 2px; }
+#paidProto .metric-trend.down { color: var(--red); }
+#paidProto .metric-trend.blue { color: var(--blue); }
+#paidProto .metric-label { font-size: 11px; color: var(--ink3); margin-bottom: 3px; }
+#paidProto .metric-value { font-size: 20px; font-weight: 700; color: var(--ink); }
+#paidProto .metric-sub { font-size: 10px; color: var(--ink3); margin-top: 2px; }
+#paidProto /* ─── TABLE ─── */
+.table-wrap {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+#paidProto .table-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+}
+#paidProto .table-title { font-size: 13px; font-weight: 500; }
+#paidProto table { width: 100%; border-collapse: collapse; }
+#paidProto th {
+  text-align: left;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink3);
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 600;
+  background: var(--bg2);
+}
+#paidProto td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #f4f4f2;
+  font-size: 12px;
+  color: var(--ink2);
+  vertical-align: middle;
+}
+#paidProto tr:last-child td { border-bottom: none; }
+#paidProto tr:hover td { background: var(--bg2); cursor: pointer; }
+#paidProto .pill {
+  display: inline-flex; align-items: center;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 600;
+}
+#paidProto .pill.green { background: var(--green-bg); color: var(--green); }
+#paidProto .pill.red { background: var(--red-bg); color: var(--red); }
+#paidProto .pill.amber { background: var(--amber-bg); color: var(--amber); }
+#paidProto .pill.blue { background: var(--blue-bg); color: var(--blue); }
+#paidProto .pill.gray { background: var(--bg3); color: var(--ink3); }
+#paidProto .val-green { color: var(--green); font-weight: 600; }
+#paidProto .val-red { color: var(--red); font-weight: 600; }
+#paidProto .link { color: var(--green); font-size: 11px; cursor: pointer; }
+#paidProto .link:hover { text-decoration: underline; }
+#paidProto .id-link { color: #3b82f6; font-weight: 600; font-size: 11px; cursor: pointer; }
+#paidProto /* ─── CHART (SVG) ─── */
+.chart-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+#paidProto .chart-title { font-size: 12px; font-weight: 600; margin-bottom: 10px; }
+#paidProto .chart-legend { display: flex; gap: 12px; margin-bottom: 8px; }
+#paidProto .legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--ink3); }
+#paidProto .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+#paidProto /* ─── SLIDE PANEL ─── */
+.panel-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3);
+  z-index: 100;
+}
+#paidProto .panel-overlay.open { display: flex; justify-content: flex-end; }
+#paidProto .panel {
+  width: 420px;
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  animation: slideIn 0.2s ease;
+}
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+#paidProto .panel-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+#paidProto .panel-title { font-size: 15px; font-weight: 600; }
+#paidProto .panel-sub { font-size: 11px; color: var(--ink3); margin-top: 2px; }
+#paidProto .panel-close {
+  cursor: pointer; color: var(--ink3); font-size: 16px; line-height: 1;
+  padding: 2px; border-radius: 4px;
+}
+#paidProto .panel-close:hover { background: var(--bg2); color: var(--ink); }
+#paidProto .panel-tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+}
+#paidProto .panel-tab {
+  padding: 8px 16px; font-size: 11px; cursor: pointer;
+  color: var(--ink3); border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+}
+#paidProto .panel-tab:hover { color: var(--ink); }
+#paidProto .panel-tab.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
+#paidProto .panel-
+
+.detail-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f4f4f2;
+  font-size: 12px;
+}
+#paidProto .detail-row:last-child { border-bottom: none; }
+#paidProto .detail-label { color: var(--ink3); }
+#paidProto .detail-value { font-weight: 500; color: var(--ink); }
+#paidProto .evidence-block {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 12px;
+}
+#paidProto .evidence-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink3); font-weight: 600; margin-bottom: 6px;
+}
+#paidProto .evidence-text { font-size: 12px; color: var(--ink2); line-height: 1.5; }
+#paidProto /* ─── MODAL ─── */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 200;
+  align-items: center;
+  justify-content: flex-end;
+}
+#paidProto .modal-overlay.open { display: flex; }
+#paidProto .modal {
+  width: 400px;
+  height: 100%;
+  background: var(--bg);
+  border-left: 1px solid var(--border);
+  display: flex; flex-direction: column;
+  overflow-y: auto;
+  animation: slideIn 0.2s ease;
+}
+#paidProto .modal-header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: flex-start;
+}
+#paidProto .modal-
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+  display: flex; gap: 8px; justify-content: flex-end;
+}
+#paidProto .form-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--ink3); font-weight: 600; margin-bottom: 6px; display: block;
+}
+#paidProto .form-select {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 12px; background: var(--bg);
+  color: var(--ink); font-family: inherit; outline: none; margin-bottom: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath stroke='%238a8a87' stroke-width='1.5' d='m1 1 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+#paidProto .form-select:focus { border-color: var(--green); }
+#paidProto .form-input {
+  width: 100%; padding: 7px 10px; border: 1px solid var(--border);
+  border-radius: 6px; font-size: 12px; background: var(--bg);
+  color: var(--ink); font-family: inherit; outline: none; margin-bottom: 14px;
+}
+#paidProto .form-input:focus { border-color: var(--green); }
+#paidProto .draft-preview {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 4px;
+}
+#paidProto .draft-preview-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink3); font-weight: 600; margin-bottom: 8px;
+}
+#paidProto .draft-row {
+  display: flex; justify-content: space-between;
+  font-size: 11px; padding: 3px 0;
+  color: var(--ink2);
+}
+#paidProto .draft-row strong { color: var(--ink); font-weight: 600; }
+#paidProto /* ─── BUILDER ─── */
+.builder-shell {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+#paidProto .builder-shell.active { display: flex; }
+#paidProto .builder-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 16px;
+  height: 44px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg);
+}
+#paidProto .builder-meta {
+  display: flex; align-items: center; gap: 16px;
+  font-size: 11px; color: var(--ink3);
+}
+#paidProto .builder-meta strong { color: var(--ink); }
+#paidProto .builder-meta .green { color: var(--green); font-weight: 600; }
+#paidProto .builder-meta-item { display: flex; align-items: center; gap: 4px; }
+#paidProto .builder-area {
+  display: flex; flex: 1; overflow: hidden;
+}
+#paidProto .builder-sidebar {
+  width: 180px;
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 12px 8px;
+  flex-shrink: 0;
+  background: var(--bg);
+}
+#paidProto .block-section-label {
+  font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--ink3); font-weight: 600; padding: 8px 6px 4px;
+}
+#paidProto .block-item {
+  display: flex; align-items: flex-start; gap: 8px;
+  padding: 7px 8px; border-radius: 6px; cursor: pointer;
+  transition: background 0.12s;
+  margin-bottom: 1px;
+}
+#paidProto .block-item:hover { background: var(--bg2); }
+#paidProto .block-icon {
+  width: 24px; height: 24px; border-radius: 5px;
+  background: var(--bg3); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 11px;
+}
+#paidProto .block-name { font-size: 11px; font-weight: 500; color: var(--ink); line-height: 1.3; }
+#paidProto .block-desc { font-size: 10px; color: var(--ink3); line-height: 1.3; }
+#paidProto .builder-canvas {
+  flex: 1; overflow-y: auto;
+  display: flex; flex-direction: column; align-items: center;
+  padding: 32px 20px;
+  background: #fafaf9;
+  gap: 0;
+}
+#paidProto .flow-node {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  width: 240px;
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  position: relative;
+}
+#paidProto .flow-node:hover { border-color: #ccc; }
+#paidProto .flow-node.value-node { border-color: var(--green); }
+#paidProto .flow-node-icon {
+  width: 28px; height: 28px; border-radius: 6px;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; flex-shrink: 0;
+}
+#paidProto .flow-node-icon.green { background: var(--green-bg); }
+#paidProto .flow-node-name { font-size: 12px; font-weight: 500; }
+#paidProto .flow-node-sub { font-size: 10px; color: var(--ink3); }
+#paidProto .flow-node-value { font-size: 11px; color: var(--green); font-weight: 600; margin-top: 2px; }
+#paidProto .flow-connector {
+  width: 1px; height: 20px;
+  background: var(--border);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+#paidProto .flow-connector::after {
+  content: '+';
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; color: var(--ink3);
+  cursor: pointer;
+  position: absolute;
+}
+#paidProto .builder-props {
+  width: 220px;
+  border-left: 1px solid var(--border);
+  padding: 14px;
+  overflow-y: auto;
+  flex-shrink: 0;
+  background: var(--bg);
+}
+#paidProto .props-title { font-size: 11px; font-weight: 600; margin-bottom: 4px; }
+#paidProto .props-sub { font-size: 10px; color: var(--ink3); margin-bottom: 12px; line-height: 1.4; }
+#paidProto .props-section { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink3); font-weight: 600; margin: 10px 0 6px; }
+#paidProto /* ─── VALUE PAGE ─── */
+.charts-row { display: grid; grid-template-columns: 1fr 180px; gap: 12px; margin-bottom: 12px; }
+#paidProto .donut-list { margin-top: 8px; }
+#paidProto .donut-row {
+  display: flex; justify-content: space-between;
+  font-size: 10px; color: var(--ink3); padding: 3px 0;
+}
+#paidProto .donut-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+#paidProto /* ─── HOME PAGE ─── */
+.home-value-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+#paidProto .home-value-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 8px; }
+#paidProto .home-val-item .label { font-size: 11px; color: var(--ink3); }
+#paidProto .home-val-item .val { font-size: 16px; font-weight: 700; color: var(--ink); }
+#paidProto .home-val-item .val.green { color: var(--green); }
+#paidProto /* ─── REPORTS ─── */
+.insights-section { margin-top: 16px; }
+#paidProto .insights-label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--ink3); font-weight: 600;
+  padding: 8px 0; margin-bottom: 4px;
+  border-top: 1px solid var(--border);
+}
+#paidProto .insight-item {
+  padding: 10px 0; border-bottom: 1px solid #f4f4f2;
+  font-size: 12px; color: var(--ink2); line-height: 1.5;
+}
+#paidProto .insight-link { color: var(--green); font-size: 11px; cursor: pointer; display: block; margin-top: 2px; }
+#paidProto /* ─── SCOPE TOGGLE ─── */
+.scope-toggle {
+  display: inline-flex;
+  background: var(--bg3);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+#paidProto .scope-btn {
+  padding: 5px 14px; font-size: 11px; border: none;
+  border-radius: 6px; cursor: pointer;
+  background: transparent; color: var(--ink3);
+  font-family: inherit; transition: all 0.15s;
+}
+#paidProto .scope-btn.active {
+  background: var(--bg);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  font-weight: 500;
+}
+
+
 </style>
 </head>
 <body>
 
 <div id="progress"></div>
 
-<!-- NAV -->
 <nav id="nav">
   <a href="index.html" class="nav-home">Isabel Casanova</a>
   <div class="nav-links">
@@ -456,150 +855,944 @@ footer {
   </div>
 </div>
 
-<!-- 04 HOME DASHBOARD -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">04</div>
-    <div class="block-title">Home dashboard</div>
-    <div class="block-sub">Making the business<br>legible at a glance</div>
+<!-- 04 THE PRODUCT — INLINE PROTOTYPE -->
+<div class="proto-block r">
+  <div class="proto-grid">
+    <div class="block-label" style="position:sticky;top:8rem;">
+      <div class="block-num">04</div>
+      <div class="block-title">The product</div>
+      <div class="block-sub">Two scopes: MVP first,<br>then the full platform</div>
+    </div>
+    <div class="proto-intro">
+      <h2>Two scopes. One design language.<br>One product loop.</h2>
+      <p>I delivered two design scopes. The MVP covered the core loop — everything a team of two could ship to early customers in weeks. The large product vision extended this into a full platform: Home dashboard, full workflow builder, executions with trace and evidence tabs, value intelligence with charts, full billing lifecycle, and reports with automated insights.</p>
+      <p>The prototype below is fully interactive. Navigate between <strong>AI Value MVP</strong> and <strong>AI Value</strong> in the sidebar to see both scopes.</p>
+      <div class="proto-hints">
+        <div class="proto-hint">Click any workflow row to open the builder</div>
+        <div class="proto-hint">Click any execution to open the detail panel</div>
+        <div class="proto-hint">Use the tabs: Workflows, Executions, Value, Billing, Reports</div>
+        <div class="proto-hint">On the builder: Publish to make the workflow active</div>
+      </div>
+    </div>
   </div>
-  <div class="content">
-    <h2>Making the business legible<br>at a glance.</h2>
-    <p>The home dashboard answers the question that matters to an AI operator: am I making money from this? I designed it around four headline metrics, a value summary, a revenue trend, and a customer table with TCV, LTV, agents, and signals per account.</p>
-    <div class="img-wrap r"><img src="paid-home.png" alt="Home dashboard — revenue trend, value generated, and customer table"></div>
-    <p class="img-label">The operator home — the first view that answers "how is the business doing?" Revenue trend, value generated across all AI workflows, and a customer table showing contract value, lifetime value, agent count, and upcoming invoices.</p>
+
+  <div class="proto-chrome r">
+    <div class="proto-chrome-bar">
+      <div class="proto-chrome-dot" style="background:#ff5f57;"></div>
+      <div class="proto-chrome-dot" style="background:#febc2e;"></div>
+      <div class="proto-chrome-dot" style="background:#28c840;"></div>
+      <span class="proto-chrome-title">paid.ai &mdash; interactive prototype</span>
+    </div>
+<div id="paidProto" style="height:700px;overflow:hidden;border-radius:0 0 8px 8px;">
+
+
+<!-- MAIN APP -->
+<div class="shell" id="mainApp">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-logo-icon">P</div>
+      <div class="sidebar-logo-name">Ask Paid</div>
+    </div>
+    <div class="sidebar-askpaid">
+      <span class="sidebar-askpaid-icon">✦</span>
+      Ask Paid
+      <span style="margin-left:auto;font-size:10px;color:#444">⌘K</span>
+    </div>
+
+    <div class="sidebar-section">Workspace</div>
+    <div class="nav-item active" onclick="showPage('home')">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+      Home
+    </div>
+    <div class="nav-item" onclick="showPage('observability')">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Observability
+      <svg viewBox="0 0 24 24" style="width:10px;height:10px;margin-left:auto;"><polyline points="9,18 15,12 9,6"/></svg>
+    </div>
+
+    <div class="sidebar-section">AI Value</div>
+    <div class="nav-item" onclick="showPage('mvp-workflows')">
+      <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22,4 12,14.01 9,11.01"/></svg>
+      AI Value MVP
+      <span class="badge mvp">MVP</span>
+    </div>
+    <div class="nav-item" onclick="showPage('workflows')">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12,6 12,12 16,14"/></svg>
+      AI Value
+    </div>
+
+    <div class="sidebar-section">Operations</div>
+    <div class="nav-item" onclick="showPage('customers')">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+      Customers
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="avatar">P</div>
+      <div class="avatar-name">Penny</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="mainArea">
+
+    <!-- HOME PAGE -->
+    <div id="page-home" class="page active">
+      <div class="topbar">
+        <span style="font-size:16px;font-weight:600;">Home</span>
+        <div class="topbar-actions">
+          <button class="btn">Filters</button>
+          <button class="btn">Share</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="metrics">
+          <div class="metric">
+            <div class="metric-trend">↑ 18%</div>
+            <div class="metric-label">Customers</div>
+            <div class="metric-value">62</div>
+          </div>
+          <div class="metric">
+            <div class="metric-trend">↑ 8%</div>
+            <div class="metric-label">Paying</div>
+            <div class="metric-value">48</div>
+          </div>
+          <div class="metric">
+            <div class="metric-trend">↑ 15%</div>
+            <div class="metric-label">TCV</div>
+            <div class="metric-value">$485K</div>
+          </div>
+          <div class="metric">
+            <div class="metric-trend down">↓ 12%</div>
+            <div class="metric-label">Credits remaining</div>
+            <div class="metric-value">35,580</div>
+          </div>
+        </div>
+        <div class="home-value-block">
+          <div style="font-size:13px;font-weight:600;margin-bottom:2px;">Value Generated <span style="font-size:11px;font-weight:400;color:var(--ink3);">Across all AI workflows</span></div>
+          <div class="home-value-grid">
+            <div class="home-val-item"><div class="label">Total Value</div><div class="val">$184,200</div></div>
+            <div class="home-val-item"><div class="label">Net Value</div><div class="val green">$141,900</div></div>
+            <div class="home-val-item"><div class="label">Events</div><div class="val">3,284</div></div>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <div class="chart-title">Revenue trend <span style="font-size:10px;font-weight:400;color:var(--ink3);">Monthly revenue over time</span></div>
+            <div style="display:flex;gap:4px;">
+              <button class="btn" style="padding:3px 8px;font-size:10px;">7D</button>
+              <button class="btn" style="padding:3px 8px;font-size:10px;">30D</button>
+              <button class="btn primary" style="padding:3px 8px;font-size:10px;">All</button>
+            </div>
+          </div>
+          <svg width="100%" viewBox="0 0 600 100" preserveAspectRatio="none" style="margin-top:8px;">
+            <defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a6e38" stop-opacity="0.2"/><stop offset="100%" stop-color="#1a6e38" stop-opacity="0"/></linearGradient></defs>
+            <path d="M0,80 C80,75 130,65 200,55 C280,42 340,30 420,18 C500,8 560,4 600,2" stroke="#1a6e38" stroke-width="2" fill="none"/>
+            <path d="M0,80 C80,75 130,65 200,55 C280,42 340,30 420,18 C500,8 560,4 600,2 L600,100 L0,100Z" fill="url(#gr)"/>
+          </svg>
+        </div>
+        <div class="table-wrap">
+          <div class="table-header"><span class="table-title">Customers</span></div>
+          <table>
+            <thead><tr><th>Customer</th><th>TCV</th><th>LTV</th><th>Status</th><th>Agents</th><th>Signals</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Acme Corp</strong></td><td>$102K</td><td>$306K</td><td><span class="pill green">Active</span></td><td>5</td><td>2,840</td></tr>
+              <tr><td><strong>TechStart Inc</strong></td><td>$74K</td><td>$223K</td><td><span class="pill green">Active</span></td><td>4</td><td>1,920</td></tr>
+              <tr><td><strong>Global Systems</strong></td><td>$70K</td><td>$209K</td><td><span class="pill green">Active</span></td><td>6</td><td>1,540</td></tr>
+              <tr><td><strong>DataFlow AI</strong></td><td>$50K</td><td>$151K</td><td><span class="pill green">Active</span></td><td>3</td><td>1,280</td></tr>
+              <tr><td><strong>CloudNine</strong></td><td>$46K</td><td>$137K</td><td><span class="pill green">Active</span></td><td>4</td><td>960</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- MVP WORKFLOWS -->
+    <div id="page-mvp-workflows" class="page">
+      <div class="topbar">
+        <div class="topbar-tabs">
+          <div class="topbar-tab active" onclick="switchMvpTab('workflows',this)">Workflows</div>
+          <div class="topbar-tab" onclick="switchMvpTab('executions',this)">Executions</div>
+          <div class="topbar-tab" onclick="switchMvpTab('value',this)">Value</div>
+          <div class="topbar-tab" onclick="switchMvpTab('billing',this)">Billing</div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn green" onclick="openBuilderNew()">+ New Workflow</button>
+        </div>
+      </div>
+      <div class="content">
+        <div id="mvp-tab-workflows">
+          <div class="page-header">
+            <div><div class="page-title">Workflows</div><div class="page-sub">Define AI workflows that produce measurable outcomes.</div></div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Workflow</th><th>Customer</th><th>Primary outcome</th><th>Executions</th><th>Value generated</th><th>Last execution</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr onclick="openBuilder('Support Automation','Acme Corp','Ticket Resolved','$45')"><td><strong>Support Automation</strong></td><td>Acme Corp</td><td>Ticket Resolved</td><td>3,482</td><td class="val-green">$72,440</td><td>5m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Sales Qualification','TechStart','Lead Qualified','$120')"><td><strong>Sales Qualification</strong></td><td>TechStart</td><td>Lead Qualified</td><td>892</td><td class="val-green">$41,220</td><td>12m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Document Processing','Global Systems','Document Generated','$22')"><td><strong>Document Processing</strong></td><td>Global Systems</td><td>Document Generated</td><td>2,140</td><td class="val-green">$18,300</td><td>32m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Data Enrichment','DataFlow AI','Record Enriched','$20')"><td><strong>Data Enrichment</strong></td><td>DataFlow AI</td><td>Record Enriched</td><td>1,560</td><td class="val-green">$31,200</td><td>1h ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Email Triage','CloudNine','Email Classified','$5')"><td><strong>Email Triage</strong></td><td>CloudNine</td><td>Email Classified</td><td>4,210</td><td class="val-green">$21,050</td><td>2m ago</td><td><span class="pill green">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="mvp-tab-executions" style="display:none;">
+          <div class="page-header"><div><div class="page-title">Executions</div><div class="page-sub">View workflow executions, traces, and evidence.</div></div></div>
+          <div class="metrics" style="grid-template-columns:repeat(4,1fr);margin-bottom:14px;">
+            <div class="metric"><div class="metric-trend">↑ 12%</div><div class="metric-label">Total executions</div><div class="metric-value">8</div></div>
+            <div class="metric"><div class="metric-trend">↑ 8%</div><div class="metric-label">Successful</div><div class="metric-value">7</div><div class="metric-sub">88% success rate</div></div>
+            <div class="metric"><div class="metric-trend down">↓ 15%</div><div class="metric-label">Failed</div><div class="metric-value">1</div></div>
+            <div class="metric"><div class="metric-trend">↑ 18%</div><div class="metric-label">Total value</div><div class="metric-value">$377</div></div>
+          </div>
+          <div class="table-wrap">
+            <div class="table-header"><span class="table-title">Execution history</span></div>
+            <table>
+              <thead><tr><th>Execution</th><th>Workflow</th><th>Customer</th><th>Status</th><th>Value</th><th>Time</th></tr></thead>
+              <tbody>
+                <tr onclick="openExecPanel('r-001','Support Automation','Acme Corp','Success','2s','$0.03','Ticket Resolved','$45')"><td><span class="id-link">r-001</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td class="val-green">$45</td><td>2m ago</td></tr>
+                <tr onclick="openExecPanel('r-002','Sales Qualification','TechStart','Success','1.8s','$0.05','Lead Qualified','$120')"><td><span class="id-link">r-002</span></td><td>Sales Qualification</td><td>TechStart</td><td><span class="pill green">Success</span></td><td class="val-green">$120</td><td>8m ago</td></tr>
+                <tr onclick="openExecPanel('r-003','Support Automation','Acme Corp','Success','2.1s','$0.03','Ticket Resolved','$45')"><td><span class="id-link">r-003</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td class="val-green">$45</td><td>15m ago</td></tr>
+                <tr onclick="openExecPanel('r-004','Document Processing','Global Systems','Success','1.5s','$0.08','Document Generated','$22')"><td><span class="id-link">r-004</span></td><td>Document Processing</td><td>Global Systems</td><td><span class="pill green">Success</span></td><td class="val-green">$22</td><td>22m ago</td></tr>
+                <tr onclick="openExecPanel('r-005','Data Enrichment','DataFlow AI','Success','2.1s','$0.12','Record Enriched','$20')"><td><span class="id-link">r-005</span></td><td>Data Enrichment</td><td>DataFlow AI</td><td><span class="pill green">Success</span></td><td class="val-green">$20</td><td>30m ago</td></tr>
+                <tr onclick="openExecPanel('r-006','Support Automation','Acme Corp','Failed','1.2s','$0.02','—','—')"><td><span class="id-link">r-006</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill red">Failed</span></td><td>—</td><td>45m ago</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="mvp-tab-value" style="display:none;">
+          <div class="page-header"><div><div class="page-title">Value</div><div class="page-sub">Track the value generated by AI outcomes.</div></div></div>
+          <div class="metrics" style="grid-template-columns:repeat(3,1fr);">
+            <div class="metric"><div class="metric-trend">↑ 24%</div><div class="metric-label">Total value generated</div><div class="metric-value">$184,210</div></div>
+            <div class="metric"><div class="metric-trend">↑ 18%</div><div class="metric-label">Contributing executions</div><div class="metric-value">7</div></div>
+            <div class="metric"><div class="metric-trend">↑ 12%</div><div class="metric-label">Avg value per outcome</div><div class="metric-value">$26,316</div></div>
+          </div>
+          <div class="table-wrap" style="margin-top:14px;">
+            <div class="table-header"><span class="table-title">Recent Value Events</span></div>
+            <table>
+              <thead><tr><th>Workflow</th><th>Customer</th><th>Outcome</th><th>Value</th><th>Timestamp</th><th>Evidence</th></tr></thead>
+              <tbody>
+                <tr><td>Support Automation</td><td>Acme Corp</td><td>Ticket Resolved</td><td class="val-green">$45</td><td>2m ago</td><td><span class="link">View evidence</span></td></tr>
+                <tr><td>Sales Qualification</td><td>TechStart</td><td>Lead Qualified</td><td class="val-green">$120</td><td>8m ago</td><td><span class="link">View evidence</span></td></tr>
+                <tr><td>Support Automation</td><td>Acme Corp</td><td>Ticket Resolved</td><td class="val-green">$45</td><td>15m ago</td><td><span class="link">View evidence</span></td></tr>
+                <tr><td>Document Processing</td><td>Global Systems</td><td>Document Generated</td><td class="val-green">$22</td><td>22m ago</td><td><span class="link">View evidence</span></td></tr>
+                <tr><td>Data Enrichment</td><td>DataFlow AI</td><td>Record Enriched</td><td class="val-green">$20</td><td>30m ago</td><td><span class="link">View evidence</span></td></tr>
+                <tr><td>Email Triage</td><td>CloudNine</td><td>Email Classified</td><td class="val-green">$5</td><td>1h ago</td><td><span class="link">View evidence</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="mvp-tab-billing" style="display:none;">
+          <div class="page-header">
+            <div><div class="page-title">Billing</div><div class="page-sub">Overview of customer billing readiness.</div></div>
+            <div class="topbar-actions">
+              <button class="btn">Delivery report <span class="pill gray" style="margin-left:4px;">Soon</span></button>
+              <button class="btn green" onclick="openBillModal()">+ Create bill</button>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Customer</th><th>Billing Period</th><th>Value Generated</th><th>Billing Status</th></tr></thead>
+              <tbody>
+                <tr onclick="openBillModal()"><td><strong>Acme Corp</strong></td><td>February 2026</td><td class="val-green">$72,440</td><td><span class="pill amber">Unbilled</span></td></tr>
+                <tr onclick="openBillModal()"><td><strong>TechStart</strong></td><td>February 2026</td><td class="val-green">$41,220</td><td><span class="pill amber">Unbilled</span></td></tr>
+                <tr onclick="openBillModal()"><td><strong>Global Systems</strong></td><td>February 2026</td><td class="val-green">$18,300</td><td><span class="pill amber">Unbilled</span></td></tr>
+                <tr onclick="openBillModal()"><td><strong>DataFlow AI</strong></td><td>February 2026</td><td class="val-green">$31,200</td><td><span class="pill amber">Unbilled</span></td></tr>
+                <tr onclick="openBillModal()"><td><strong>CloudNine</strong></td><td>February 2026</td><td class="val-green">$21,050</td><td><span class="pill amber">Unbilled</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LARGE WORKFLOWS -->
+    <div id="page-workflows" class="page">
+      <div class="topbar">
+        <div class="topbar-tabs">
+          <div class="topbar-tab active" onclick="switchLargeTab('workflows',this)">Workflows</div>
+          <div class="topbar-tab" onclick="switchLargeTab('executions',this)">Executions</div>
+          <div class="topbar-tab" onclick="switchLargeTab('value',this)">Value</div>
+          <div class="topbar-tab" onclick="switchLargeTab('billing',this)">Billing</div>
+          <div class="topbar-tab" onclick="switchLargeTab('reports',this)">Reports</div>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn green" onclick="openBuilderNew()">+ Create workflow</button>
+        </div>
+      </div>
+      <div class="content">
+        <div id="large-tab-workflows">
+          <div class="page-header"><div><div class="page-title">Workflows</div><div class="page-sub">Create and manage workflows that produce measurable business outcomes.</div></div></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Workflow</th><th>Customer</th><th>Primary outcome</th><th>Executions</th><th>Value generated</th><th>Last execution</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr onclick="openBuilder('Support Automation','Acme Corp','Ticket Resolved','$45')"><td><strong>Support Automation</strong></td><td>Acme Corp</td><td>Ticket Resolved</td><td>4,821</td><td class="val-green">$216,945</td><td>2h ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Sales Qualification','TechStart','Lead Qualified','$120')"><td><strong>Sales Qualification</strong></td><td>TechStart</td><td>Lead Qualified</td><td>1,893</td><td class="val-green">$227,160</td><td>15m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Document Processing','Global Systems','Document Generated','$22')"><td><strong>Document Processing</strong></td><td>Global Systems</td><td>Document Generated</td><td>3,240</td><td class="val-green">$71,280</td><td>1h ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Data Enrichment','DataFlow AI','Record Enriched','$20')"><td><strong>Data Enrichment</strong></td><td>DataFlow AI</td><td>Record Enriched</td><td>2,780</td><td class="val-green">$55,600</td><td>30m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Email Triage','CloudNine','Email Classified','$5')"><td><strong>Email Triage</strong></td><td>CloudNine</td><td>Email Classified</td><td>8,420</td><td class="val-green">$42,100</td><td>5m ago</td><td><span class="pill green">Active</span></td></tr>
+                <tr onclick="openBuilder('Invoice Matching','Acme Corp','Invoice Matched','$30')"><td><strong>Invoice Matching</strong></td><td>Acme Corp</td><td>Invoice Matched</td><td>1,120</td><td class="val-green">$33,600</td><td>3d ago</td><td><span class="pill amber">Paused</span></td></tr>
+                <tr onclick="openBuilderNew()"><td><strong>Contract Review</strong></td><td>TechStart</td><td>Contract Analyzed</td><td>0</td><td>$0</td><td>1d ago</td><td><span class="pill blue">Draft</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="large-tab-executions" style="display:none;">
+          <div class="page-header"><div><div class="page-title">Executions</div><div class="page-sub">Inspect workflow executions, traces, costs, and outcomes.</div></div></div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label">Total executions</div><div class="metric-value">35</div></div>
+            <div class="metric"><div class="metric-label">Successful</div><div class="metric-value">28</div></div>
+            <div class="metric"><div class="metric-label">Failed</div><div class="metric-value">7</div></div>
+            <div class="metric"><div class="metric-label">Total value generated</div><div class="metric-value">$1,175</div></div>
+          </div>
+          <div class="chart-card">
+            <div class="chart-title">Executions over time</div>
+            <svg width="100%" viewBox="0 0 600 80" preserveAspectRatio="none">
+              <path d="M0,50 C60,45 100,40 150,35 C200,28 240,20 300,15 C340,10 380,18 420,22 C460,26 520,20 600,25" stroke="#1a6e38" stroke-width="1.5" fill="none"/>
+            </svg>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Execution</th><th>Workflow</th><th>Customer</th><th>Status</th><th>Duration</th><th>Cost</th><th>Outcome</th><th>Value</th></tr></thead>
+              <tbody>
+                <tr onclick="openExecPanelLarge('EX-001','Support Automation','Acme Corp','Success','0.8s','$0.02','Ticket Resolved','$45')"><td><span class="id-link">EX-001</span></td><td>Support Automation</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td>0.8s</td><td>$0.02</td><td>Ticket Resolved</td><td class="val-green">$45</td></tr>
+                <tr onclick="openExecPanelLarge('EX-002','Sales Qualification','TechStart','Success','1.2s','$0.05','Lead Qualified','$120')"><td><span class="id-link">EX-002</span></td><td>Sales Qualification</td><td>TechStart</td><td><span class="pill green">Success</span></td><td>1.2s</td><td>$0.05</td><td>Lead Qualified</td><td class="val-green">$120</td></tr>
+                <tr onclick="openExecPanelLarge('EX-003','Document Processing','Global Systems','Success','1.5s','$0.08','Document Generated','$22')"><td><span class="id-link">EX-003</span></td><td>Document Processing</td><td>Global Systems</td><td><span class="pill green">Success</span></td><td>1.5s</td><td>$0.08</td><td>Document Generated</td><td class="val-green">$22</td></tr>
+                <tr onclick="openExecPanelLarge('EX-004','Data Enrichment','DataFlow AI','Success','2.1s','$0.12','Record Enriched','$20')"><td><span class="id-link">EX-004</span></td><td>Data Enrichment</td><td>DataFlow AI</td><td><span class="pill green">Success</span></td><td>2.1s</td><td>$0.12</td><td>Record Enriched</td><td class="val-green">$20</td></tr>
+                <tr onclick="openExecPanelLarge('EX-005','Email Triage','CloudNine','Failed','2.8s','$0.03','—','$0')"><td><span class="id-link">EX-005</span></td><td>Email Triage</td><td>CloudNine</td><td><span class="pill red">Failed</span></td><td>2.8s</td><td>$0.03</td><td>—</td><td>$0</td></tr>
+                <tr onclick="openExecPanelLarge('EX-006','Invoice Matching','Acme Corp','Success','3.2s','$0.15','Invoice Matched','$30')"><td><span class="id-link">EX-006</span></td><td>Invoice Matching</td><td>Acme Corp</td><td><span class="pill green">Success</span></td><td>3.2s</td><td>$0.15</td><td>Invoice Matched</td><td class="val-green">$30</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="large-tab-value" style="display:none;">
+          <div class="page-header"><div><div class="page-title">Value</div><div class="page-sub">Track value generated by AI outcomes across workflows and customers.</div></div></div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label">Total value generated</div><div class="metric-value">$646,685</div></div>
+            <div class="metric"><div class="metric-label">Contributing executions</div><div class="metric-value">22,274</div></div>
+            <div class="metric"><div class="metric-label">Avg value per outcome</div><div class="metric-value">$29.03</div></div>
+            <div class="metric"><div class="metric-label">Top customer by value</div><div class="metric-value" style="font-size:15px;">TechStart</div></div>
+          </div>
+          <div class="charts-row">
+            <div class="chart-card" style="margin:0;">
+              <div class="chart-title">Value by workflow</div>
+              <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px;">
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Sales Qualifica...</span><div style="flex:1;height:12px;background:#e8f5e9;border-radius:3px;overflow:hidden;"><div style="width:90%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:10px;min-width:50px;text-align:right;">$227K</span></div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Support Automat...</span><div style="flex:1;height:12px;background:#e8f5e9;border-radius:3px;overflow:hidden;"><div style="width:85%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:10px;min-width:50px;text-align:right;">$217K</span></div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Document Proces...</span><div style="flex:1;height:12px;background:#e8f5e9;border-radius:3px;overflow:hidden;"><div style="width:28%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:10px;min-width:50px;text-align:right;">$71K</span></div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Data Enrichment</span><div style="flex:1;height:12px;background:#e8f5e9;border-radius:3px;overflow:hidden;"><div style="width:22%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:10px;min-width:50px;text-align:right;">$56K</span></div>
+                <div style="display:flex;align-items:center;gap:8px;"><span style="font-size:10px;color:var(--ink3);width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Email Triage</span><div style="flex:1;height:12px;background:#e8f5e9;border-radius:3px;overflow:hidden;"><div style="width:17%;height:100%;background:var(--green);border-radius:3px;"></div></div><span style="font-size:10px;min-width:50px;text-align:right;">$42K</span></div>
+              </div>
+            </div>
+            <div class="chart-card" style="margin:0;">
+              <div class="chart-title">Value by customer</div>
+              <div style="display:flex;flex-direction:column;gap:5px;margin-top:6px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="color:var(--ink3);width:60px;">Acme Corp</span><div style="flex:1;height:10px;background:#111;border-radius:2px;"></div></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="color:var(--ink3);width:60px;">TechStart</span><div style="width:80%;height:10px;background:#111;border-radius:2px;"></div></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="color:var(--ink3);width:60px;">Global Sys.</span><div style="width:35%;height:10px;background:#444;border-radius:2px;"></div></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="color:var(--ink3);width:60px;">DataFlow</span><div style="width:28%;height:10px;background:#444;border-radius:2px;"></div></div>
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;"><span style="color:var(--ink3);width:60px;">CloudNine</span><div style="width:20%;height:10px;background:#777;border-radius:2px;"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <div class="table-header"><span class="table-title">Top workflows generating value</span></div>
+            <table>
+              <thead><tr><th>Workflow</th><th>Customer</th><th>Executions</th><th>Value generated</th><th>Avg value / outcome</th></tr></thead>
+              <tbody>
+                <tr><td>Sales Qualification</td><td>TechStart</td><td>1,893</td><td class="val-green">$227,160</td><td>$120</td></tr>
+                <tr><td>Support Automation</td><td>Acme Corp</td><td>4,821</td><td class="val-green">$216,945</td><td>$45</td></tr>
+                <tr><td>Document Processing</td><td>Global Systems</td><td>3,240</td><td class="val-green">$71,280</td><td>$22</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="large-tab-billing" style="display:none;">
+          <div class="page-header">
+            <div><div class="page-title">Billing</div><div class="page-sub">Automatically create draft bills from AI-generated value.</div></div>
+            <button class="btn green" onclick="openCreateBillLarge()">+ Create bill</button>
+          </div>
+          <div class="metrics">
+            <div class="metric"><div class="metric-label">Customers ready to bill</div><div class="metric-value">3</div></div>
+            <div class="metric"><div class="metric-label">Draft bills</div><div class="metric-value">2</div></div>
+            <div class="metric"><div class="metric-label">Approved bills</div><div class="metric-value">3</div></div>
+            <div class="metric"><div class="metric-label">Total billable value</div><div class="metric-value">$242,410</div></div>
+          </div>
+          <div class="table-wrap" style="margin-top:12px;">
+            <table>
+              <thead><tr><th>Customer</th><th>Billing period</th><th>Total value</th><th>Draft amount</th><th>Status</th><th>Last updated</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Acme Corp</strong></td><td>Feb 2026</td><td class="val-green">$72,440</td><td>$72,440</td><td><span class="pill green">Approved</span></td><td>1d ago</td><td><span class="link">Generate billing</span></td></tr>
+                <tr><td><strong>TechStart</strong></td><td>Feb 2026</td><td class="val-green">$41,220</td><td>$41,220</td><td><span class="pill blue">Ready for review</span></td><td>3h ago</td><td><span class="link">Generate billing</span></td></tr>
+                <tr><td><strong>Global Systems</strong></td><td>Feb 2026</td><td class="val-green">$18,300</td><td>$18,300</td><td><span class="pill gray">Draft</span></td><td>2h ago</td><td><span class="link">Generate billing</span></td></tr>
+                <tr><td><strong>DataFlow AI</strong></td><td>Feb 2026</td><td class="val-green">$31,200</td><td>$31,200</td><td><span class="pill gray">Draft</span></td><td>5h ago</td><td><span class="link">Generate billing</span></td></tr>
+                <tr><td><strong>CloudNine</strong></td><td>Feb 2026</td><td class="val-green">$21,050</td><td>$21,050</td><td><span class="pill green">Approved</span></td><td>2d ago</td><td><span class="link">Generate billing</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="large-tab-reports" style="display:none;">
+          <div class="page-header">
+            <div><div class="page-title">Reports</div><div class="page-sub">Generate reports summarizing AI outcomes, value delivered, and billing activity.</div></div>
+            <button class="btn green" onclick="openDeliveryModal()">+ Create delivery report</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Report</th><th>Customer</th><th>Period</th><th>Type</th><th>Status</th><th>Last updated</th></tr></thead>
+              <tbody>
+                <tr><td>Acme Corp — Feb 2026 Value Report</td><td>Acme Corp</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill green">Published</span></td><td>1d ago</td></tr>
+                <tr><td>TechStart — Customer Delivery Summary</td><td>TechStart</td><td>Feb 2026</td><td>Customer delivery summary</td><td><span class="pill gray">Draft</span></td><td>3h ago</td></tr>
+                <tr><td>Q1 2026 Billing Summary</td><td>All</td><td>Q1 2026</td><td>Billing summary</td><td><span class="pill gray">Draft</span></td><td>2h ago</td></tr>
+                <tr><td>Support Automation — Performance Report</td><td>Acme Corp</td><td>Jan–Feb 2026</td><td>Workflow performance report</td><td><span class="pill green">Published</span></td><td>4d ago</td></tr>
+                <tr><td>CloudNine — Monthly Value Report</td><td>CloudNine</td><td>Feb 2026</td><td>Monthly value report</td><td><span class="pill blue">Shared</span></td><td>1d ago</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="insights-section">
+            <div class="insights-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              Insights — Patterns across workflows, value, and billing
+            </div>
+            <div class="insight-item">Support Automation generated 34% more value this week compared to last week.<span class="insight-link">View workflow performance →</span></div>
+            <div class="insight-item">TechStart has $41,220 in unbilled value from the last two periods.<span class="insight-link">Review billing for TechStart →</span></div>
+            <div class="insight-item">Document Processing has the highest average value per outcome at $22 per document.<span class="insight-link">Explore value attribution →</span></div>
+            <div class="insight-item">Sales Qualification value is growing but success rate decreased from 94% to 91.8%.<span class="insight-link">Review failed executions →</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OBSERVABILITY -->
+    <div id="page-observability" class="page">
+      <div class="topbar"><span style="font-size:16px;font-weight:600;">Credits</span><div class="topbar-actions"><button class="btn">Filters</button><button class="btn green">Create</button></div></div>
+      <div class="content">
+        <div class="metrics">
+          <div class="metric"><div class="metric-trend">↑ 15%</div><div class="metric-label">Total balance</div><div class="metric-value">665,000</div></div>
+          <div class="metric"><div class="metric-trend">↑ 12%</div><div class="metric-label">Active wallets</div><div class="metric-value">7</div></div>
+          <div class="metric"><div class="metric-trend">↑ 8%</div><div class="metric-label">Daily burn</div><div class="metric-value">22,250</div></div>
+          <div class="metric"><div class="metric-trend">↑ 5%</div><div class="metric-label">Avg runway (days)</div><div class="metric-value">28</div></div>
+        </div>
+        <div class="table-wrap" style="margin-top:12px;">
+          <div class="table-header"><span class="table-title">Wallets</span></div>
+          <table>
+            <thead><tr><th>Wallet</th><th>Balance</th><th>Daily burn</th><th>Runway</th><th>Status</th><th>External ID</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Acme Corp</strong><div style="font-size:10px;color:var(--ink3);">Organization</div></td><td>125.0K</td><td>4.2K/day</td><td>30d</td><td><span class="pill green">Active</span></td><td style="font-size:11px;color:var(--ink3);">w1</td></tr>
+              <tr><td><strong>TechStart Inc</strong><div style="font-size:10px;color:var(--ink3);">Organization</div></td><td>45.0K</td><td>1.8K/day</td><td>25d</td><td><span class="pill green">Active</span></td><td style="font-size:11px;color:var(--ink3);">w2</td></tr>
+              <tr><td><strong>Startup Labs</strong><div style="font-size:10px;color:var(--ink3);">Organization</div></td><td>12.0K</td><td>650/day</td><td>18d</td><td><span class="pill amber">Warning</span></td><td style="font-size:11px;color:var(--ink3);">w4</td></tr>
+              <tr><td><strong>Global Enterprises</strong><div style="font-size:10px;color:var(--ink3);">Organization</div></td><td>280.0K</td><td>8.5K/day</td><td>33d</td><td><span class="pill green">Active</span></td><td style="font-size:11px;color:var(--ink3);">w3</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /shell -->
+
+<!-- BUILDER OVERLAY -->
+<div class="builder-shell" id="builderShell">
+  <div class="builder-topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span style="cursor:pointer;color:var(--ink3);font-size:18px;" onclick="closeBuilder()">←</span>
+      <span style="font-size:14px;font-weight:600;" id="builderWorkflowName">file</span>
+      <span id="builderStatus" class="pill gray" style="font-size:10px;">Not saved</span>
+    </div>
+    <div class="builder-meta" id="builderMeta">
+      <div class="builder-meta-item">WORKFLOW <strong id="bmWorkflow">file</strong></div>
+      <div class="builder-meta-item">CUSTOMER <strong id="bmCustomer">Acme Corp</strong></div>
+      <div class="builder-meta-item">OUTCOME <strong id="bmOutcome">Ticket Resolved</strong></div>
+      <div class="builder-meta-item">VALUE <strong id="bmValue" class="green">$45 / outcome</strong></div>
+      <div class="builder-meta-item">BILLING <strong class="green">Eligible</strong></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn">Run Test</button>
+      <button class="btn" id="saveDraftBtn" onclick="saveDraft()">Save Draft</button>
+      <button class="btn green" id="publishBtn" onclick="publishWorkflow()">Publish</button>
+    </div>
+  </div>
+  <div class="builder-area">
+    <div class="builder-sidebar">
+      <div class="block-section-label">Triggers</div>
+      <div class="block-item"><div class="block-icon">⚡</div><div><div class="block-name">Trigger</div><div class="block-desc">Start the workflow</div></div></div>
+      <div class="block-section-label">Actions</div>
+      <div class="block-item"><div class="block-icon">🤖</div><div><div class="block-name">Run Agent</div><div class="block-desc">Execute an AI agent</div></div></div>
+      <div class="block-item"><div class="block-icon">🔧</div><div><div class="block-name">Tool Call</div><div class="block-desc">Call an external tool</div></div></div>
+      <div class="block-item"><div class="block-icon">📝</div><div><div class="block-name">Write to CRM</div><div class="block-desc">Update CRM records</div></div></div>
+      <div class="block-item"><div class="block-icon">🔔</div><div><div class="block-name">Notify</div><div class="block-desc">Send a notification</div></div></div>
+      <div class="block-section-label">Logic</div>
+      <div class="block-item"><div class="block-icon">✓</div><div><div class="block-name">Evaluate</div><div class="block-desc">Check conditions</div></div></div>
+      <div class="block-item"><div class="block-icon">⇄</div><div><div class="block-name">Transform Data</div><div class="block-desc">Reshape data</div></div></div>
+      <div class="block-item"><div class="block-icon">👤</div><div><div class="block-name">Human Approval</div><div class="block-desc">Require human review</div></div></div>
+      <div class="block-section-label">Value</div>
+      <div class="block-item"><div class="block-icon green" style="background:var(--green-bg);border-color:#a5d6a7;">✦</div><div><div class="block-name">Create Value Event</div><div class="block-desc">Track value generated</div></div></div>
+    </div>
+    <div class="builder-canvas" id="builderCanvas">
+      <div id="emptyState" style="text-align:center;padding:60px 20px;">
+        <div style="font-size:13px;font-weight:600;margin-bottom:6px;">Build your workflow</div>
+        <div style="font-size:11px;color:var(--ink3);margin-bottom:20px;">Drag blocks from the left panel to start building your workflow.</div>
+        <div style="border:1.5px dashed var(--border);border-radius:8px;padding:20px;width:240px;margin:0 auto;color:var(--ink3);font-size:11px;">Drag a block here to begin</div>
+        <button class="btn" style="margin-top:16px;" onclick="populateBuilder()">+ Add first step</button>
+      </div>
+      <div id="builtFlow" style="display:none;width:240px;">
+        <div class="flow-node"><div class="flow-node-icon">⚡</div><div><div class="flow-node-name">Trigger</div><div class="flow-node-sub">New support ticket</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-node"><div class="flow-node-icon">🤖</div><div><div class="flow-node-name">Run Agent</div><div class="flow-node-sub">Resolve ticket</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-node"><div class="flow-node-icon">✓</div><div><div class="flow-node-name">Evaluate</div><div class="flow-node-sub">Check resolution</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-node value-node"><div class="flow-node-icon green">✦</div><div><div class="flow-node-name">Create Value Event</div><div class="flow-node-sub" id="builderValueSub">Ticket Resolved – $45</div><div class="flow-node-value" id="builderValueTag">Ticket Resolved &nbsp;&nbsp; $45</div></div></div>
+        <div class="flow-connector"></div>
+        <div class="flow-node"><div class="flow-node-icon">🔔</div><div><div class="flow-node-name">Notify</div><div class="flow-node-sub">Alert customer</div></div></div>
+      </div>
+    </div>
+    <div class="builder-props">
+      <div class="props-title">WORKFLOW METADATA</div>
+      <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value" id="propsCustomer">Acme Corp</span></div>
+      <div class="detail-row"><span class="detail-label">Primary outcome</span><span class="detail-value" id="propsOutcome">Ticket Resolved</span></div>
+      <div class="detail-row"><span class="detail-label">Version</span><span class="detail-value">v1</span></div>
+      <div class="detail-row"><span class="detail-label">Published</span><span class="detail-value" id="propsPublished">—</span></div>
+      <div class="props-section">VALUE & BILLING</div>
+      <div class="detail-row"><span class="detail-label">Expected value</span><span class="detail-value val-green" id="propsValue">$45</span></div>
+      <div class="detail-row"><span class="detail-label">Billing eligibility</span><span class="detail-value val-green">Eligible</span></div>
+      <div style="margin-top:12px;font-size:10px;color:var(--ink3);">Click a node to configure it.</div>
+    </div>
   </div>
 </div>
 
-<!-- 05 WORKFLOWS -->
-<div class="block r">
+<!-- CREATE WORKFLOW MODAL (for new) -->
+<div class="modal-overlay" id="createWorkflowModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="panel-title">Create a workflow</div>
+        <div class="panel-sub">Define what the AI should do and how value will be measured.</div>
+      </div>
+      <span class="panel-close" onclick="closeCreateModal()">✕</span>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Workflow name *</label>
+      <input class="form-input" placeholder="Support Automation" id="newWorkflowName">
+      <label class="form-label">Customer *</label>
+      <select class="form-select"><option>Select a customer...</option><option>Acme Corp</option><option>TechStart</option><option>Global Systems</option></select>
+      <label class="form-label">Primary outcome</label>
+      <select class="form-select"><option>Select an outcome...</option><option>Ticket Resolved</option><option>Lead Qualified</option><option>Document Generated</option></select>
+      <div style="font-size:11px;color:var(--ink3);margin-bottom:14px;">This is the measurable result the workflow will generate.</div>
+      <label class="form-label">Choose a starting point</label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div onclick="this.parentElement.querySelectorAll('div').forEach(d=>d.classList.remove('active'));this.classList.add('active')" style="border:1px solid var(--border);border-radius:6px;padding:10px;cursor:pointer;transition:border 0.15s;">
+          <div style="font-size:16px;margin-bottom:4px;">🎧</div>
+          <div style="font-size:11px;font-weight:500;">Support Automation</div>
+          <div style="font-size:10px;color:var(--ink3);">Resolve support tickets automatically.</div>
+        </div>
+        <div onclick="this.parentElement.querySelectorAll('div').forEach(d=>d.classList.remove('active'));this.classList.add('active')" style="border:1px solid var(--border);border-radius:6px;padding:10px;cursor:pointer;">
+          <div style="font-size:16px;margin-bottom:4px;">🎯</div>
+          <div style="font-size:11px;font-weight:500;">Sales Qualification</div>
+          <div style="font-size:10px;color:var(--ink3);">Qualify inbound leads.</div>
+        </div>
+        <div onclick="this.parentElement.querySelectorAll('div').forEach(d=>d.classList.remove('active'));this.classList.add('active')" style="border:1px solid var(--border);border-radius:6px;padding:10px;cursor:pointer;">
+          <div style="font-size:16px;margin-bottom:4px;">📄</div>
+          <div style="font-size:11px;font-weight:500;">Document Processing</div>
+          <div style="font-size:10px;color:var(--ink3);">Extract and classify documents.</div>
+        </div>
+        <div onclick="this.parentElement.querySelectorAll('div').forEach(d=>d.classList.remove('active'));this.classList.add('active')" style="border:1px solid var(--border);border-radius:6px;padding:10px;cursor:pointer;">
+          <div style="font-size:16px;margin-bottom:4px;">⬜</div>
+          <div style="font-size:11px;font-weight:500;">Start from scratch</div>
+          <div style="font-size:10px;color:var(--ink3);">Build your own workflow.</div>
+        </div>
+      </div>
+      <label class="form-label">Value estimation</label>
+      <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:6px;overflow:hidden;">
+        <span style="padding:7px 10px;background:var(--bg2);border-right:1px solid var(--border);font-size:12px;color:var(--ink3);">$</span>
+        <input class="form-input" style="border:none;margin:0;border-radius:0;" placeholder="45" value="45">
+      </div>
+      <div style="font-size:10px;color:var(--ink3);margin-top:4px;">This value is used to estimate value generated and billing.</div>
+    </div>
+    <div class="modal-footer">
+      <span style="font-size:11px;color:var(--ink3);margin-right:auto;">You'll create the workflow once you add your first step.</span>
+      <button class="btn" onclick="closeCreateModal()">Cancel</button>
+      <button class="btn primary" onclick="closeCreateModal();openBuilder('Support Automation','Acme Corp','Ticket Resolved','$45')">Start building</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXEC PANEL (MVP) -->
+<div class="panel-overlay" id="execPanel" onclick="if(event.target===this)closePanel('execPanel')">
+  <div class="panel">
+    <div class="panel-header">
+      <div><div class="panel-title" id="execPanelId">r-001</div><div class="panel-sub" id="execPanelSub">Support Automation · 2m ago</div></div>
+      <span class="panel-close" onclick="closePanel('execPanel')">✕</span>
+    </div>
+    <div class="panel-body">
+      <div class="detail-row"><span class="detail-label">Execution</span><span class="detail-value id-link" id="pd-exec">r-001</span></div>
+      <div class="detail-row"><span class="detail-label">Workflow</span><span class="detail-value" id="pd-workflow">Support Automation</span></div>
+      <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value" id="pd-customer">Acme Corp</span></div>
+      <div class="detail-row"><span class="detail-label">Status</span><span class="pill green" id="pd-status">Success</span></div>
+      <div class="detail-row"><span class="detail-label">Duration</span><span class="detail-value" id="pd-duration">2s</span></div>
+      <div class="detail-row"><span class="detail-label">Cost</span><span class="detail-value" id="pd-cost">$0.03</span></div>
+      <div class="detail-row"><span class="detail-label">Outcome</span><span class="detail-value" id="pd-outcome">Ticket Resolved</span></div>
+      <div class="detail-row"><span class="detail-label">Value generated</span><span class="detail-value val-green" id="pd-value">$45</span></div>
+      <div class="evidence-block">
+        <div class="evidence-label">Evidence</div>
+        <div class="evidence-text" id="pd-evidence">Ticket Resolved completed successfully. Value of $45 attributed to Acme Corp.</div>
+        <button class="btn" style="margin-top:10px;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><span>↓</span> Export evidence</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EXEC PANEL LARGE (with tabs) -->
+<div class="panel-overlay" id="execPanelLarge" onclick="if(event.target===this)closePanel('execPanelLarge')">
+  <div class="panel">
+    <div class="panel-header">
+      <div><div class="panel-title" id="lp-title">EX-001</div><div class="panel-sub" id="lp-sub">Support Automation — Acme Corp</div></div>
+      <span class="panel-close" onclick="closePanel('execPanelLarge')">✕</span>
+    </div>
+    <div class="panel-tabs">
+      <div class="panel-tab active" onclick="switchPanelTab(this,'lp-overview')">Overview</div>
+      <div class="panel-tab" onclick="switchPanelTab(this,'lp-trace')">Trace</div>
+      <div class="panel-tab" onclick="switchPanelTab(this,'lp-logs')">Logs</div>
+      <div class="panel-tab" onclick="switchPanelTab(this,'lp-evidence')">Evidence</div>
+    </div>
+    <div class="panel-body">
+      <div id="lp-overview">
+        <div class="detail-row"><span class="detail-label">Execution ID</span><span class="detail-value id-link" id="lp-id">EX-001</span></div>
+        <div class="detail-row"><span class="detail-label">Workflow</span><span class="detail-value" id="lp-workflow">Support Automation</span></div>
+        <div class="detail-row"><span class="detail-label">Customer</span><span class="detail-value" id="lp-customer">Acme Corp</span></div>
+        <div class="detail-row"><span class="detail-label">Status</span><span class="pill green" id="lp-status">Success</span></div>
+        <div class="detail-row"><span class="detail-label">Outcome</span><span class="detail-value" id="lp-outcome">Ticket Resolved</span></div>
+        <div class="detail-row"><span class="detail-label">Value generated</span><span class="detail-value val-green" id="lp-value">$45</span></div>
+        <div class="detail-row"><span class="detail-label">Cost</span><span class="detail-value" id="lp-cost">$0.02</span></div>
+        <div class="detail-row"><span class="detail-label">Duration</span><span class="detail-value" id="lp-duration">0.8s</span></div>
+        <div class="detail-row"><span class="detail-label">Time</span><span class="detail-value">1m ago</span></div>
+      </div>
+      <div id="lp-trace" style="display:none;">
+        <div style="font-family:monospace;font-size:11px;color:var(--ink2);line-height:1.8;background:var(--bg2);border-radius:6px;padding:12px;">
+          <div style="color:var(--green);">[00:00.000] Workflow started</div>
+          <div>[00:00.012] Trigger: new_support_ticket</div>
+          <div>[00:00.045] Run Agent: resolve_ticket → GPT-4o</div>
+          <div>[00:00.380] Agent response received</div>
+          <div>[00:00.412] Evaluate: check_resolution → PASS</div>
+          <div style="color:var(--green);">[00:00.445] Create Value Event: Ticket Resolved ($45)</div>
+          <div>[00:00.460] Notify: alert_customer → sent</div>
+          <div style="color:var(--green);">[00:00.800] Workflow completed ✓</div>
+        </div>
+      </div>
+      <div id="lp-logs" style="display:none;">
+        <div style="font-family:monospace;font-size:10px;color:var(--ink3);line-height:2;background:var(--bg2);border-radius:6px;padding:12px;">
+          <div>INFO  Workflow execution started (EX-001)</div>
+          <div>INFO  Trigger received: ticket_id=48291</div>
+          <div>INFO  Agent invoked: model=gpt-4o tokens=1240</div>
+          <div>INFO  Resolution confidence: 0.97</div>
+          <div>INFO  Value event created: $45 / Ticket Resolved</div>
+          <div>INFO  Notification sent to customer@acme.com</div>
+          <div style="color:var(--green);">INFO  Execution complete: SUCCESS</div>
+        </div>
+      </div>
+      <div id="lp-evidence" style="display:none;">
+        <div class="evidence-block">
+          <div class="evidence-label">Evidence</div>
+          <div class="evidence-text">Ticket Resolved completed successfully. Value of $45 attributed to Acme Corp. Execution traces, model output, and source links attached.</div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="detail-row"><span class="detail-label">Source type</span><span class="detail-value">ticket_resolution</span></div>
+          <div class="detail-row"><span class="detail-label">Source ref</span><span class="detail-value" style="color:var(--blue);">Zendesk #4821</span></div>
+          <div class="detail-row"><span class="detail-label">Model output</span><span class="detail-value" style="color:var(--blue);">GPT-4o response</span></div>
+        </div>
+        <button class="btn" style="margin-top:14px;width:100%;display:flex;align-items:center;justify-content:center;gap:6px;"><span>↓</span> Export evidence PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE BILL MODAL (MVP) -->
+<div class="modal-overlay" id="billModal" onclick="if(event.target===this)closePanel('billModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="panel-title">Create bill</div><div class="panel-sub">Fill in the details below. The bill will be saved as a draft.</div></div>
+      <span class="panel-close" onclick="closePanel('billModal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Customer</label>
+      <select class="form-select" id="billCustomer" onchange="updateDraft()"><option>Select customer</option><option>Acme Corp</option><option>TechStart</option><option>Global Systems</option></select>
+      <label class="form-label">Billing period</label>
+      <select class="form-select" id="billPeriod" onchange="updateDraft()"><option>This month</option><option>Last month</option><option>Custom</option></select>
+      <label class="form-label">Workflow</label>
+      <select class="form-select"><option>All workflows</option><option>Support Automation</option><option>Sales Qualification</option></select>
+      <label class="form-label">Line item type</label>
+      <select class="form-select"><option>Outcome-based</option><option>Time-based</option><option>Flat fee</option></select>
+      <label class="form-label">Outcome</label>
+      <select class="form-select"><option>Select outcome</option><option>Ticket Resolved</option><option>Lead Qualified</option></select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div><label class="form-label">Quantity</label><input class="form-input" value="0" type="number"></div>
+        <div><label class="form-label">Unit value ($)</label><input class="form-input" value="0.00" type="number"></div>
+      </div>
+      <div class="draft-preview">
+        <div class="draft-preview-label">Draft preview</div>
+        <div class="draft-row"><span>Customer</span><span id="draftCustomer">—</span></div>
+        <div class="draft-row"><span>Period</span><span id="draftPeriod">This month</span></div>
+        <div class="draft-row"><span>Type</span><span>Outcome-based</span></div>
+        <div class="draft-row"><span>Outcome</span><span>—</span></div>
+        <div class="draft-row"><span>Total</span><strong>$0</strong></div>
+        <div class="draft-row"><span>Status</span><strong>Draft</strong></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closePanel('billModal')">Cancel</button>
+      <button class="btn primary" onclick="closePanel('billModal')">Create bill</button>
+    </div>
+  </div>
+</div>
+
+<!-- CREATE BILL LARGE -->
+<div class="modal-overlay" id="createBillLargeModal" onclick="if(event.target===this)closePanel('createBillLargeModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="panel-title">Create bill</div><div class="panel-sub">Create a bill from AI-generated value using prefilled customer and workflow data.</div></div>
+      <span class="panel-close" onclick="closePanel('createBillLargeModal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Customer</label>
+      <select class="form-select"><option>Select customer...</option><option>Acme Corp</option><option>TechStart</option></select>
+      <label class="form-label">Billing period</label>
+      <select class="form-select"><option>Select period...</option><option>Feb 2026</option><option>Jan 2026</option></select>
+      <label class="form-label">Workflow scope</label>
+      <select class="form-select"><option>All workflows</option><option>Support Automation</option><option>Sales Qualification</option></select>
+      <label class="form-label">Line item type</label>
+      <select class="form-select"><option>Outcome-based</option><option>Time-based</option></select>
+      <label class="form-label">Outcome</label>
+      <select class="form-select"><option>Select outcome...</option><option>Ticket Resolved</option><option>Lead Qualified</option></select>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div><label class="form-label">Quantity</label><input class="form-input" value="0" type="number"></div>
+        <div><label class="form-label">Unit value ($)</label><input class="form-input" value="0" type="number"></div>
+      </div>
+      <label class="form-label">Notes</label>
+      <textarea class="form-input" style="height:60px;resize:none;" placeholder="Optional billing notes..."></textarea>
+      <div class="draft-preview">
+        <div class="draft-preview-label">Bill preview</div>
+        <div class="draft-row"><span>Customer</span><span>—</span></div>
+        <div class="draft-row"><span>Period</span><span>—</span></div>
+        <div class="draft-row"><span>Scope</span><span>All workflows</span></div>
+        <div class="draft-row"><span>Line items</span><span style="color:var(--ink3);">No line items yet</span></div>
+        <div class="draft-row"><span>Total</span><strong>$0</strong></div>
+        <div class="draft-row"><span>Status</span><strong>Draft</strong></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closePanel('createBillLargeModal')">Cancel</button>
+      <button class="btn" onclick="closePanel('createBillLargeModal')">Save draft</button>
+      <button class="btn primary" onclick="closePanel('createBillLargeModal')">Create bill</button>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERY REPORT MODAL -->
+<div class="modal-overlay" id="deliveryModal" onclick="if(event.target===this)closePanel('deliveryModal')">
+  <div class="modal">
+    <div class="modal-header">
+      <div><div class="panel-title">Create delivery report</div><div class="panel-sub">Summarize AI outcomes, value delivered, and supporting evidence for a customer.</div></div>
+      <span class="panel-close" onclick="closePanel('deliveryModal')">✕</span>
+    </div>
+    <div class="modal-body">
+      <label class="form-label">Customer</label>
+      <select class="form-select"><option>Acme Corp</option><option>TechStart</option><option>CloudNine</option></select>
+      <label class="form-label">Period</label>
+      <select class="form-select"><option>Feb 2026</option><option>Jan 2026</option></select>
+      <label class="form-label">Workflows</label>
+      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:14px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;padding:8px;border:1px solid var(--border);border-radius:6px;">
+          <input type="checkbox"> <div><div style="font-weight:500;">Support Automation</div><div style="font-size:10px;color:var(--ink3);">Ticket Resolved</div></div>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer;padding:8px;border:1px solid var(--border);border-radius:6px;">
+          <input type="checkbox"> <div><div style="font-weight:500;">Invoice Matching</div><div style="font-size:10px;color:var(--ink3);">Invoice Matched</div></div>
+        </label>
+      </div>
+      <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;cursor:pointer;margin-bottom:10px;padding:10px;border:1px solid var(--border);border-radius:6px;">
+        <input type="checkbox" checked style="margin-top:2px;"> <div><div style="font-weight:500;">Include evidence</div><div style="font-size:10px;color:var(--ink3);">Attach supporting evidence from executions.</div></div>
+      </label>
+      <label style="display:flex;align-items:flex-start;gap:8px;font-size:12px;cursor:pointer;margin-bottom:14px;padding:10px;border:1px solid var(--border);border-radius:6px;">
+        <input type="checkbox" checked style="margin-top:2px;"> <div><div style="font-weight:500;">Include billing summary</div><div style="font-size:10px;color:var(--ink3);">Show linked bill amount and status.</div></div>
+      </label>
+      <div class="draft-preview">
+        <div class="draft-preview-label">Report preview</div>
+        <div class="draft-row"><span>Customer</span><span>Acme Corp</span></div>
+        <div class="draft-row"><span>Period</span><span>Feb 2026</span></div>
+        <div class="draft-row"><span>Workflows</span><span>All (2)</span></div>
+        <div class="draft-row"><span>Evidence</span><span>Yes</span></div>
+        <div class="draft-row"><span>Billing summary</span><span>Yes</span></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closePanel('deliveryModal')">Cancel</button>
+      <button class="btn primary" onclick="closePanel('deliveryModal')">Create report</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let activeMvpTab = 'workflows';
+let activeLargeTab = 'workflows';
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navMap = {
+    'home': 0, 'observability': 1, 'mvp-workflows': 2, 'workflows': 3, 'customers': 4
+  };
+  document.querySelectorAll('.nav-item')[navMap[id]]?.classList.add('active');
+}
+
+function switchMvpTab(tab, el) {
+  document.querySelectorAll('#page-mvp-workflows .topbar-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['workflows','executions','value','billing'].forEach(t => {
+    document.getElementById('mvp-tab-'+t).style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+function switchLargeTab(tab, el) {
+  document.querySelectorAll('#page-workflows .topbar-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['workflows','executions','value','billing','reports'].forEach(t => {
+    document.getElementById('large-tab-'+t).style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+function switchPanelTab(el, show) {
+  el.closest('.panel').querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const body = el.closest('.panel').querySelector('.panel-body');
+  body.querySelectorAll(':scope > div[id]').forEach(d => d.style.display = 'none');
+  body.querySelector('#'+show).style.display = 'block';
+}
+
+function openBuilder(name, customer, outcome, value) {
+  document.getElementById('mainApp').style.display = 'none';
+  const b = document.getElementById('builderShell');
+  b.classList.add('active');
+  document.getElementById('builderWorkflowName').textContent = name;
+  document.getElementById('builderStatus').textContent = 'Draft';
+  document.getElementById('builderStatus').className = 'pill gray';
+  document.getElementById('bmWorkflow').textContent = name;
+  document.getElementById('bmCustomer').textContent = customer;
+  document.getElementById('bmOutcome').textContent = outcome;
+  document.getElementById('bmValue').textContent = value + ' / outcome';
+  document.getElementById('propsCustomer').textContent = customer;
+  document.getElementById('propsOutcome').textContent = outcome;
+  document.getElementById('propsValue').textContent = value;
+  document.getElementById('propsPublished').textContent = '—';
+  document.getElementById('builderValueSub').textContent = outcome + ' – ' + value;
+  document.getElementById('builderValueTag').textContent = outcome + '      ' + value;
+  document.getElementById('publishBtn').textContent = 'Publish';
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('builtFlow').style.display = 'block';
+}
+
+function openBuilderNew() {
+  document.getElementById('createWorkflowModal').classList.add('open');
+}
+function closeCreateModal() {
+  document.getElementById('createWorkflowModal').classList.remove('open');
+}
+
+function closeBuilder() {
+  document.getElementById('builderShell').classList.remove('active');
+  document.getElementById('mainApp').style.display = 'flex';
+}
+
+function saveDraft() {
+  document.getElementById('builderStatus').textContent = 'Draft';
+  document.getElementById('builderStatus').className = 'pill amber';
+}
+
+function publishWorkflow() {
+  document.getElementById('builderStatus').textContent = 'Active';
+  document.getElementById('builderStatus').className = 'pill green';
+  document.getElementById('propsPublished').textContent = 'Just now';
+  document.getElementById('publishBtn').textContent = 'Published ✓';
+}
+
+function populateBuilder() {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('builtFlow').style.display = 'block';
+}
+
+function openExecPanel(id, workflow, customer, status, duration, cost, outcome, value) {
+  document.getElementById('execPanelId').textContent = id;
+  document.getElementById('execPanelSub').textContent = workflow + ' · 2m ago';
+  document.getElementById('pd-exec').textContent = id;
+  document.getElementById('pd-workflow').textContent = workflow;
+  document.getElementById('pd-customer').textContent = customer;
+  document.getElementById('pd-status').textContent = status;
+  document.getElementById('pd-status').className = 'pill ' + (status === 'Success' ? 'green' : 'red');
+  document.getElementById('pd-duration').textContent = duration;
+  document.getElementById('pd-cost').textContent = cost;
+  document.getElementById('pd-outcome').textContent = outcome;
+  document.getElementById('pd-value').textContent = value;
+  document.getElementById('pd-evidence').textContent = outcome + ' completed successfully. Value of ' + value + ' attributed to ' + customer + '.';
+  document.getElementById('execPanel').classList.add('open');
+}
+
+function openExecPanelLarge(id, workflow, customer, status, duration, cost, outcome, value) {
+  document.getElementById('lp-title').textContent = id;
+  document.getElementById('lp-sub').textContent = workflow + ' — ' + customer;
+  document.getElementById('lp-id').textContent = id;
+  document.getElementById('lp-workflow').textContent = workflow;
+  document.getElementById('lp-customer').textContent = customer;
+  document.getElementById('lp-status').textContent = status;
+  document.getElementById('lp-status').className = 'pill ' + (status === 'Success' ? 'green' : 'red');
+  document.getElementById('lp-outcome').textContent = outcome;
+  document.getElementById('lp-value').textContent = value;
+  document.getElementById('lp-cost').textContent = cost;
+  document.getElementById('lp-duration').textContent = duration;
+  ['lp-trace','lp-logs','lp-evidence'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('lp-overview').style.display = 'block';
+  document.querySelectorAll('#execPanelLarge .panel-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.getElementById('execPanelLarge').classList.add('open');
+}
+
+function openBillModal() { document.getElementById('billModal').classList.add('open'); }
+function openCreateBillLarge() { document.getElementById('createBillLargeModal').classList.add('open'); }
+function openDeliveryModal() { document.getElementById('deliveryModal').classList.add('open'); }
+
+function closePanel(id) { document.getElementById(id).classList.remove('open'); }
+
+function updateDraft() {
+  const c = document.getElementById('billCustomer').value;
+  const p = document.getElementById('billPeriod').value;
+  document.getElementById('draftCustomer').textContent = c === 'Select customer' ? '—' : c;
+  document.getElementById('draftPeriod').textContent = p;
+}
+</script>
+
+</div>
+  </div>
+</div>
+
+<!-- 05 TWO SCOPES -->
+<div class="block bg r">
   <div class="block-label">
     <div class="block-num">05</div>
-    <div class="block-title">Workflows</div>
-    <div class="block-sub">Defining what an AI agent<br>does and what it is worth</div>
-  </div>
-  <div class="content">
-    <h2>Defining what an AI agent<br>does and what it is worth.</h2>
-    <p>The workflow is the unit of everything in Paid.ai. I designed creation as a two-step process: first define the metadata (name, customer, outcome, estimated value), then build the flow in the block-based builder. The key decision: surfacing value and billing eligibility in the builder header at all times.</p>
-
-    <!-- Workflows list view -->
-    <div class="img-wrap r"><img src="paid-workflows.png" alt="Workflows list — all active workflows with customer, outcome, and value generated"></div>
-    <p class="img-label">The Workflows view — every AI workflow the operator has defined, the customer it runs for, the primary outcome it produces, and how much value it has generated. Each row is a business contract between the product and the customer.</p>
-
-    <!-- Creation flow: form + empty builder -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-workflow-create.png" alt="Create workflow — name, customer, outcome, value per execution"></div>
-      <div class="img-wrap"><img src="paid-workflow-builder-empty.png" alt="Workflow builder — empty state before adding blocks"></div>
-    </div>
-    <p class="img-label">Left: defining a new workflow — the operator names it, assigns a customer, selects the primary outcome, and estimates the value per execution. Right: the builder in its empty state, ready to receive blocks.</p>
-
-    <!-- Published builder state -->
-    <div class="img-wrap r"><img src="paid-workflow-published.png" alt="Workflow builder — published state with blocks and billing eligibility visible in header"></div>
-    <p class="img-label">The block-based builder in its published state. The workflow header always shows the customer, outcome, value per execution, and billing eligibility — keeping business context visible while building.</p>
-  </div>
-</div>
-
-<!-- 06 EXECUTIONS -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">06</div>
-    <div class="block-title">Executions</div>
-    <div class="block-sub">Every agent run, traced<br>and valued in real time</div>
-  </div>
-  <div class="content">
-    <h2>Every agent run, traced<br>and valued in real time.</h2>
-    <p>The executions view is where observability meets value attribution. Every agent run is captured: duration, cost, outcome, and value generated. The slide-in detail panel gives technical depth without cluttering the default view.</p>
-
-    <!-- Main executions list -->
-    <div class="img-wrap r"><img src="paid-executions.png" alt="Executions list — all agent runs with status, cost, outcome, and value"></div>
-    <p class="img-label">Every time an AI agent runs, Paid.ai captures the full execution — which workflow, which customer, whether it succeeded, how long it took, what it cost, what outcome it produced, and what value it generated. This is the observability layer.</p>
-
-    <!-- Execution detail + MVP evidence -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-execution-detail.png" alt="Execution detail panel — trace, logs, evidence tabs"></div>
-      <div class="img-wrap"><img src="paid-executions-mvp.png" alt="Executions MVP — simplified list view for early customers"></div>
-    </div>
-    <p class="img-label">Left: clicking into an execution reveals the full detail — workflow, customer, outcome, value, cost, and tabs for Trace, Logs, and Evidence. Right: the executions view in its MVP form, optimised for teams just getting started with the product.</p>
-
-    <!-- Evidence detail -->
-    <div class="img-wrap r"><img src="paid-executions-mvp2.png" alt="Execution evidence — proof block with linked traces and source data"></div>
-    <p class="img-label">The evidence block inside an execution detail: proof that the AI delivered what it promised, with linked execution traces, API responses, and source data. Exportable as PDF for customer reporting.</p>
-  </div>
-</div>
-
-<!-- 07 VALUE -->
-<div class="block r">
-  <div class="block-label">
-    <div class="block-num">07</div>
-    <div class="block-title">Value</div>
-    <div class="block-sub">From execution data<br>to business intelligence</div>
-  </div>
-  <div class="content">
-    <h2>From execution data<br>to business intelligence.</h2>
-    <p>The value view is the strategic layer. Where executions give operational visibility, value gives business intelligence: how much has your AI generated, which workflows are performing best, which customers are getting the most out of it.</p>
-
-    <!-- Full value view -->
-    <div class="img-wrap r"><img src="paid-value.png" alt="Value view — total value generated, by workflow and by customer"></div>
-    <p class="img-label">The Value view turns execution data into business intelligence — total value generated, value over time, which workflows deliver most, which customers benefit most. This is what the operator uses to understand pricing, prioritize workflows, and build the case for renewal.</p>
-
-    <!-- MVP value view -->
-    <div class="img-wrap r"><img src="paid-value-mvp.png" alt="Value view MVP — simplified value summary for early-stage operators"></div>
-    <p class="img-label">The MVP version of the Value view: a focused summary of recent value events per workflow, without the full chart layer. Enough for early operators to answer "is this working?" without overwhelming them with data they can't yet act on.</p>
-
-    <!-- Credits -->
-    <div class="img-wrap r"><img src="paid-credits.png" alt="Credits — AI cost tracking per workflow and customer"></div>
-    <p class="img-label">Credits: the cost side of the equation. Tracking what each AI workflow consumes lets operators understand their unit economics and set sustainable pricing against the value they generate.</p>
-  </div>
-</div>
-
-<!-- 08 BILLING -->
-<div class="block bg r">
-  <div class="block-label">
-    <div class="block-num">08</div>
-    <div class="block-title">Billing</div>
-    <div class="block-sub">Turning AI value into<br>invoices customers believe</div>
-  </div>
-  <div class="content">
-    <h2>Turning AI value into<br>invoices customers believe.</h2>
-    <p>Billing as a value-first flow: the table shows value generated per customer before showing what to bill. The delivery report is not just an invoice but proof: executions, outcomes, value, and supporting evidence including execution traces, API responses, and source links.</p>
-
-    <!-- Main billing view -->
-    <div class="img-wrap r"><img src="paid-billing-large.png" alt="Billing view — value generated per customer, bill lifecycle, and status"></div>
-    <p class="img-label">The Billing view leads with value generated — operators see what was earned before deciding what to invoice. Bills move through a lifecycle: draft, ready for review, approved, exported. Value and billing status side by side.</p>
-
-    <!-- MVP billing -->
-    <div class="img-wrap r"><img src="paid-billing.png" alt="Billing — bill detail with line items and value breakdown"></div>
-    <p class="img-label">A bill in detail: line items generated from value events, each traceable back to the execution that produced it. The breakdown makes the invoice auditable and defensible to the customer.</p>
-
-    <!-- Create bill + delivery report -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-create-bill.png" alt="Create bill — select customer, period, and line item type"></div>
-      <div class="img-wrap"><img src="paid-delivery-report-create.png" alt="Create delivery report — generate proof document for customer"></div>
-    </div>
-    <p class="img-label">Left: creating a bill from AI-generated value — the operator selects the customer, period, and line item type. The draft preview updates in real time. Right: generating a delivery report — the document that proves to the customer what was delivered and what it was worth.</p>
-
-    <!-- Delivery report -->
-    <div class="img-wrap r"><img src="paid-delivery-report.png" alt="Delivery report — customer-facing proof of AI value with execution evidence"></div>
-    <p class="img-label">The delivery report: not just an invoice, but proof. Executions, outcomes, value attributed, and linked evidence — everything the customer needs to validate what they're paying for and justify renewal internally.</p>
-
-    <!-- Reports list -->
-    <div class="img-wrap r"><img src="paid-reports-list.png" alt="Reports hub — delivery reports per customer and period with automated insights"></div>
-    <p class="img-label">The Reports hub generates delivery reports per customer and period. Below the table, automated insights surface patterns the operator would otherwise have to look for — which workflows are growing, which customers have unbilled value, where success rates are dropping.</p>
-  </div>
-</div>
-
-<!-- 09 TWO SCOPES -->
-<div class="block r">
-  <div class="block-label">
-    <div class="block-num">09</div>
     <div class="block-title">Two scopes</div>
     <div class="block-sub">Designing for now and<br>for what comes next</div>
   </div>
   <div class="content">
     <h2>Designing for now<br>and for what comes next.</h2>
-    <p>I delivered two design scopes. The MVP covered the core loop: everything a team of two could ship to early customers quickly. The large product vision extended this into a full platform. The design system was consistent across both.</p>
-
-    <div class="scope r">
+    <p>I treated the two scopes as separate deliverables with separate constraints. The MVP had to be something two engineers could build in weeks. The large product vision was the full platform — designed so the team could understand where they were going before they got there.</p>
+    <div class="scope-grid r">
       <div>
         <div class="scope-head">MVP scope</div>
         <ul class="scope-list f">
@@ -622,41 +1815,13 @@ footer {
         </ul>
       </div>
     </div>
-
-    <!-- Workflows: MVP vs large -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-workflows-mvp.png" alt="Workflows — MVP scope"></div>
-      <div class="img-wrap"><img src="paid-workflows.png" alt="Workflows — large product vision"></div>
-    </div>
-    <p class="img-label">Workflows: MVP vs large vision. Same core model — workflows mapped to customers and outcomes — but the large scope adds paused and draft states, higher execution volumes, and richer per-row data.</p>
-
-    <!-- Executions: MVP vs large -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-executions-mvp.png" alt="Executions — MVP scope"></div>
-      <div class="img-wrap"><img src="paid-executions.png" alt="Executions — large product vision"></div>
-    </div>
-    <p class="img-label">Executions: MVP vs large vision. The MVP captures the essential run data. The full scope adds value attribution per run, outcome tagging, and the detail panel with trace and evidence tabs.</p>
-
-    <!-- Value: MVP vs large -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-value-mvp.png" alt="Value — MVP scope"></div>
-      <div class="img-wrap"><img src="paid-value.png" alt="Value — large product vision"></div>
-    </div>
-    <p class="img-label">Value: MVP vs large vision. The MVP answers the core question — is the AI generating value? — with a focused event list. The large scope adds breakdowns by workflow and customer, and charts that show value over time.</p>
-
-    <!-- Billing: MVP vs large -->
-    <div class="img-duo r">
-      <div class="img-wrap"><img src="paid-billing-mvp.png" alt="Billing — MVP scope"></div>
-      <div class="img-wrap"><img src="paid-billing-large.png" alt="Billing — large product vision"></div>
-    </div>
-    <p class="img-label">Billing: MVP vs large vision. The MVP gets a bill out of the door. The large scope makes billing a strategic view — value earned, lifecycle tracking, and direct links to the delivery report that closes the loop with the customer.</p>
   </div>
 </div>
 
-<!-- 10 LEARNINGS -->
-<div class="block bg r">
+<!-- 06 LEARNINGS -->
+<div class="block r">
   <div class="block-label">
-    <div class="block-num">10</div>
+    <div class="block-num">06</div>
     <div class="block-title">Learnings</div>
     <div class="block-sub">What designing a new<br>category teaches you</div>
   </div>
@@ -685,14 +1850,13 @@ footer {
 </footer>
 
 <script>
-// Progress bar + nav
+/* ====== CASE STUDY JS ====== */
 window.addEventListener('scroll', () => {
   const total = document.body.scrollHeight - window.innerHeight;
   document.getElementById('progress').style.width = (window.scrollY / total * 100) + '%';
   document.getElementById('nav').classList.toggle('s', window.scrollY > 60);
 }, { passive: true });
 
-// Reveal
 const obs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) {
@@ -703,7 +1867,6 @@ const obs = new IntersectionObserver((entries) => {
 }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.r').forEach(el => obs.observe(el));
 
-// Custom cursor
 const cur = document.createElement('div');
 const ring = document.createElement('div');
 cur.id = 'cur'; ring.id = 'ring';
@@ -712,26 +1875,157 @@ document.body.appendChild(ring);
 let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 function animCur() {
-  rx += (mx - rx) * 0.14;
-  ry += (my - ry) * 0.14;
+  rx += (mx - rx) * 0.14; ry += (my - ry) * 0.14;
   cur.style.cssText = `left:${mx}px;top:${my}px`;
   ring.style.cssText = `left:${rx}px;top:${ry}px`;
   requestAnimationFrame(animCur);
 }
 animCur();
-
-// Cursor states
 document.querySelectorAll('a, .problem-row, .finding, .learning, .journey').forEach(el => {
   el.addEventListener('mouseenter', () => { cur.classList.add('hover'); ring.classList.add('hover'); });
   el.addEventListener('mouseleave', () => { cur.classList.remove('hover'); ring.classList.remove('hover'); });
 });
-document.querySelectorAll('.img-wrap').forEach(el => {
-  el.addEventListener('mouseenter', () => { cur.classList.add('img'); ring.classList.add('img'); });
-  el.addEventListener('mouseleave', () => { cur.classList.remove('img'); ring.classList.remove('img'); });
-});
-
-// Fallback
 setTimeout(() => document.querySelectorAll('.r').forEach(el => el.classList.add('on')), 600);
+
+/* ====== PROTOTYPE JS ====== */
+(function() {
+let activeMvpTab = 'workflows';
+let activeLargeTab = 'workflows';
+
+window.showPage = function(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const navMap = {
+    'home': 0, 'observability': 1, 'mvp-workflows': 2, 'workflows': 3, 'customers': 4
+  };
+  document.querySelectorAll('.nav-item')[navMap[id]]?.classList.add('active');
+}
+
+window.switchMvpTab = function(tab, el) {
+  document.querySelectorAll('#page-mvp-workflows .topbar-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['workflows','executions','value','billing'].forEach(t => {
+    document.getElementById('mvp-tab-'+t).style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+window.switchLargeTab = function(tab, el) {
+  document.querySelectorAll('#page-workflows .topbar-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  ['workflows','executions','value','billing','reports'].forEach(t => {
+    document.getElementById('large-tab-'+t).style.display = t === tab ? 'block' : 'none';
+  });
+}
+
+window.switchPanelTab = function(el, show) {
+  el.closest('.panel').querySelectorAll('.panel-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const body = el.closest('.panel').querySelector('.panel-body');
+  body.querySelectorAll(':scope > div[id]').forEach(d => d.style.display = 'none');
+  body.querySelector('#'+show).style.display = 'block';
+}
+
+window.openBuilder = function(name, customer, outcome, value) {
+  document.getElementById('mainApp').style.display = 'none';
+  const b = document.getElementById('builderShell');
+  b.classList.add('active');
+  document.getElementById('builderWorkflowName').textContent = name;
+  document.getElementById('builderStatus').textContent = 'Draft';
+  document.getElementById('builderStatus').className = 'pill gray';
+  document.getElementById('bmWorkflow').textContent = name;
+  document.getElementById('bmCustomer').textContent = customer;
+  document.getElementById('bmOutcome').textContent = outcome;
+  document.getElementById('bmValue').textContent = value + ' / outcome';
+  document.getElementById('propsCustomer').textContent = customer;
+  document.getElementById('propsOutcome').textContent = outcome;
+  document.getElementById('propsValue').textContent = value;
+  document.getElementById('propsPublished').textContent = '—';
+  document.getElementById('builderValueSub').textContent = outcome + ' – ' + value;
+  document.getElementById('builderValueTag').textContent = outcome + '      ' + value;
+  document.getElementById('publishBtn').textContent = 'Publish';
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('builtFlow').style.display = 'block';
+}
+
+window.openBuilderNew = function() {
+  document.getElementById('createWorkflowModal').classList.add('open');
+}
+window.closeCreateModal = function() {
+  document.getElementById('createWorkflowModal').classList.remove('open');
+}
+
+window.closeBuilder = function() {
+  document.getElementById('builderShell').classList.remove('active');
+  document.getElementById('mainApp').style.display = 'flex';
+}
+
+window.saveDraft = function() {
+  document.getElementById('builderStatus').textContent = 'Draft';
+  document.getElementById('builderStatus').className = 'pill amber';
+}
+
+window.publishWorkflow = function() {
+  document.getElementById('builderStatus').textContent = 'Active';
+  document.getElementById('builderStatus').className = 'pill green';
+  document.getElementById('propsPublished').textContent = 'Just now';
+  document.getElementById('publishBtn').textContent = 'Published ✓';
+}
+
+window.populateBuilder = function() {
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('builtFlow').style.display = 'block';
+}
+
+window.openExecPanel = function(id, workflow, customer, status, duration, cost, outcome, value) {
+  document.getElementById('execPanelId').textContent = id;
+  document.getElementById('execPanelSub').textContent = workflow + ' · 2m ago';
+  document.getElementById('pd-exec').textContent = id;
+  document.getElementById('pd-workflow').textContent = workflow;
+  document.getElementById('pd-customer').textContent = customer;
+  document.getElementById('pd-status').textContent = status;
+  document.getElementById('pd-status').className = 'pill ' + (status === 'Success' ? 'green' : 'red');
+  document.getElementById('pd-duration').textContent = duration;
+  document.getElementById('pd-cost').textContent = cost;
+  document.getElementById('pd-outcome').textContent = outcome;
+  document.getElementById('pd-value').textContent = value;
+  document.getElementById('pd-evidence').textContent = outcome + ' completed successfully. Value of ' + value + ' attributed to ' + customer + '.';
+  document.getElementById('execPanel').classList.add('open');
+}
+
+window.openExecPanelLarge = function(id, workflow, customer, status, duration, cost, outcome, value) {
+  document.getElementById('lp-title').textContent = id;
+  document.getElementById('lp-sub').textContent = workflow + ' — ' + customer;
+  document.getElementById('lp-id').textContent = id;
+  document.getElementById('lp-workflow').textContent = workflow;
+  document.getElementById('lp-customer').textContent = customer;
+  document.getElementById('lp-status').textContent = status;
+  document.getElementById('lp-status').className = 'pill ' + (status === 'Success' ? 'green' : 'red');
+  document.getElementById('lp-outcome').textContent = outcome;
+  document.getElementById('lp-value').textContent = value;
+  document.getElementById('lp-cost').textContent = cost;
+  document.getElementById('lp-duration').textContent = duration;
+  ['lp-trace','lp-logs','lp-evidence'].forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById('lp-overview').style.display = 'block';
+  document.querySelectorAll('#execPanelLarge .panel-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+  document.getElementById('execPanelLarge').classList.add('open');
+}
+
+window.openBillModal = function() { document.getElementById('billModal').classList.add('open'); }
+window.openCreateBillLarge = function() { document.getElementById('createBillLargeModal').classList.add('open'); }
+window.openDeliveryModal = function() { document.getElementById('deliveryModal').classList.add('open'); }
+
+window.closePanel = function(id) { document.getElementById(id).classList.remove('open'); }
+
+window.updateDraft = function() {
+  const c = document.getElementById('billCustomer').value;
+  const p = document.getElementById('billPeriod').value;
+  document.getElementById('draftCustomer').textContent = c === 'Select customer' ? '—' : c;
+  document.getElementById('draftPeriod').textContent = p;
+}
+
+})();
 </script>
 </body>
 </html>
