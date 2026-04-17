@@ -1001,7 +1001,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <div class="p-tab" onclick="pMvpTab('value',this)">Value</div>
  <div class="p-tab" onclick="pMvpTab('billing',this)">Billing</div>
  </div>
- <button class="p-btn green" onclick="pOpenCreate()">+ New Workflow</button>
+ <button id="pMvpNewBtn" class="p-btn green" onclick="pOpenCreate()">+ New Workflow</button>
  </div>
  <div class="p-content">
 
@@ -1183,7 +1183,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <div class="p-tab" onclick="pLargeTab('billing',this)">Billing</div>
  <div class="p-tab" onclick="pLargeTab('reports',this)">Reports</div>
  </div>
- <button class="p-btn green" onclick="pOpenCreate()">+ Create workflow</button>
+ <button id="pLargeNewBtn" class="p-btn green" onclick="pOpenCreate()">+ Create workflow</button>
  </div>
  <div class="p-content">
 
@@ -1547,8 +1547,134 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 </div>
 
 
+<div class="block r">
+ <div class="block-label"><div class="block-num">06</div><div class="block-title">Delivery bill</div><div class="block-sub">What the operator<br>actually receives.</div></div>
+ <div class="content">
+  <h2>A bill that explains itself.</h2>
+  <p>One of the core design decisions in Paid.ai was that the bill should not require a call to explain. The operator who receives it should be able to understand their consumption, the value delivered, and the cost breakdown without leaving the document. This is what that looks like.</p>
+  <div style="margin-top:2rem;">
+   <div style="font-family:-apple-system,Inter,sans-serif;border:1px solid #e4e4e1;border-radius:8px;overflow:hidden;background:#fff;">
+    <div style="padding:1.5rem 1.75rem;border-bottom:1px solid #e4e4e1;">
+     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <div style="width:26px;height:26px;background:#111110;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:#fff;">P</div>
+        <span style="font-size:12px;color:#888884;">Paid.ai</span>
+       </div>
+       <div style="font-size:17px;font-weight:500;margin:0.75rem 0 0.25rem;color:#111110;">Delivery bill</div>
+       <div style="font-size:12px;color:#888884;">Feb 2026 · Acme Corp</div>
+      </div>
+      <div style="text-align:right;">
+       <div style="font-size:11px;color:#888884;margin-bottom:4px;">B-2026-021</div>
+       <div style="font-size:11px;color:#888884;margin-top:6px;">Issued 1 Mar 2026</div>
+       <div style="margin-top:6px;display:inline-block;background:#eaf5ee;color:#1a6e38;font-size:11px;padding:2px 10px;border-radius:20px;font-weight:500;">Approved</div>
+      </div>
+     </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid #e4e4e1;">
+     <div style="padding:1rem 1.75rem;border-right:1px solid #e4e4e1;">
+      <div style="font-size:11px;color:#888884;margin-bottom:4px;">Total executions</div>
+      <div style="font-size:20px;font-weight:500;color:#111110;">4,821</div>
+      <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">Times your AI agents ran across all workflows this period</div>
+     </div>
+     <div style="padding:1rem 1.75rem;border-right:1px solid #e4e4e1;">
+      <div style="font-size:11px;color:#888884;margin-bottom:4px;">Outcomes delivered</div>
+      <div style="font-size:20px;font-weight:500;color:#111110;">4,738</div>
+      <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">Successful results verified by evidence. Only these are billed. <span style="color:#1a6e38;font-weight:500;">98.3% success rate</span></div>
+     </div>
+     <div style="padding:1rem 1.75rem;">
+      <div style="font-size:11px;color:#888884;margin-bottom:4px;">Value generated</div>
+      <div style="font-size:20px;font-weight:500;color:#111110;">$250,545</div>
+      <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">Total business value attributed to AI outcomes, after deducting AI running costs</div>
+     </div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;border-bottom:1px solid #e4e4e1;">
+     <div style="margin-bottom:1rem;">
+      <div style="font-size:11px;font-weight:500;color:#888884;text-transform:uppercase;letter-spacing:.1em;">Line items</div>
+      <div style="font-size:11px;color:#888884;margin-top:3px;">Each workflow is billed per successfully delivered outcome at the agreed unit value. Failed executions are not charged.</div>
+     </div>
+     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:0 0 8px;border-bottom:1px solid #e4e4e1;font-size:11px;color:#888884;">
+      <span>Workflow</span><span style="text-align:right;">Executions</span><span style="text-align:right;">Outcomes</span><span style="text-align:right;">Unit value</span><span style="text-align:right;">Total</span>
+     </div>
+     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #e4e4e1;font-size:13px;align-items:start;">
+      <div><div style="font-weight:500;color:#111110;">Support Automation</div><div style="font-size:11px;color:#888884;margin-top:2px;">Outcome: Ticket Resolved</div></div>
+      <div style="text-align:right;color:#111110;">4,821</div><div style="text-align:right;color:#111110;">4,738</div><div style="text-align:right;color:#111110;">$45</div><div style="text-align:right;font-weight:500;color:#111110;">$213,210</div>
+     </div>
+     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:12px 0;border-bottom:1px solid #e4e4e1;font-size:13px;align-items:start;">
+      <div><div style="font-weight:500;color:#111110;">Invoice Matching</div><div style="font-size:11px;color:#888884;margin-top:2px;">Outcome: Invoice Matched</div></div>
+      <div style="text-align:right;color:#111110;">1,120</div><div style="text-align:right;color:#111110;">1,120</div><div style="text-align:right;color:#111110;">$30</div><div style="text-align:right;font-weight:500;color:#111110;">$33,600</div>
+     </div>
+     <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:8px;padding:12px 0;font-size:13px;align-items:start;">
+      <div><div style="color:#888884;">Failed executions</div><div style="font-size:11px;color:#888884;margin-top:2px;">No outcome, no charge</div></div>
+      <div style="text-align:right;color:#888884;">83</div><div style="text-align:right;color:#888884;">0</div><div style="text-align:right;color:#888884;">n/a</div><div style="text-align:right;color:#888884;">$0</div>
+     </div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;border-bottom:1px solid #e4e4e1;">
+     <div style="margin-bottom:1rem;">
+      <div style="font-size:11px;font-weight:500;color:#888884;text-transform:uppercase;letter-spacing:.1em;">AI consumption</div>
+      <div style="font-size:11px;color:#888884;margin-top:3px;">The actual cost of running your AI agents. Deducted from the value generated so you only pay for net results.</div>
+     </div>
+     <div style="border:1px solid #e4e4e1;border-radius:6px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;overflow:hidden;">
+      <div style="padding:14px 16px;border-right:1px solid #e4e4e1;">
+       <div style="font-size:10px;color:#888884;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Model</div>
+       <div style="font-size:13px;font-weight:500;color:#111110;">GPT-4o</div>
+       <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">The AI model used to run your workflows</div>
+      </div>
+      <div style="padding:14px 16px;border-right:1px solid #e4e4e1;">
+       <div style="font-size:10px;color:#888884;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Input tokens</div>
+       <div style="font-size:13px;font-weight:500;color:#111110;">142.4M</div>
+       <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">Context and instructions sent to the model</div>
+      </div>
+      <div style="padding:14px 16px;border-right:1px solid #e4e4e1;">
+       <div style="font-size:10px;color:#888884;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Output tokens</div>
+       <div style="font-size:13px;font-weight:500;color:#111110;">38.1M</div>
+       <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">Responses and actions generated by the model</div>
+      </div>
+      <div style="padding:14px 16px;">
+       <div style="font-size:10px;color:#888884;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;">Total AI cost</div>
+       <div style="font-size:13px;font-weight:500;color:#111110;">$2,455</div>
+       <div style="font-size:11px;color:#888884;margin-top:4px;line-height:1.5;">$0.52 per outcome delivered</div>
+      </div>
+     </div>
+    </div>
+    <div style="padding:1.25rem 1.75rem;border-bottom:1px solid #e4e4e1;">
+     <div style="display:flex;justify-content:flex-end;">
+      <div style="min-width:300px;">
+       <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #e4e4e1;"><span style="color:#888884;">Subtotal (4,738 outcomes billed)</span><span style="color:#111110;">$246,810</span></div>
+       <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #e4e4e1;"><span style="color:#888884;">AI cost deduction</span><span style="color:#111110;">-$2,455</span></div>
+       <div style="display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #e4e4e1;"><span style="color:#888884;">VAT (0%)</span><span style="color:#111110;">$0</span></div>
+       <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:500;padding:10px 0 4px;"><span style="color:#111110;">Total due</span><span style="color:#111110;">$244,355</span></div>
+      </div>
+     </div>
+    </div>
+    <div style="margin:1.25rem 1.75rem;background:#eaf5ee;border-radius:6px;padding:14px 16px;">
+     <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+       <div style="font-size:12px;font-weight:500;color:#085041;margin-bottom:4px;">Value delivered vs cost</div>
+       <div style="font-size:11px;color:#0f6e56;line-height:1.6;">Your AI agents generated $250,545 in business value this period.<br>After billing $244,355, Acme Corp nets a $6,190 gain before counting time saved.</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0;margin-left:20px;">
+       <div style="font-size:20px;font-weight:500;color:#085041;">102.5x</div>
+       <div style="font-size:11px;color:#0f6e56;">ROI</div>
+      </div>
+     </div>
+    </div>
+    <div style="padding:1rem 1.75rem;border-top:1px solid #e4e4e1;display:flex;justify-content:space-between;align-items:center;">
+     <div style="font-size:11px;color:#888884;">4,738 verified outcomes · full execution trace attached</div>
+     <div style="display:flex;gap:8px;">
+      <button style="font-size:11px;padding:5px 12px;border-radius:5px;border:1px solid #dedad1;background:#fff;cursor:pointer;">View evidence</button>
+      <button style="font-size:11px;padding:5px 12px;border-radius:5px;border:1px solid #dedad1;background:#fff;cursor:pointer;">Export PDF</button>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
+
+
 <div class="block alt r">
- <div class="block-label"><div class="block-num">06</div><div class="block-title">Outcome</div><div class="block-sub">What the design work<br>actually changed.</div></div>
+ <div class="block-label"><div class="block-num">07</div><div class="block-title">Outcome</div><div class="block-sub">What the design work<br>actually changed.</div></div>
  <div class="content">
  <h2>A clearer product that was easier<br>to sell, adopt, and build on.</h2>
  <p>The design work shaped how Paid.ai's team thought about and explained their own product. By making the value loop explicit and designing every screen to reinforce it, the MVP became something operators could understand immediately and customers could evaluate confidently.</p>
@@ -1563,7 +1689,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 </div>
 
 <div class="block r">
- <div class="block-label"><div class="block-num">07</div><div class="block-title">Learnings</div></div>
+ <div class="block-label"><div class="block-num">08</div><div class="block-title">Learnings</div></div>
  <div class="content">
  <h2>What designing a new<br>category teaches you.</h2>
  <div class="learning"><div class="l-n">01</div><div><div class="l-title">The mental model is the product</div><div class="l-body">In an established category, users arrive with a mental model. In a new category, you design both the interface and the concept. The loop Define, Execute, Attribute, Bill, Prove was not just a UX pattern. Every screen had to reinforce it.</div></div></div>
@@ -1783,21 +1909,25 @@ sections.forEach(id => {
 
  // MVP tabs
  window.pMvpTab = function(tab, el) {
- document.querySelectorAll('#pPage-mvp .p-tab').forEach(t => t.classList.remove('active'));
- el.classList.add('active');
- ['workflows','executions','value','billing'].forEach(t => {
- document.getElementById('pMvp-' + t).style.display = t === tab ? 'block' : 'none';
- });
- };
+    document.querySelectorAll('#pPage-mvp .p-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    ['workflows','executions','value','billing'].forEach(t => {
+      document.getElementById('pMvp-' + t).style.display = t === tab ? 'block' : 'none';
+    });
+    var btn = document.getElementById('pMvpNewBtn');
+    if (btn) btn.style.display = tab === 'workflows' ? '' : 'none';
+  };
 
  // Large tabs
  window.pLargeTab = function(tab, el) {
- document.querySelectorAll('#pPage-large .p-tab').forEach(t => t.classList.remove('active'));
- el.classList.add('active');
- ['workflows','executions','value','billing','reports'].forEach(t => {
- document.getElementById('pLarge-' + t).style.display = t === tab ? 'block' : 'none';
- });
- };
+    document.querySelectorAll('#pPage-large .p-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    ['workflows','executions','value','billing','reports'].forEach(t => {
+      document.getElementById('pLarge-' + t).style.display = t === tab ? 'block' : 'none';
+    });
+    var btn = document.getElementById('pLargeNewBtn');
+    if (btn) btn.style.display = tab === 'workflows' ? '' : 'none';
+  };
 
  // Panel tab (large exec)
  window.pLpTab = function(el, show) {
