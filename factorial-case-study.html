@@ -233,7 +233,7 @@ nav.scrolled::before {
 .ls-sub { font-size: 11px; color: var(--dim); line-height: 1.4; }
 
 /* ── IMAGES ── */
-.img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
+.img-wrap { overflow: visible; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
 .img-wrap img { width: 100%; max-width: 100%; height: auto; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
 .img-wrap:hover img { transform: scale(1.015); }
 /* Full-height override for specific images that need to show fully */
@@ -314,6 +314,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  .challenge-grid { grid-template-columns: 1fr; }
  .finding { grid-template-columns: 80px 1fr; }
  .scope-grid, .before-after, .img-grid, .img-trio { grid-template-columns: 1fr; }
+ .img-wrap { margin: 1.5rem 0; }
  .loop-flow, .flow { flex-direction: column; }
  .loop-step, .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
  .loop-step:last-child, .flow-step:last-child { border-bottom: none; }
@@ -685,11 +686,11 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <div class="content">
  <h2>From a request form<br>to a policy engine.</h2>
  <p>Companies have different absence types, different approval chains, different rules for different teams. We rebuilt the admin experience around a clear configuration model: policies first, blocked periods next, absence types last.</p>
- <div class="img-wrap r"><img src="01.png" alt="Time Off management dashboard pending requests, absences today and weekly trend" style="max-height:600px;width:100%;object-fit:cover;object-position:top;"></div>
+ <div class="img-wrap r"><img src="01.png" alt="Time Off management dashboard pending requests, absences today and weekly trend"></div>
  <p class="img-cap">Dashboard: pending requests with overdue alerts, absence breakdown by type, and weekly trend across offices.</p>
- <div style="display:grid;grid-template-columns:3fr 2fr;gap:1rem;margin:2.5rem 0;align-items:start;">
- <div class="img-wrap" style="margin:0;"><img src="01-time-off-home.png" alt="Absence types policy configuration"></div>
- <div class="img-wrap" style="margin:0;"><img src="Group_5.png" alt="Review time off request modal" style="max-height:580px;width:100%;object-fit:contain;object-position:top;"></div>
+ <div class="img-grid r">
+ <div class="img-wrap"><img src="01-time-off-home.png" alt="Absence types policy configuration"></div>
+ <div class="img-wrap"><img src="Group_5.png" alt="Review time off request modal"></div>
  </div>
  <p class="img-cap">Left: absence types and policy configuration. Right: the review modal that managers use to approve or reject requests.</p>
  </div>
