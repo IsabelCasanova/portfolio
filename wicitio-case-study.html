@@ -233,8 +233,8 @@ nav.scrolled::before {
 .ls-sub { font-size: 11px; color: var(--dim); line-height: 1.4; }
 
 /* ── IMAGES ── */
-.img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
-.img-wrap img { width: 100%; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); max-height: 560px; object-fit: cover; object-position: top; }
+.img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; background: var(--cream); padding: 1.5rem; }
+.img-wrap img { width: 100%; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); max-height: 560px; object-fit: cover; object-position: top; border-radius: 3px; }
 .img-wrap:hover img { transform: scale(1.015); }
 /* Full-height override for specific images that need to show fully */
 .img-wrap.full img { max-height: none; object-fit: unset; }
@@ -617,10 +617,33 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  </div>
 </div>
 
+<div class="block r">
+ <div class="block-label" style="position:sticky;top:calc(var(--nav-h) + 1.5rem);">
+ <div class="block-num">05</div>
+ <div class="block-title">The critical decision</div>
+ <div class="block-sub">Don't wait for done.<br>Ship and migrate in parallel.</div>
+ </div>
+ <div class="content">
+ <h2>The client wanted to wait. We convinced them not to.</h2>
+ <p>The original position from the Diputació de Girona was clear: no municipality would migrate until the entire platform was finished. That felt safe to them. In practice it meant we would have spent over a year building in the dark, with no real user feedback, no institutional buy-in, and no proof that what we were building actually worked in production.</p>
+ <div class="pq r"><p>"Building for a year without real users in a system this critical would have been the most dangerous thing we could do. We needed municipalities using it before it was finished."</p></div>
+ <p>The resistance came from two places. Institutionally, public sector clients are risk-averse by design. Personally, older civil servants had spent decades with Sicalwin and had no interest in learning something new. The younger ones were frustrated with the old system and eager for change.</p>
+ <p>We used that divide as the entry point. The strategy was to start with the workflows that younger users touched most, prove the new system worked better on those specific tasks, and let that evidence do the persuasion work with leadership. Once the first municipality closed their month-end using Wecitio and reported no issues, the conversation changed completely.</p>
+ <div class="loop-flow r">
+  <div class="loop-step"><div class="ls-num">01</div><div class="ls-label">Identify willing users</div><div class="ls-sub">Younger staff motivated to change. Early adopters inside the institution.</div></div>
+  <div class="loop-step"><div class="ls-num">02</div><div class="ls-label">Ship the core first</div><div class="ls-sub">Budget execution and transaction tracking. The workflows they used every day.</div></div>
+  <div class="loop-step"><div class="ls-num">03</div><div class="ls-label">Run both systems in parallel</div><div class="ls-sub">Technically complex but essential. No municipality stopped operating during migration.</div></div>
+  <div class="loop-step"><div class="ls-num">04</div><div class="ls-label">Prove it in production</div><div class="ls-sub">First successful month-end close on Wecitio changed the institutional conversation.</div></div>
+  <div class="loop-step"><div class="ls-num">05</div><div class="ls-label">Expand progressively</div><div class="ls-sub">Each successful migration reduced risk for the next. Trust compounded.</div></div>
+ </div>
+ <p>Running both systems in parallel was technically demanding for the engineering team but it was the right call. It meant municipalities never faced a hard cutover. They migrated gradually, at their own pace, with a fallback always available. That safety net was what made the risk acceptable to institutional leadership.</p>
+ </div>
+</div>
+
 <div class="proto-wrap r">
  <div class="proto-header">
  <div class="block-label" style="position:sticky;top:calc(var(--nav-h) + 1.5rem);">
- <div class="block-num">05</div>
+ <div class="block-num">06</div>
  <div class="block-title">The product</div>
  <div class="block-sub">Navigate Wecitio<br>as it was designed.</div>
  </div>
@@ -640,12 +663,512 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <div class="proto-dot" style="background:#28c840;"></div>
  <span class="proto-bar-label">wecitio.app interactive prototype</span>
  </div>
- <iframe src="wicitio-prototype.html" style="width:100%;height:700px;border:none;display:block;" title="Wecitio interactive prototype"></iframe>
+ <iframe srcdoc="<!DOCTYPE html>
+<html lang=&quot;es&quot;>
+<head>
+<meta charset=&quot;UTF-8&quot;>
+<meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
+<title>Wecitio — Sede Electrónica · Ayuntamiento de Villa Real</title>
+<link href=&quot;https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&amp;display=swap&quot; rel=&quot;stylesheet&quot;>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'DM Sans', sans-serif; background: #f8fafc; color: #0f172a; font-size: 13px; line-height: 1.5; }
+.app { display: grid; grid-template-rows: 48px 1fr; grid-template-columns: 200px 1fr; height: 100vh; overflow: hidden; }
+.topbar { grid-column: 1 / -1; background: #0f172a; display: flex; align-items: center; justify-content: space-between; padding: 0 1.25rem; border-bottom: 1px solid #1e293b; }
+.sidebar { background: #fff; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; overflow-y: auto; }
+.main { overflow-y: auto; background: #f8fafc; }
+.topbar-left { display: flex; align-items: center; gap: 0.75rem; }
+.app-logo { width: 28px; height: 28px; background: #2563eb; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.app-logo svg { width: 15px; height: 15px; fill: white; }
+.app-name { font-size: 13px; font-weight: 600; color: #e2e8f0; }
+.topbar-search { background: #1e293b; border: 1px solid #334155; border-radius: 6px; padding: 4px 10px; font-size: 12px; color: #94a3b8; width: 240px; outline: none; font-family: inherit; }
+.topbar-search::placeholder { color: #475569; }
+.topbar-right { display: flex; align-items: center; gap: 1rem; }
+.topbar-org { text-align: right; line-height: 1.35; }
+.topbar-org-name { font-size: 12px; font-weight: 600; color: #e2e8f0; }
+.topbar-org-sub { font-size: 10px; color: #64748b; }
+.topbar-bell { width: 28px; height: 28px; background: #1e293b; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; position: relative; }
+.topbar-bell svg { width: 14px; height: 14px; stroke: #94a3b8; fill: none; }
+.bell-badge { position: absolute; top: 4px; right: 4px; width: 7px; height: 7px; background: #ef4444; border-radius: 50%; border: 1.5px solid #0f172a; }
+.sidebar-section-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: #94a3b8; font-weight: 600; padding: 12px 14px 4px; }
+.nav-item { display: flex; align-items: center; gap: 8px; padding: 7px 14px; font-size: 12px; color: #64748b; cursor: pointer; position: relative; transition: all 0.12s; user-select: none; }
+.nav-item:hover { background: #f8fafc; color: #334155; }
+.nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 500; }
+.nav-item.active::before { content: ''; position: absolute; left: 0; top: 5px; bottom: 5px; width: 3px; background: #2563eb; border-radius: 0 2px 2px 0; }
+.nav-item svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+.nav-badge { margin-left: auto; background: #ef4444; color: white; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 8px; }
+.nav-badge.orange { background: #f59e0b; }
+.sidebar-footer { margin-top: auto; padding: 10px 14px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 8px; }
+.user-avatar { width: 28px; height: 28px; background: #334155; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; color: white; font-weight: 600; flex-shrink: 0; }
+.user-name { font-size: 11px; font-weight: 500; color: #334155; line-height: 1.3; }
+.user-role { font-size: 10px; color: #94a3b8; }
+.page { display: none; padding: 1.5rem; }
+.page.active { display: block; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.25rem; }
+.page-title { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 2px; }
+.page-sub { font-size: 12px; color: #64748b; }
+.role-bar { display: flex; align-items: center; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.badge { font-size: 10px; padding: 2px 7px; border-radius: 4px; font-weight: 500; }
+.badge-gray { background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+.badge-green { background: #f0fdf4; color: #16a34a; }
+.badge-blue { background: #eff6ff; color: #2563eb; }
+.badge-orange { background: #fff7ed; color: #ea580c; }
+.badge-red { background: #fee2e2; color: #dc2626; }
+.badge-yellow { background: #fefce8; color: #ca8a04; }
+.btn { border: none; border-radius: 6px; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; transition: opacity 0.15s; }
+.btn:hover { opacity: 0.85; }
+.btn-primary { background: #2563eb; color: white; }
+.btn-secondary { background: white; color: #334155; border: 1px solid #e2e8f0; }
+.btn-danger { background: #dc2626; color: white; }
+.btn-sm { padding: 4px 10px; font-size: 11px; }
+.card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; }
+.card-body { padding: 1rem 1.25rem; }
+.card-header { padding: 0.75rem 1.25rem; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+.card-title { font-size: 13px; font-weight: 600; color: #0f172a; }
+.metrics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-bottom: 1.25rem; }
+.metric-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 14px; }
+.metric-trend { font-size: 11px; font-weight: 600; margin-bottom: 3px; }
+.metric-trend.up { color: #16a34a; }
+.metric-trend.down { color: #dc2626; }
+.metric-trend.blue { color: #2563eb; }
+.metric-label { font-size: 11px; color: #64748b; margin-bottom: 3px; }
+.metric-value { font-size: 18px; font-weight: 700; color: #0f172a; margin-bottom: 5px; }
+.metric-footer { display: flex; justify-content: space-between; align-items: center; }
+.metric-status { font-size: 10px; font-weight: 600; }
+.metric-status.high { color: #16a34a; }
+.metric-status.med { color: #f59e0b; }
+.metric-time { font-size: 10px; color: #94a3b8; }
+.table-wrap { background: white; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+.table { width: 100%; border-collapse: collapse; }
+.table th { text-align: left; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; padding: 8px 12px; border-bottom: 1px solid #f1f5f9; font-weight: 600; background: #f8fafc; }
+.table td { padding: 10px 12px; border-bottom: 1px solid #f8fafc; font-size: 12px; color: #334155; vertical-align: middle; }
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: #f8fafc; }
+.tx-id { font-size: 11px; font-weight: 700; color: #2563eb; display: block; }
+.tx-date { font-size: 10px; color: #94a3b8; }
+.tx-tag { font-size: 9px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; background: #f8fafc; border-radius: 3px; padding: 1px 4px; display: inline-block; margin-top: 2px; }
+.amount-neg { font-weight: 700; color: #dc2626; }
+.amount-pos { font-weight: 700; color: #16a34a; }
+.status-pill { font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 4px; display: inline-block; }
+.status-pagado { background: #f0fdf4; color: #16a34a; }
+.status-pendiente { background: #fff7ed; color: #ea580c; }
+.status-completado { background: #eff6ff; color: #2563eb; }
+.status-revision { background: #fefce8; color: #ca8a04; }
+.status-autorizado { background: #eff6ff; color: #2563eb; }
+.status-contabilizado { background: #f0fdf4; color: #16a34a; }
+.charts-row { display: grid; grid-template-columns: 1fr 220px; gap: 10px; margin-bottom: 1.25rem; }
+.chart-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
+.chart-title { font-size: 12px; font-weight: 600; color: #0f172a; margin-bottom: 0.75rem; }
+.chart-legend { display: flex; gap: 0.75rem; }
+.legend-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: #64748b; }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.donut-list { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+.donut-row { display: flex; justify-content: space-between; font-size: 10px; color: #64748b; }
+.donut-label { display: flex; align-items: center; gap: 4px; }
+.donut-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.donut-val { font-weight: 600; color: #334155; }
+.progress-bar { height: 3px; background: #f1f5f9; border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 2px; }
+.exp-timeline { display: flex; margin-bottom: 1rem; }
+.exp-step { flex: 1; text-align: center; position: relative; }
+.exp-step-dot { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 4px; font-size: 10px; font-weight: 700; }
+.exp-step-dot.done { background: #2563eb; color: white; }
+.exp-step-dot.current { background: #f59e0b; color: white; }
+.exp-step-dot.pending { background: #e2e8f0; color: #94a3b8; }
+.exp-step-label { font-size: 9px; font-weight: 600; }
+.exp-step-label.done { color: #2563eb; }
+.exp-step-label.current { color: #f59e0b; }
+.exp-step-label.pending { color: #94a3b8; }
+.exp-step-date { font-size: 8px; color: #94a3b8; }
+.exp-line { position: absolute; top: 13px; left: calc(50% + 13px); right: 0; height: 2px; }
+.exp-line.done { background: #2563eb; }
+.exp-line.pending { background: #e2e8f0; }
+.report-type-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 0.75rem; }
+.report-type-card { border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px; cursor: pointer; transition: all 0.15s; }
+.report-type-card:hover { border-color: #93c5fd; background: #f0f9ff; }
+.report-type-card.selected { border: 2px solid #2563eb; background: #eff6ff; }
+.report-type-name { font-size: 11px; font-weight: 700; color: #334155; }
+.report-type-name.selected { color: #2563eb; }
+.report-type-sub { font-size: 9px; color: #94a3b8; }
+.alert-critical { background: white; border: 1.5px solid #fca5a5; border-radius: 8px; padding: 1rem; display: flex; gap: 0.75rem; margin-bottom: 6px; }
+.alert-medium { background: white; border: 1px solid #fed7aa; border-radius: 8px; padding: 0.75rem 1rem; display: flex; align-items: center; gap: 0.75rem; margin-bottom: 5px; }
+.alert-icon { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.compliance-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+.compliance-item { text-align: center; padding: 12px 8px; border-radius: 6px; }
+.compliance-item.ok { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.compliance-item.fail { background: #fee2e2; border: 1px solid #fca5a5; }
+.compliance-item.warn { background: #fff7ed; border: 1px solid #fed7aa; }
+.compliance-icon { font-size: 16px; font-weight: 800; margin-bottom: 2px; }
+.budget-header { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1.25rem; }
+.budget-card-income { background: #2563eb; border-radius: 8px; padding: 1.25rem; color: white; }
+.budget-card-expense { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; }
+.budget-type { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.75; margin-bottom: 4px; font-weight: 500; }
+.budget-amount { font-size: 24px; font-weight: 800; margin-bottom: 2px; }
+.budget-sub { font-size: 11px; opacity: 0.7; margin-bottom: 10px; }
+.partida { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 6px; cursor: pointer; transition: border-color 0.15s; }
+.partida:hover { border-color: #93c5fd; }
+.partida-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+.partida-code { font-size: 11px; font-weight: 700; color: #2563eb; margin-right: 6px; }
+.partida-name { font-size: 13px; font-weight: 500; color: #0f172a; }
+.partida-sub { font-size: 11px; color: #94a3b8; margin-top: 1px; }
+.partida-amounts { text-align: right; }
+.partida-exec { font-size: 12px; font-weight: 600; color: #334155; }
+.partida-budget { font-size: 11px; color: #94a3b8; }
+.tabs { display: flex; gap: 2px; margin-bottom: 1rem; background: #f1f5f9; border-radius: 6px; padding: 3px; }
+.tab-btn { flex: 1; padding: 5px; font-size: 11px; font-weight: 500; border: none; background: transparent; border-radius: 4px; cursor: pointer; color: #64748b; font-family: inherit; transition: all 0.15s; }
+.tab-btn.active { background: white; color: #2563eb; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+.insight-banner { background: #2563eb; border-radius: 8px; padding: 1.25rem; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.insight-icon { width: 40px; height: 40px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+.insight-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 3px; }
+.insight-desc { font-size: 11px; color: rgba(255,255,255,0.8); line-height: 1.5; }
+.insight-btn { background: white; color: #2563eb; border: none; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; font-family: inherit; }
+.kpi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.kpi-card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem; }
+.kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; font-weight: 600; margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 800; color: #0f172a; }
+.bar-chart { display: flex; flex-direction: column; gap: 6px; }
+.bar-row { display: flex; align-items: center; gap: 8px; }
+.bar-label { font-size: 10px; color: #64748b; width: 40px; flex-shrink: 0; }
+.bar-track { flex: 1; height: 14px; background: #f1f5f9; border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; }
+.report-preview { border: 1px solid #e2e8f0; border-radius: 6px; padding: 1rem; background: #fafafa; }
+.report-row { display: flex; justify-content: space-between; border-bottom: 1px solid #f1f5f9; padding: 3px 0; font-size: 10px; color: #334155; }
+.report-row:last-child { border-bottom: none; }
+.report-row strong { font-weight: 600; }
+</style>
+</head>
+<body>
+<div class=&quot;app&quot;>
+  <header class=&quot;topbar&quot;>
+    <div class=&quot;topbar-left&quot;>
+      <div class=&quot;app-logo&quot;><svg viewBox=&quot;0 0 24 24&quot;><path d=&quot;M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z&quot;/></svg></div>
+      <span class=&quot;app-name&quot;>Sede Electrónica</span>
+      <input class=&quot;topbar-search&quot; placeholder=&quot;Buscar partidas, expedientes, transacciones...&quot;>
+    </div>
+    <div class=&quot;topbar-right&quot;>
+      <div class=&quot;topbar-bell&quot; onclick=&quot;navigateTo('alertas')&quot;>
+        <svg viewBox=&quot;0 0 24 24&quot; stroke-width=&quot;2&quot;><path d=&quot;M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0&quot;/></svg>
+        <div class=&quot;bell-badge&quot;></div>
+      </div>
+      <div class=&quot;topbar-org&quot;>
+        <div class=&quot;topbar-org-name&quot;>Ayuntamiento de Villa Real</div>
+        <div class=&quot;topbar-org-sub&quot;>Ejercicio 2025</div>
+      </div>
+    </div>
+  </header>
+  <aside class=&quot;sidebar&quot;>
+    <div class=&quot;sidebar-section-label&quot;>Principal</div>
+    <div class=&quot;nav-item active&quot; data-page=&quot;dashboard&quot;><svg viewBox=&quot;0 0 24 24&quot;><rect x=&quot;3&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot;/><rect x=&quot;14&quot; y=&quot;3&quot; width=&quot;7&quot; height=&quot;7&quot;/><rect x=&quot;14&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot;/><rect x=&quot;3&quot; y=&quot;14&quot; width=&quot;7&quot; height=&quot;7&quot;/></svg>Panel Principal<span class=&quot;nav-badge orange&quot;>3</span></div>
+    <div class=&quot;sidebar-section-label&quot;>Gestión</div>
+    <div class=&quot;nav-item&quot; data-page=&quot;presupuesto&quot;><svg viewBox=&quot;0 0 24 24&quot;><path d=&quot;M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z&quot;/><polyline points=&quot;14,2 14,8 20,8&quot;/></svg>Presupuesto</div>
+    <div class=&quot;nav-item&quot; data-page=&quot;transacciones&quot;><svg viewBox=&quot;0 0 24 24&quot;><path d=&quot;M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01&quot;/></svg>Transacciones</div>
+    <div class=&quot;nav-item&quot; data-page=&quot;expedientes&quot;><svg viewBox=&quot;0 0 24 24&quot;><path d=&quot;M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z&quot;/></svg>Expedientes</div>
+    <div class=&quot;sidebar-section-label&quot;>Reporting</div>
+    <div class=&quot;nav-item&quot; data-page=&quot;informes&quot;><svg viewBox=&quot;0 0 24 24&quot;><path d=&quot;M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z&quot;/><polyline points=&quot;14,2 14,8 20,8&quot;/><line x1=&quot;16&quot; y1=&quot;13&quot; x2=&quot;8&quot; y2=&quot;13&quot;/><line x1=&quot;16&quot; y1=&quot;17&quot; x2=&quot;8&quot; y2=&quot;17&quot;/><polyline points=&quot;10,9 9,9 8,9&quot;/></svg>Informes Oficiales</div>
+    <div class=&quot;nav-item&quot; data-page=&quot;insights&quot;><svg viewBox=&quot;0 0 24 24&quot;><line x1=&quot;18&quot; y1=&quot;20&quot; x2=&quot;18&quot; y2=&quot;10&quot;/><line x1=&quot;12&quot; y1=&quot;20&quot; x2=&quot;12&quot; y2=&quot;4&quot;/><line x1=&quot;6&quot; y1=&quot;20&quot; x2=&quot;6&quot; y2=&quot;14&quot;/></svg>Insights y Análisis</div>
+    <div class=&quot;sidebar-footer&quot;>
+      <div class=&quot;user-avatar&quot;>AD</div>
+      <div><div class=&quot;user-name&quot;>Ana Rodríguez</div><div class=&quot;user-role&quot;>Intervención de Fondos</div></div>
+    </div>
+  </aside>
+  <main class=&quot;main&quot;>
+    <div class=&quot;page active&quot; id=&quot;page-dashboard&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;>
+          <div>
+            <div class=&quot;page-title&quot;>Panel de Control Contable</div>
+            <div class=&quot;page-sub&quot;>Resumen del estado financiero del Ayuntamiento de Villa Real.</div>
+            <div class=&quot;role-bar&quot;>
+              <span class=&quot;badge badge-gray&quot;>Ana Rodríguez · Intervención de Fondos</span>
+              <span class=&quot;badge badge-green&quot;>✓ Puede aprobar</span>
+              <span class=&quot;badge badge-blue&quot;>✓ Puede editar</span>
+              <span class=&quot;badge badge-orange&quot;>✓ Acceso datos sensibles</span>
+            </div>
+          </div>
+          <button class=&quot;btn btn-primary&quot;>Filtros Avanzados</button>
+        </div>
+        <div class=&quot;metrics-grid&quot;>
+          <div class=&quot;metric-card&quot;><div class=&quot;metric-trend up&quot;>↑ +2.5%</div><div class=&quot;metric-label&quot;>Presupuesto Total</div><div class=&quot;metric-value&quot;>€12,450,000</div><div class=&quot;metric-footer&quot;><span class=&quot;metric-status high&quot;>● ALTA FIABILIDAD</span><span class=&quot;metric-time&quot;>Hace 2h</span></div></div>
+          <div class=&quot;metric-card&quot;><div class=&quot;metric-trend blue&quot;>58% ejecutado</div><div class=&quot;metric-label&quot;>Ingresos Recaudados</div><div class=&quot;metric-value&quot;>€7,230,000</div><div class=&quot;metric-footer&quot;><span class=&quot;metric-status high&quot;>● ALTA FIABILIDAD</span><span class=&quot;metric-time&quot;>Hace 30min</span></div></div>
+          <div class=&quot;metric-card&quot;><div class=&quot;metric-trend down&quot;>↓ -1.2% vs prev.</div><div class=&quot;metric-label&quot;>Gastos Comprometidos</div><div class=&quot;metric-value&quot;>€5,890,000</div><div class=&quot;metric-footer&quot;><span class=&quot;metric-status high&quot;>● ALTA FIABILIDAD</span><span class=&quot;metric-time&quot;>Hace 1h</span></div></div>
+          <div class=&quot;metric-card&quot;><div class=&quot;metric-trend down&quot;>↓ -5% amortizado</div><div class=&quot;metric-label&quot;>Deuda Pública</div><div class=&quot;metric-value&quot;>€2,120,000</div><div class=&quot;metric-footer&quot;><span class=&quot;metric-status med&quot;>● FIABILIDAD MEDIA</span><span class=&quot;metric-time&quot;>Hace 3h</span></div></div>
+        </div>
+        <div class=&quot;charts-row&quot;>
+          <div class=&quot;chart-card&quot;>
+            <div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;&quot;>
+              <div class=&quot;chart-title&quot;>Ejecución Presupuestaria (Semestre)</div>
+              <div class=&quot;chart-legend&quot;><div class=&quot;legend-item&quot;><div class=&quot;legend-dot&quot; style=&quot;background:#22c55e;&quot;></div>Ingresos</div><div class=&quot;legend-item&quot;><div class=&quot;legend-dot&quot; style=&quot;background:#3b82f6;&quot;></div>Gastos</div></div>
+            </div>
+            <svg width=&quot;100%&quot; viewBox=&quot;0 0 400 110&quot; preserveAspectRatio=&quot;none&quot;>
+              <defs><linearGradient id=&quot;gI&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;><stop offset=&quot;0%&quot; stop-color=&quot;#22c55e&quot; stop-opacity=&quot;0.3&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#22c55e&quot; stop-opacity=&quot;0&quot;/></linearGradient><linearGradient id=&quot;gE&quot; x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;1&quot;><stop offset=&quot;0%&quot; stop-color=&quot;#3b82f6&quot; stop-opacity=&quot;0.2&quot;/><stop offset=&quot;100%&quot; stop-color=&quot;#3b82f6&quot; stop-opacity=&quot;0&quot;/></linearGradient></defs>
+              <line x1=&quot;0&quot; y1=&quot;80&quot; x2=&quot;400&quot; y2=&quot;80&quot; stroke=&quot;#f1f5f9&quot; stroke-width=&quot;1&quot;/><line x1=&quot;0&quot; y1=&quot;55&quot; x2=&quot;400&quot; y2=&quot;55&quot; stroke=&quot;#f1f5f9&quot; stroke-width=&quot;1&quot;/><line x1=&quot;0&quot; y1=&quot;30&quot; x2=&quot;400&quot; y2=&quot;30&quot; stroke=&quot;#f1f5f9&quot; stroke-width=&quot;1&quot;/>
+              <path d=&quot;M0,75 C60,68 110,55 165,45 C220,35 270,22 330,14 C365,9 385,6 400,4&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot;/>
+              <path d=&quot;M0,75 C60,68 110,55 165,45 C220,35 270,22 330,14 C365,9 385,6 400,4 L400,110 L0,110Z&quot; fill=&quot;url(#gI)&quot;/>
+              <path d=&quot;M0,78 C60,75 110,70 165,65 C220,60 270,56 330,52 C365,49 385,47 400,45&quot; stroke=&quot;#3b82f6&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot;/>
+              <path d=&quot;M0,78 C60,75 110,70 165,65 C220,60 270,56 330,52 C365,49 385,47 400,45 L400,110 L0,110Z&quot; fill=&quot;url(#gE)&quot;/>
+              <text x=&quot;2&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Ene</text><text x=&quot;68&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Feb</text><text x=&quot;143&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Mar</text><text x=&quot;213&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Abr</text><text x=&quot;285&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>May</text><text x=&quot;360&quot; y=&quot;105&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Jun</text>
+            </svg>
+          </div>
+          <div class=&quot;chart-card&quot;>
+            <div class=&quot;chart-title&quot;>Distribución por Áreas</div>
+            <svg viewBox=&quot;0 0 100 80&quot; width=&quot;100%&quot; style=&quot;display:block;margin:0 auto&quot;>
+              <circle cx=&quot;50&quot; cy=&quot;40&quot; r=&quot;28&quot; fill=&quot;none&quot; stroke=&quot;#e2e8f0&quot; stroke-width=&quot;12&quot;/>
+              <circle cx=&quot;50&quot; cy=&quot;40&quot; r=&quot;28&quot; fill=&quot;none&quot; stroke=&quot;#6366f1&quot; stroke-width=&quot;12&quot; stroke-dasharray=&quot;44 132&quot; stroke-dashoffset=&quot;0&quot;/>
+              <circle cx=&quot;50&quot; cy=&quot;40&quot; r=&quot;28&quot; fill=&quot;none&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;12&quot; stroke-dasharray=&quot;33 143&quot; stroke-dashoffset=&quot;-44&quot;/>
+              <circle cx=&quot;50&quot; cy=&quot;40&quot; r=&quot;28&quot; fill=&quot;none&quot; stroke=&quot;#f59e0b&quot; stroke-width=&quot;12&quot; stroke-dasharray=&quot;22 154&quot; stroke-dashoffset=&quot;-77&quot;/>
+              <circle cx=&quot;50&quot; cy=&quot;40&quot; r=&quot;28&quot; fill=&quot;none&quot; stroke=&quot;#06b6d4&quot; stroke-width=&quot;12&quot; stroke-dasharray=&quot;17 159&quot; stroke-dashoffset=&quot;-99&quot;/>
+            </svg>
+            <div class=&quot;donut-list&quot;>
+              <div class=&quot;donut-row&quot;><div class=&quot;donut-label&quot;><div class=&quot;donut-dot&quot; style=&quot;background:#6366f1&quot;></div>Infraestructura</div><div class=&quot;donut-val&quot;>400k€</div></div>
+              <div class=&quot;donut-row&quot;><div class=&quot;donut-label&quot;><div class=&quot;donut-dot&quot; style=&quot;background:#22c55e&quot;></div>Educación</div><div class=&quot;donut-val&quot;>300k€</div></div>
+              <div class=&quot;donut-row&quot;><div class=&quot;donut-label&quot;><div class=&quot;donut-dot&quot; style=&quot;background:#f59e0b&quot;></div>Salud</div><div class=&quot;donut-val&quot;>200k€</div></div>
+              <div class=&quot;donut-row&quot;><div class=&quot;donut-label&quot;><div class=&quot;donut-dot&quot; style=&quot;background:#06b6d4&quot;></div>Seguridad</div><div class=&quot;donut-val&quot;>150k€</div></div>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;table-wrap&quot;>
+          <div class=&quot;card-header&quot;><span class=&quot;card-title&quot;>Actividad Reciente e Intervenciones</span><a href=&quot;#&quot; style=&quot;font-size:11px;color:#2563eb;text-decoration:none;font-weight:500;&quot;>Ver Historial Completo</a></div>
+          <table class=&quot;table&quot;><thead><tr><th>Concepto</th><th>Importe</th><th>Estado</th><th>Fecha/Hora</th></tr></thead><tbody>
+            <tr><td>Licitación Alumbrado LED</td><td style=&quot;font-weight:600;&quot;>€85,000</td><td><span class=&quot;status-pill status-pagado&quot;>Aprobado</span></td><td style=&quot;color:#94a3b8;&quot;>Hace 2 horas</td></tr>
+            <tr><td>Recaudación IBI Trimestral</td><td style=&quot;font-weight:600;&quot;>€324,500</td><td><span class=&quot;status-pill status-completado&quot;>Completado</span></td><td style=&quot;color:#94a3b8;&quot;>Hace 5 horas</td></tr>
+            <tr><td>Desviación Partida Urbanismo</td><td style=&quot;font-weight:600;&quot;>+12%</td><td><span class=&quot;status-pill status-revision&quot;>Pendiente Revisión</span></td><td style=&quot;color:#94a3b8;&quot;>Hace 1 día</td></tr>
+            <tr><td>Informe Trimestral de Tesorería</td><td style=&quot;font-weight:600;&quot;>PDF</td><td><span class=&quot;status-pill&quot; style=&quot;background:#f8fafc;color:#64748b;&quot;>Generado</span></td><td style=&quot;color:#94a3b8;&quot;>Hace 2 días</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-presupuesto&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Presupuesto Municipal</div><div class=&quot;page-sub&quot;>Gestión y seguimiento de partidas presupuestarias.</div></div><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-secondary&quot;>↓ Exportar BOE</button><button class=&quot;btn btn-primary&quot;>+ Nueva Partida</button></div></div>
+        <div class=&quot;budget-header&quot;>
+          <div class=&quot;budget-card-income&quot;><div class=&quot;budget-type&quot;>Ingresos totales</div><div class=&quot;budget-amount&quot;>€8,500,000</div><div class=&quot;budget-sub&quot;>Previsión Anual — Finalizada al 48%</div><div style=&quot;background:rgba(255,255,255,0.3);height:4px;border-radius:2px;&quot;><div class=&quot;progress-fill&quot; style=&quot;width:48%;background:rgba(255,255,255,0.7);height:4px;border-radius:2px;&quot;></div></div></div>
+          <div class=&quot;budget-card-expense&quot;><div class=&quot;budget-type&quot; style=&quot;color:#64748b;&quot;>Gastos totales</div><div class=&quot;budget-amount&quot; style=&quot;color:#0f172a;&quot;>€8,900,000</div><div class=&quot;budget-sub&quot; style=&quot;color:#94a3b8;&quot;>Ejecución de gasto al 44%</div><div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; style=&quot;width:44%;background:#f59e0b;&quot;></div></div></div>
+        </div>
+        <div class=&quot;tabs&quot;><button class=&quot;tab-btn active&quot; onclick=&quot;this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')&quot;>Capítulos de Ingreso</button><button class=&quot;tab-btn&quot; onclick=&quot;this.parentElement.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active')&quot;>Capítulos de Gasto</button></div>
+        <div class=&quot;partida&quot;><div class=&quot;partida-header&quot;><div><span class=&quot;partida-code&quot;>100-0</span><span class=&quot;partida-name&quot;>Impuestos Directos</span><div class=&quot;partida-sub&quot;>Ejecución del 47% de la partida asignada.</div></div><div class=&quot;partida-amounts&quot;><div class=&quot;partida-exec&quot;>€2,100,000</div><div class=&quot;partida-budget&quot;>de €4,500,000</div></div></div><div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; style=&quot;width:47%;background:#22c55e;&quot;></div></div></div>
+        <div class=&quot;partida&quot;><div class=&quot;partida-header&quot;><div><span class=&quot;partida-code&quot;>100-1</span><span class=&quot;partida-name&quot;>Tasas y Precios Públicos</span><div class=&quot;partida-sub&quot;>Ejecución del 78% de la partida asignada.</div></div><div class=&quot;partida-amounts&quot;><div class=&quot;partida-exec&quot;>€620,000</div><div class=&quot;partida-budget&quot;>de €800,000</div></div></div><div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; style=&quot;width:78%;background:#22c55e;&quot;></div></div></div>
+        <div class=&quot;partida&quot;><div class=&quot;partida-header&quot;><div><span class=&quot;partida-code&quot;>100-2</span><span class=&quot;partida-name&quot;>Transferencias Corrientes</span><div class=&quot;partida-sub&quot;>Ejecución del 45% de la partida asignada.</div></div><div class=&quot;partida-amounts&quot;><div class=&quot;partida-exec&quot;>€1,450,000</div><div class=&quot;partida-budget&quot;>de €3,200,000</div></div></div><div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; style=&quot;width:45%;background:#22c55e;&quot;></div></div></div>
+        <div class=&quot;partida&quot; style=&quot;border-color:#fca5a5;&quot;><div class=&quot;partida-header&quot;><div><span class=&quot;partida-code&quot;>451-0</span><span class=&quot;partida-name&quot; style=&quot;color:#dc2626;&quot;>Urbanismo y Obras</span><div class=&quot;partida-sub&quot; style=&quot;color:#dc2626;&quot;>⚠ Ejecución al 94% — Riesgo de rebase</div></div><div class=&quot;partida-amounts&quot;><div class=&quot;partida-exec&quot; style=&quot;color:#dc2626;&quot;>€1,880,000</div><div class=&quot;partida-budget&quot;>de €2,000,000</div></div></div><div class=&quot;progress-bar&quot;><div class=&quot;progress-fill&quot; style=&quot;width:94%;background:#dc2626;&quot;></div></div></div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-transacciones&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Libro Diario y Registro</div><div class=&quot;page-sub&quot;>Listado detallado de todas las operaciones contables.</div></div><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-secondary&quot;>Filtros</button><button class=&quot;btn btn-secondary&quot;>↓ Descargar</button></div></div>
+        <div style=&quot;display:flex;gap:8px;margin-bottom:1rem;align-items:center;&quot;><input placeholder=&quot;Buscar por ID, proveedor, concepto...&quot; style=&quot;flex:1;border:1px solid #e2e8f0;border-radius:6px;padding:7px 10px;font-size:12px;outline:none;font-family:inherit;&quot;><button class=&quot;btn btn-primary btn-sm&quot;>Todas</button><button class=&quot;btn btn-secondary btn-sm&quot;>Solo Gastos</button><button class=&quot;btn btn-secondary btn-sm&quot;>Solo Ingresos</button><button class=&quot;btn btn-secondary btn-sm&quot;>Pendientes</button></div>
+        <div class=&quot;table-wrap&quot;>
+          <table class=&quot;table&quot;><thead><tr><th>ID / Fecha</th><th>Tercero</th><th>Concepto</th><th>Importe</th><th>Estado</th></tr></thead><tbody>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-001</span><span class=&quot;tx-date&quot;>2025-02-18</span></td><td style=&quot;font-weight:500;&quot;>Sacyr Infraestructuras</td><td>Certificación Obra Polideportivo<br><span class=&quot;tx-tag&quot;>Inversiones</span></td><td class=&quot;amount-neg&quot;>-45.200,50€</td><td><span class=&quot;status-pill status-pagado&quot;>Pagado</span></td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-002</span><span class=&quot;tx-date&quot;>2025-02-17</span></td><td style=&quot;font-weight:500;&quot;>AEAT</td><td>Devolución IVA IV Trimestre<br><span class=&quot;tx-tag&quot;>Impuestos</span></td><td class=&quot;amount-pos&quot;>124.500,00€</td><td><span class=&quot;status-pill status-pendiente&quot;>Pendiente</span></td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-003</span><span class=&quot;tx-date&quot;>2025-02-17</span></td><td style=&quot;font-weight:500;&quot;>Endesa Energía</td><td>Suministro Eléctrico Edificios<br><span class=&quot;tx-tag&quot;>Suministros</span></td><td class=&quot;amount-neg&quot;>-12.340,20€</td><td><span class=&quot;status-pill status-pagado&quot;>Pagado</span></td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-004</span><span class=&quot;tx-date&quot;>2025-02-16</span></td><td style=&quot;font-weight:500;&quot;>Banco Santander</td><td>Amortización Préstamo ICO<br><span class=&quot;tx-tag&quot;>Deuda</span></td><td class=&quot;amount-neg&quot;>-350.000,00€</td><td><span class=&quot;status-pill status-pagado&quot;>Pagado</span></td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-005</span><span class=&quot;tx-date&quot;>2025-02-15</span></td><td style=&quot;font-weight:500;&quot;>Ciudadano - Varios</td><td>Recaudación Impuesto Circulación<br><span class=&quot;tx-tag&quot;>Impuestos</span></td><td class=&quot;amount-pos&quot;>45.670,00€</td><td><span class=&quot;status-pill status-completado&quot;>Completado</span></td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>TRX-006</span><span class=&quot;tx-date&quot;>2025-02-15</span></td><td style=&quot;font-weight:500;&quot;>Microsoft Ireland</td><td>Licencias Office 365 Trimestral<br><span class=&quot;tx-tag&quot;>Tecnología</span></td><td class=&quot;amount-neg&quot;>-2.450,00€</td><td><span class=&quot;status-pill status-pagado&quot;>Pagado</span></td></tr>
+          </tbody></table>
+          <div style=&quot;padding:0.75rem 1.25rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f1f5f9;&quot;><span style=&quot;font-size:11px;color:#64748b;&quot;>Mostrando <strong>1–6</strong> de 124 transacciones</span><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-secondary btn-sm&quot;>Anterior</button><button class=&quot;btn btn-secondary btn-sm&quot; style=&quot;font-weight:600;&quot;>Siguiente</button></div></div>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-expedientes&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Gestión de Expedientes</div><div class=&quot;page-sub&quot;>Seguimiento y trazabilidad de expedientes de gasto e ingreso.</div></div><button class=&quot;btn btn-primary&quot;>+ Nuevo Expediente</button></div>
+        <div class=&quot;card&quot; style=&quot;margin-bottom:1rem;&quot;>
+          <div class=&quot;card-header&quot;><div><span style=&quot;font-size:11px;font-weight:700;color:#2563eb;margin-right:8px;&quot;>EXP-2025-0089</span><span style=&quot;font-size:13px;font-weight:600;color:#0f172a;&quot;>Obras de rehabilitación — Piscina Municipal</span></div><span class=&quot;badge badge-yellow&quot;>En revisión</span></div>
+          <div class=&quot;card-body&quot;>
+            <div class=&quot;exp-timeline&quot;>
+              <div class=&quot;exp-step&quot;><div class=&quot;exp-step-dot done&quot;>✓</div><div class=&quot;exp-step-label done&quot;>Iniciado</div><div class=&quot;exp-step-date&quot;>12 ene</div><div class=&quot;exp-line done&quot;></div></div>
+              <div class=&quot;exp-step&quot;><div class=&quot;exp-step-dot done&quot;>✓</div><div class=&quot;exp-step-label done&quot;>Autorizado</div><div class=&quot;exp-step-date&quot;>18 ene</div><div class=&quot;exp-line done&quot;></div></div>
+              <div class=&quot;exp-step&quot;><div class=&quot;exp-step-dot current&quot;>⋯</div><div class=&quot;exp-step-label current&quot;>En revisión</div><div class=&quot;exp-step-date&quot;>Hoy</div><div class=&quot;exp-line pending&quot;></div></div>
+              <div class=&quot;exp-step&quot;><div class=&quot;exp-step-dot pending&quot;>4</div><div class=&quot;exp-step-label pending&quot;>Aprobado</div><div class=&quot;exp-step-date&quot;>Pendiente</div><div class=&quot;exp-line pending&quot;></div></div>
+              <div class=&quot;exp-step&quot;><div class=&quot;exp-step-dot pending&quot;>5</div><div class=&quot;exp-step-label pending&quot;>Contabilizado</div><div class=&quot;exp-step-date&quot;>Pendiente</div></div>
+            </div>
+            <div style=&quot;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem;&quot;>
+              <div class=&quot;kpi-card&quot; style=&quot;padding:8px;&quot;><div class=&quot;kpi-label&quot;>Importe</div><div style=&quot;font-size:16px;font-weight:800;color:#0f172a;&quot;>€145,000</div></div>
+              <div class=&quot;kpi-card&quot; style=&quot;padding:8px;&quot;><div class=&quot;kpi-label&quot;>Partida</div><div style=&quot;font-size:14px;font-weight:700;color:#2563eb;&quot;>450.22</div></div>
+              <div class=&quot;kpi-card&quot; style=&quot;padding:8px;&quot;><div class=&quot;kpi-label&quot;>Contratista</div><div style=&quot;font-size:11px;font-weight:600;color:#334155;&quot;>Constructora Levante SA</div></div>
+              <div class=&quot;kpi-card&quot; style=&quot;padding:8px;border-color:#fca5a5;background:#fff5f5;&quot;><div class=&quot;kpi-label&quot;>Vencimiento</div><div style=&quot;font-size:12px;font-weight:700;color:#dc2626;&quot;>28 feb 2025</div></div>
+            </div>
+            <div style=&quot;font-size:11px;font-weight:600;color:#334155;margin-bottom:6px;&quot;>Documentación adjunta</div>
+            <div style=&quot;display:flex;flex-direction:column;gap:4px;&quot;>
+              <div style=&quot;display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;&quot;><span class=&quot;badge badge-blue&quot; style=&quot;font-size:9px;&quot;>PDF</span><span style=&quot;font-size:11px;color:#334155;flex:1;&quot;>Memoria_Proyecto_Piscina_v2.pdf</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>2.4 MB</span><span style=&quot;font-size:10px;color:#16a34a;font-weight:600;&quot;>✓ Validado</span></div>
+              <div style=&quot;display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:5px;&quot;><span class=&quot;badge badge-blue&quot; style=&quot;font-size:9px;&quot;>PDF</span><span style=&quot;font-size:11px;color:#334155;flex:1;&quot;>Contrato_Constructora_Levante_2025.pdf</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>1.1 MB</span><span style=&quot;font-size:10px;color:#16a34a;font-weight:600;&quot;>✓ Validado</span></div>
+              <div style=&quot;display:flex;align-items:center;gap:8px;padding:7px 10px;background:#fff7ed;border:1px solid #fed7aa;border-radius:5px;&quot;><span class=&quot;badge badge-orange&quot; style=&quot;font-size:9px;&quot;>XLSX</span><span style=&quot;font-size:11px;color:#334155;flex:1;&quot;>Presupuesto_desglosado_v1.xlsx</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>0.8 MB</span><span style=&quot;font-size:10px;color:#ea580c;font-weight:600;&quot;>⚠ Pendiente</span></div>
+            </div>
+            <div style=&quot;display:flex;gap:6px;margin-top:1rem;&quot;><button class=&quot;btn btn-primary btn-sm&quot;>Aprobar revisión</button><button class=&quot;btn btn-secondary btn-sm&quot;>Solicitar corrección</button><button class=&quot;btn btn-secondary btn-sm&quot;>Ver historial completo</button></div>
+          </div>
+        </div>
+        <div class=&quot;table-wrap&quot;>
+          <div class=&quot;card-header&quot;><span class=&quot;card-title&quot;>Todos los expedientes</span><input placeholder=&quot;Buscar...&quot; style=&quot;border:1px solid #e2e8f0;border-radius:5px;padding:4px 8px;font-size:11px;outline:none;font-family:inherit;&quot;></div>
+          <table class=&quot;table&quot;><thead><tr><th>Referencia</th><th>Descripción</th><th>Importe</th><th>Estado</th><th>Fecha</th></tr></thead><tbody>
+            <tr><td><span class=&quot;tx-id&quot;>EXP-2025-0088</span></td><td>Suministro material oficina</td><td style=&quot;font-weight:600;&quot;>€8,450</td><td><span class=&quot;status-pill status-pagado&quot;>Aprobado</span></td><td style=&quot;color:#94a3b8;&quot;>10 ene</td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>EXP-2025-0087</span></td><td>Servicio limpieza edificios Q1</td><td style=&quot;font-weight:600;&quot;>€24,000</td><td><span class=&quot;status-pill status-contabilizado&quot;>Contabilizado</span></td><td style=&quot;color:#94a3b8;&quot;>8 ene</td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>EXP-2025-0086</span></td><td>Mantenimiento alumbrado LED</td><td style=&quot;font-weight:600;&quot;>€85,000</td><td><span class=&quot;status-pill status-autorizado&quot;>Autorizado</span></td><td style=&quot;color:#94a3b8;&quot;>5 ene</td></tr>
+            <tr><td><span class=&quot;tx-id&quot;>EXP-2025-0085</span></td><td>Pago nóminas enero</td><td style=&quot;font-weight:600;&quot;>€420,000</td><td><span class=&quot;status-pill status-completado&quot;>Contabilizado</span></td><td style=&quot;color:#94a3b8;&quot;>31 dic</td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-informes&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Informes Oficiales</div><div class=&quot;page-sub&quot;>Generación de informes regulatorios para BOE, IGAE y organismos de control.</div></div></div>
+        <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;&quot;>
+          <div class=&quot;card&quot;>
+            <div class=&quot;card-header&quot;><span class=&quot;card-title&quot;>Generar nuevo informe</span></div>
+            <div class=&quot;card-body&quot;>
+              <div style=&quot;font-size:11px;font-weight:500;color:#64748b;margin-bottom:6px;&quot;>Tipo de informe</div>
+              <div class=&quot;report-type-grid&quot;>
+                <div class=&quot;report-type-card selected&quot;><div class=&quot;report-type-name selected&quot;>IGAE</div><div class=&quot;report-type-sub&quot;>Rendición de cuentas</div></div>
+                <div class=&quot;report-type-card&quot;><div class=&quot;report-type-name&quot;>BOE</div><div class=&quot;report-type-sub&quot;>Publicación oficial</div></div>
+                <div class=&quot;report-type-card&quot;><div class=&quot;report-type-name&quot;>Ministerio</div><div class=&quot;report-type-sub&quot;>Hacienda y AAPP</div></div>
+                <div class=&quot;report-type-card&quot;><div class=&quot;report-type-name&quot;>Interno</div><div class=&quot;report-type-sub&quot;>Pleno municipal</div></div>
+              </div>
+              <div style=&quot;font-size:11px;font-weight:500;color:#64748b;margin:0.75rem 0 6px;&quot;>Período</div>
+              <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0.75rem;&quot;>
+                <div style=&quot;border:1px solid #e2e8f0;border-radius:5px;padding:6px 8px;font-size:11px;color:#334155;&quot;>Desde: 01/01/2025</div>
+                <div style=&quot;border:1px solid #e2e8f0;border-radius:5px;padding:6px 8px;font-size:11px;color:#334155;&quot;>Hasta: 31/03/2025</div>
+              </div>
+              <div style=&quot;font-size:11px;font-weight:500;color:#64748b;margin-bottom:6px;&quot;>Incluir en el informe</div>
+              <div style=&quot;display:flex;flex-direction:column;gap:4px;margin-bottom:1rem;&quot;>
+                <label style=&quot;display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;&quot;><input type=&quot;checkbox&quot; checked style=&quot;accent-color:#2563eb;&quot;> Ejecución presupuestaria</label>
+                <label style=&quot;display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;&quot;><input type=&quot;checkbox&quot; checked style=&quot;accent-color:#2563eb;&quot;> Estado de la deuda</label>
+                <label style=&quot;display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;&quot;><input type=&quot;checkbox&quot; checked style=&quot;accent-color:#2563eb;&quot;> Período medio de pago</label>
+                <label style=&quot;display:flex;align-items:center;gap:6px;font-size:11px;color:#334155;cursor:pointer;&quot;><input type=&quot;checkbox&quot; style=&quot;accent-color:#2563eb;&quot;> Morosidad por departamento</label>
+              </div>
+              <button class=&quot;btn btn-primary&quot; style=&quot;width:100%;&quot;>Generar informe PDF</button>
+            </div>
+          </div>
+          <div class=&quot;card&quot;>
+            <div class=&quot;card-header&quot;><span class=&quot;card-title&quot;>Previsualización</span><span style=&quot;font-size:11px;color:#2563eb;cursor:pointer;font-weight:500;&quot;>↓ Descargar</span></div>
+            <div class=&quot;card-body&quot;>
+              <div class=&quot;report-preview&quot;>
+                <div style=&quot;text-align:center;margin-bottom:0.75rem;&quot;>
+                  <div style=&quot;font-size:11px;font-weight:700;color:#0f172a;text-transform:uppercase;letter-spacing:0.05em;&quot;>Ayuntamiento de Villa Real</div>
+                  <div style=&quot;font-size:10px;color:#64748b;&quot;>Informe de Rendición de Cuentas — IGAE</div>
+                  <div style=&quot;font-size:10px;color:#64748b;&quot;>1.er Trimestre 2025</div>
+                  <div style=&quot;height:1px;background:#e2e8f0;margin:8px 0;&quot;></div>
+                </div>
+                <div class=&quot;report-row&quot;><span><strong>Presupuesto total aprobado</strong></span><span>€12,450,000</span></div>
+                <div class=&quot;report-row&quot;><span>Ingresos recaudados (48%)</span><span>€7,230,000</span></div>
+                <div class=&quot;report-row&quot;><span>Gastos comprometidos (44%)</span><span>€5,890,000</span></div>
+                <div class=&quot;report-row&quot;><span>Deuda pública vigente</span><span>€2,120,000</span></div>
+                <div class=&quot;report-row&quot;><span><strong>Período medio de pago</strong></span><span style=&quot;color:#dc2626;font-weight:700;&quot;>34.2 días ⚠</span></div>
+                <div style=&quot;margin-top:0.75rem;padding-top:0.5rem;border-top:1px solid #e2e8f0;display:flex;justify-content:space-between;&quot;>
+                  <span style=&quot;font-size:9px;color:#94a3b8;&quot;>Generado: 11/04/2025 · Wecitio v2.1</span>
+                  <span class=&quot;badge badge-green&quot; style=&quot;font-size:9px;&quot;>✓ Validado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;table-wrap&quot;>
+          <div class=&quot;card-header&quot;><span class=&quot;card-title&quot;>Informes generados recientemente</span></div>
+          <table class=&quot;table&quot;><thead><tr><th>Tipo</th><th>Descripción</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>
+            <tr><td><span class=&quot;badge badge-red&quot; style=&quot;font-size:9px;&quot;>IGAE</span></td><td>Rendición Q4 2024 — Cuenta General</td><td style=&quot;color:#94a3b8;&quot;>15/01/2025</td><td><span class=&quot;status-pill status-completado&quot;>Enviado</span></td></tr>
+            <tr><td><span class=&quot;badge badge-blue&quot; style=&quot;font-size:9px;&quot;>BOE</span></td><td>Presupuesto municipal aprobado 2025</td><td style=&quot;color:#94a3b8;&quot;>02/01/2025</td><td><span class=&quot;status-pill status-pagado&quot;>Publicado</span></td></tr>
+            <tr><td><span class=&quot;badge&quot; style=&quot;background:#f3e8ff;color:#7c3aed;font-size:9px;&quot;>MIN</span></td><td>Informe PMP trimestral — Hacienda</td><td style=&quot;color:#94a3b8;&quot;>10/01/2025</td><td><span class=&quot;status-pill status-completado&quot;>Enviado</span></td></tr>
+          </tbody></table>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-alertas&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Alertas y Compliance</div><div class=&quot;page-sub&quot;>Desviaciones presupuestarias, riesgos de cumplimiento y notificaciones activas.</div></div><div style=&quot;display:flex;gap:6px;&quot;><span class=&quot;badge badge-red&quot; style=&quot;font-size:12px;padding:5px 12px;&quot;>3 críticas</span><span class=&quot;badge badge-orange&quot; style=&quot;font-size:12px;padding:5px 12px;&quot;>5 medias</span></div></div>
+        <div style=&quot;font-size:11px;font-weight:600;color:#dc2626;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;&quot;>Alertas críticas</div>
+        <div class=&quot;alert-critical&quot;><div class=&quot;alert-icon&quot; style=&quot;background:#fee2e2;&quot;>⚠️</div><div style=&quot;flex:1;&quot;><div style=&quot;display:flex;justify-content:space-between;margin-bottom:3px;&quot;><span style=&quot;font-size:12px;font-weight:700;color:#dc2626;&quot;>Período medio de pago supera 30 días</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>Hace 2h</span></div><div style=&quot;font-size:11px;color:#64748b;margin-bottom:8px;&quot;>El PMP actual es de <strong>34.2 días</strong>, superando el límite legal de 30 días (Ley 3/2004).</div><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-danger btn-sm&quot;>Revisar expedientes</button><button class=&quot;btn btn-secondary btn-sm&quot;>Generar informe PMP</button></div></div></div>
+        <div class=&quot;alert-critical&quot;><div class=&quot;alert-icon&quot; style=&quot;background:#fee2e2;&quot;>📋</div><div style=&quot;flex:1;&quot;><div style=&quot;display:flex;justify-content:space-between;margin-bottom:3px;&quot;><span style=&quot;font-size:12px;font-weight:700;color:#dc2626;&quot;>Partida de Urbanismo al 94% de ejecución</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>Hace 5h</span></div><div style=&quot;font-size:11px;color:#64748b;margin-bottom:8px;&quot;>La partida <strong>451.0 — Urbanismo</strong> ha alcanzado el 94% de su dotación. Riesgo de rebase antes de fin de trimestre.</div><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-danger btn-sm&quot;>Ver partida</button><button class=&quot;btn btn-secondary btn-sm&quot;>Solicitar ampliación</button></div></div></div>
+        <div class=&quot;alert-critical&quot;><div class=&quot;alert-icon&quot; style=&quot;background:#fee2e2;&quot;>🔒</div><div style=&quot;flex:1;&quot;><div style=&quot;display:flex;justify-content:space-between;margin-bottom:3px;&quot;><span style=&quot;font-size:12px;font-weight:700;color:#dc2626;&quot;>Expediente sin firma digital del Interventor</span><span style=&quot;font-size:10px;color:#94a3b8;&quot;>Hace 1 día</span></div><div style=&quot;font-size:11px;color:#64748b;margin-bottom:8px;&quot;>El expediente <strong>EXP-2025-0082</strong> está pendiente de firma del Interventor desde hace 5 días hábiles.</div><div style=&quot;display:flex;gap:6px;&quot;><button class=&quot;btn btn-danger btn-sm&quot;>Firmar expediente</button><button class=&quot;btn btn-secondary btn-sm&quot;>Ver expediente</button></div></div></div>
+        <div style=&quot;font-size:11px;font-weight:600;color:#ea580c;text-transform:uppercase;letter-spacing:0.06em;margin:1rem 0 8px;&quot;>Alertas medias</div>
+        <div class=&quot;alert-medium&quot;><div style=&quot;width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;&quot;></div><div style=&quot;flex:1;&quot;><span style=&quot;font-size:11px;font-weight:600;color:#92400e;&quot;>3 expedientes sin documentación completa</span><span style=&quot;font-size:11px;color:#64748b;&quot;> — Vencen en los próximos 7 días</span></div><button class=&quot;btn btn-secondary btn-sm&quot;>Ver</button></div>
+        <div class=&quot;alert-medium&quot;><div style=&quot;width:8px;height:8px;background:#f59e0b;border-radius:50%;flex-shrink:0;&quot;></div><div style=&quot;flex:1;&quot;><span style=&quot;font-size:11px;font-weight:600;color:#92400e;&quot;>Informe trimestral IGAE pendiente de envío</span><span style=&quot;font-size:11px;color:#64748b;&quot;> — Plazo: 30 abril 2025</span></div><button class=&quot;btn btn-secondary btn-sm&quot;>Generar</button></div>
+        <div style=&quot;margin-top:1.25rem;&quot;>
+          <div style=&quot;font-size:12px;font-weight:600;color:#334155;margin-bottom:0.75rem;&quot;>Estado de compliance regulatorio</div>
+          <div class=&quot;compliance-grid&quot;>
+            <div class=&quot;compliance-item ok&quot;><div class=&quot;compliance-icon&quot; style=&quot;color:#16a34a;&quot;>✓</div><div style=&quot;font-size:10px;font-weight:600;color:#16a34a;&quot;>Ley Morosidad</div><div style=&quot;font-size:9px;color:#4ade80;&quot;>Cumpliendo</div></div>
+            <div class=&quot;compliance-item fail&quot;><div class=&quot;compliance-icon&quot; style=&quot;color:#dc2626;&quot;>✗</div><div style=&quot;font-size:10px;font-weight:600;color:#dc2626;&quot;>PMP 30 días</div><div style=&quot;font-size:9px;color:#f87171;&quot;>34.2 días</div></div>
+            <div class=&quot;compliance-item ok&quot;><div class=&quot;compliance-icon&quot; style=&quot;color:#16a34a;&quot;>✓</div><div style=&quot;font-size:10px;font-weight:600;color:#16a34a;&quot;>Estabilidad pres.</div><div style=&quot;font-size:9px;color:#4ade80;&quot;>Superávit</div></div>
+            <div class=&quot;compliance-item warn&quot;><div class=&quot;compliance-icon&quot; style=&quot;color:#ea580c;&quot;>!</div><div style=&quot;font-size:10px;font-weight:600;color:#ea580c;&quot;>IGAE trimestral</div><div style=&quot;font-size:9px;color:#fb923c;&quot;>Pendiente envío</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class=&quot;page&quot; id=&quot;page-insights&quot;>
+      <div style=&quot;padding:1.5rem;&quot;>
+        <div class=&quot;page-header&quot;><div><div class=&quot;page-title&quot;>Insights y Análisis Avanzado</div><div class=&quot;page-sub&quot;>Métricas clave de rendimiento y eficiencia financiera municipal.</div></div><div style=&quot;display:flex;gap:4px;&quot;><button class=&quot;btn btn-primary btn-sm&quot;>Trimestral</button><button class=&quot;btn btn-secondary btn-sm&quot;>Semestral</button><button class=&quot;btn btn-secondary btn-sm&quot;>Anual</button></div></div>
+        <div class=&quot;insight-banner&quot;><div class=&quot;insight-icon&quot;>⚡</div><div style=&quot;flex:1;&quot;><div class=&quot;insight-title&quot;>Optimización Detectada</div><div class=&quot;insight-desc&quot;>Se ha detectado una infrautilización del 15% en el presupuesto de mantenimiento de parques. Considera redistribuir €45,000 hacia el programa &quot;Verano Juvenil&quot; para mejorar el impacto social sin exceder el techo de gasto.</div></div><button class=&quot;insight-btn&quot;>Ver Recomendación</button></div>
+        <div style=&quot;display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.25rem;&quot;>
+          <div class=&quot;chart-card&quot;>
+            <div class=&quot;chart-title&quot;>Tendencia Mensual Acumulada</div>
+            <svg width=&quot;100%&quot; viewBox=&quot;0 0 300 100&quot; preserveAspectRatio=&quot;none&quot;>
+              <line x1=&quot;0&quot; y1=&quot;70&quot; x2=&quot;300&quot; y2=&quot;70&quot; stroke=&quot;#f1f5f9&quot; stroke-width=&quot;1&quot; stroke-dasharray=&quot;4&quot;/>
+              <polyline points=&quot;0,80 50,75 100,65 150,60 200,52 250,38 300,18&quot; stroke=&quot;#22c55e&quot; stroke-width=&quot;2.5&quot; fill=&quot;none&quot;/>
+              <circle cx=&quot;0&quot; cy=&quot;80&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;50&quot; cy=&quot;75&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;100&quot; cy=&quot;65&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;150&quot; cy=&quot;60&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;200&quot; cy=&quot;52&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;250&quot; cy=&quot;38&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/><circle cx=&quot;300&quot; cy=&quot;18&quot; r=&quot;3.5&quot; fill=&quot;#22c55e&quot;/>
+              <text x=&quot;0&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Jul</text><text x=&quot;44&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Ago</text><text x=&quot;94&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Sep</text><text x=&quot;144&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Oct</text><text x=&quot;194&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Nov</text><text x=&quot;244&quot; y=&quot;98&quot; font-size=&quot;9&quot; fill=&quot;#94a3b8&quot;>Dic</text>
+            </svg>
+            <div style=&quot;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px;&quot;>
+              <div style=&quot;text-align:center;&quot;><div style=&quot;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;&quot;>Superávit</div><div style=&quot;font-size:15px;font-weight:800;color:#16a34a;&quot;>+€12.4k</div></div>
+              <div style=&quot;text-align:center;&quot;><div style=&quot;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;&quot;>Ahorro medio</div><div style=&quot;font-size:15px;font-weight:800;color:#0f172a;&quot;>8.2%</div></div>
+              <div style=&quot;text-align:center;&quot;><div style=&quot;font-size:9px;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;&quot;>Desviación</div><div style=&quot;font-size:15px;font-weight:800;color:#0f172a;&quot;>1.2%</div></div>
+            </div>
+          </div>
+          <div class=&quot;chart-card&quot;>
+            <div style=&quot;display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;&quot;><div class=&quot;chart-title&quot;>Eficiencia en Ejecución por Área</div><a href=&quot;#&quot; style=&quot;font-size:10px;color:#2563eb;text-decoration:none;font-weight:500;&quot;>Ver Auditoría</a></div>
+            <div class=&quot;bar-chart&quot;>
+              <div class=&quot;bar-row&quot;><span class=&quot;bar-label&quot;>Urb.</span><div class=&quot;bar-track&quot;><div class=&quot;bar-fill&quot; style=&quot;width:82%;background:#6366f1;&quot;></div></div><span style=&quot;font-size:10px;color:#64748b;margin-left:4px;&quot;>82%</span></div>
+              <div class=&quot;bar-row&quot;><span class=&quot;bar-label&quot;>Educ.</span><div class=&quot;bar-track&quot;><div class=&quot;bar-fill&quot; style=&quot;width:91%;background:#22c55e;&quot;></div></div><span style=&quot;font-size:10px;color:#64748b;margin-left:4px;&quot;>91%</span></div>
+              <div class=&quot;bar-row&quot;><span class=&quot;bar-label&quot;>Cult.</span><div class=&quot;bar-track&quot;><div class=&quot;bar-fill&quot; style=&quot;width:78%;background:#f59e0b;&quot;></div></div><span style=&quot;font-size:10px;color:#64748b;margin-left:4px;&quot;>78%</span></div>
+              <div class=&quot;bar-row&quot;><span class=&quot;bar-label&quot;>Seg.</span><div class=&quot;bar-track&quot;><div class=&quot;bar-fill&quot; style=&quot;width:95%;background:#06b6d4;&quot;></div></div><span style=&quot;font-size:10px;color:#64748b;margin-left:4px;&quot;>95%</span></div>
+              <div class=&quot;bar-row&quot;><span class=&quot;bar-label&quot;>Adm.</span><div class=&quot;bar-track&quot;><div class=&quot;bar-fill&quot; style=&quot;width:88%;background:#8b5cf6;&quot;></div></div><span style=&quot;font-size:10px;color:#64748b;margin-left:4px;&quot;>88%</span></div>
+            </div>
+            <div style=&quot;margin-top:0.75rem;font-size:10px;color:#64748b;display:flex;flex-direction:column;gap:3px;&quot;>
+              <div style=&quot;display:flex;justify-content:space-between;&quot;><span>Área más eficiente: Seguridad</span><span style=&quot;font-weight:700;color:#0f172a;&quot;>95%</span></div>
+              <div style=&quot;display:flex;justify-content:space-between;&quot;><span>Cuello de botella: Cultura</span><span style=&quot;font-weight:700;color:#f59e0b;&quot;>78%</span></div>
+            </div>
+          </div>
+        </div>
+        <div class=&quot;kpi-grid&quot;>
+          <div class=&quot;kpi-card&quot;><div class=&quot;kpi-label&quot;>Período Medio Pago</div><div class=&quot;kpi-value&quot; style=&quot;color:#dc2626;&quot;>34.2 días</div><div style=&quot;font-size:10px;color:#dc2626;margin-top:2px;&quot;>⚠ Supera límite legal</div></div>
+          <div class=&quot;kpi-card&quot;><div class=&quot;kpi-label&quot;>Carga Fiscal / Hab.</div><div class=&quot;kpi-value&quot;>€452.00</div></div>
+          <div class=&quot;kpi-card&quot;><div class=&quot;kpi-label&quot;>Informes Exportados</div><div class=&quot;kpi-value&quot;>12 <span style=&quot;font-size:14px;font-weight:400;color:#64748b;&quot;>este mes</span></div></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script>
+function navigateTo(pageId) {
+  navItems.forEach(function(n) { n.classList.remove('active'); });
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  var target = document.querySelector('.nav-item[data-page=&quot;' + pageId + '&quot;]');
+  if (target) target.classList.add('active');
+  document.getElementById('page-' + pageId).classList.add('active');
+}
+var navItems = document.querySelectorAll('.nav-item[data-page]');
+navItems.forEach(function(item) {
+  item.addEventListener('click', function() {
+    var pageId = this.getAttribute('data-page');
+    navItems.forEach(function(n) { n.classList.remove('active'); });
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    this.classList.add('active');
+    document.getElementById('page-' + pageId).classList.add('active');
+  });
+});
+document.querySelectorAll('.report-type-card').forEach(function(card) {
+  card.addEventListener('click', function() {
+    document.querySelectorAll('.report-type-card').forEach(function(c) {
+      c.classList.remove('selected');
+      c.querySelector('.report-type-name').classList.remove('selected');
+    });
+    this.classList.add('selected');
+    this.querySelector('.report-type-name').classList.add('selected');
+  });
+});
+</script>
+</body>
+</html>" style="width:100%;height:700px;border:none;display:block;" title="Wecitio interactive prototype"></iframe>
  </div>
 </div>
 
 <div class="block r">
- <div class="block-label"><div class="block-num">06</div><div class="block-title">Key screens</div><div class="block-sub">Dashboard, transactions,<br>insights, and budget views.</div></div>
+ <div class="block-label"><div class="block-num">07</div><div class="block-title">Key screens</div><div class="block-sub">Dashboard, transactions,<br>insights, and budget views.</div></div>
  <div class="content">
  <h2>The product in detail.</h2>
  <div class="img-wrap r"><img src="wicitio-dashboard.png" alt="Wecitio dashboard"></div>
@@ -665,7 +1188,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 
 
 <div class="block r">
- <div class="block-label"><div class="block-num">07</div><div class="block-title">Outcome</div><div class="block-sub">What the migration<br>actually produced.</div></div>
+ <div class="block-label"><div class="block-num">08</div><div class="block-title">Outcome</div><div class="block-sub">What the migration<br>actually produced.</div></div>
  <div class="content">
  <h2>A platform municipalities<br>were willing to bet their year on.</h2>
  <p>The measure of success in a migration like this isn't adoption numbers it's trust. Every municipality that switched was betting their legal reporting obligations on a system that hadn't existed two years before. That none of them had to go back to Sicalwin is the outcome that matters most.</p>
@@ -680,7 +1203,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 </div>
 
 <div class="block alt r">
- <div class="block-label"><div class="block-num">08</div><div class="block-title">Learnings</div></div>
+ <div class="block-label"><div class="block-num">09</div><div class="block-title">Learnings</div></div>
  <div class="content">
  <h2>What institutional design<br>teaches you.</h2>
  <div class="learning"><div class="l-n">01</div><div><div class="l-title">Trust is the product</div><div class="l-body">In public sector, institutional trust isn't a nice-to-have it's the prerequisite for adoption. The pilot strategy wasn't just a migration plan. Every successful migration made the next one easier.</div></div></div>
