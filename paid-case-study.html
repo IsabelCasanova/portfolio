@@ -292,6 +292,59 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 .contact-val:hover { color: var(--green); }
 .site-footer { padding: 2rem 2.5rem; border-top: 1px solid var(--rule); font-size: 11px; color: var(--dim); }
 
+/* ── DELIVERY BILL ── */
+.bill-wrap { border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin: 2.5rem 0; font-size: 13px; }
+.bill-head { display: flex; justify-content: space-between; align-items: flex-start; padding: 1.75rem 2rem; border-bottom: 1px solid var(--rule); }
+.bill-brand { display: flex; align-items: flex-start; gap: 1rem; }
+.bill-logo { width: 32px; height: 32px; background: var(--ink); color: var(--white); border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.bill-company { font-size: 11px; color: var(--dim); margin-bottom: .15rem; }
+.bill-title-main { font-size: 15px; font-weight: 500; color: var(--ink); line-height: 1.2; }
+.bill-period-cust { font-size: 12px; color: var(--dim); margin-top: .15rem; }
+.bill-meta-right { text-align: right; }
+.bill-ref { font-size: 12px; color: var(--dim); }
+.bill-issued { font-size: 12px; color: var(--dim); margin-top: .15rem; }
+.bill-status-badge { display: inline-block; margin-top: .4rem; font-size: 11px; font-weight: 500; color: var(--green); letter-spacing: .06em; }
+.bill-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--rule); border-bottom: 1px solid var(--rule); }
+.bill-kpi { background: var(--white); padding: 1.5rem 1.75rem; }
+.bill-kpi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin-bottom: .4rem; }
+.bill-kpi-num { font-size: 1.7rem; font-weight: 300; color: var(--ink); letter-spacing: -.03em; line-height: 1.1; margin-bottom: .35rem; }
+.bill-kpi-sub { font-size: 11.5px; color: var(--dim); line-height: 1.5; }
+.green-text { color: var(--green); }
+.bill-section { padding: 1.5rem 2rem; border-bottom: 1px solid var(--rule); }
+.bill-section-title { font-size: 10px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); margin-bottom: .25rem; }
+.bill-section-sub { font-size: 11.5px; color: var(--dim); margin-bottom: 1.25rem; line-height: 1.5; }
+.bill-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.bill-table th { font-size: 10px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); font-weight: 500; padding: .5rem .75rem .5rem 0; border-bottom: 1px solid var(--rule); text-align: left; }
+.bill-table td { padding: .85rem .75rem .85rem 0; border-bottom: 1px solid var(--rule); color: var(--ink); vertical-align: top; line-height: 1.4; }
+.bill-table tr:last-child td { border-bottom: none; }
+.bill-outcome-sub { font-size: 11px; color: var(--dim); }
+.bill-row-dim td { color: var(--dim); }
+.bill-consumption { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.bill-cons-item { background: var(--cream); padding: 1rem 1.25rem; }
+.bill-cons-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin-bottom: .35rem; }
+.bill-cons-val { font-size: 1.1rem; font-weight: 500; color: var(--ink); margin-bottom: .2rem; }
+.bill-cons-sub { font-size: 11px; color: var(--dim); line-height: 1.4; }
+.bill-totals { padding: 1.25rem 2rem; border-bottom: 1px solid var(--rule); display: flex; flex-direction: column; align-items: flex-end; gap: .5rem; }
+.bill-total-row { display: flex; gap: 3rem; font-size: 12.5px; color: var(--dim); }
+.bill-total-row.grand { font-size: 14px; font-weight: 600; color: var(--ink); padding-top: .5rem; border-top: 1px solid var(--rule); margin-top: .25rem; }
+.bill-roi { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; background: #f0f7f2; border-bottom: 1px solid var(--rule); }
+.bill-roi-title { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: .35rem; }
+.bill-roi-body { font-size: 12px; color: var(--dim); line-height: 1.6; }
+.bill-roi-right { text-align: right; flex-shrink: 0; }
+.bill-roi-num { font-size: 2.2rem; font-weight: 200; color: var(--ink); letter-spacing: -.04em; line-height: 1; }
+.bill-roi-label { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--dim); margin-top: .2rem; }
+.bill-footer-row { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+.bill-footer-note { font-size: 11.5px; color: var(--dim); }
+.bill-footer-actions { display: flex; gap: .75rem; }
+.bill-btn { font-size: 11px; font-weight: 500; padding: .5rem 1rem; border: 1px solid var(--rule); background: var(--white); color: var(--ink); border-radius: 2px; cursor: pointer; letter-spacing: .04em; transition: background .2s, border-color .2s; }
+.bill-btn:hover { background: var(--cream); border-color: #ccc; }
+@media (max-width: 768px) {
+ .bill-kpis, .bill-consumption { grid-template-columns: 1fr; }
+ .bill-head { flex-direction: column; gap: 1rem; }
+ .bill-meta-right { text-align: left; }
+ .bill-totals { align-items: flex-start; }
+}
+
 /* ── DEMO BUTTON ── */
 .demo-btn {
  display: inline-flex; align-items: center; gap: .5rem;
@@ -1562,8 +1615,99 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 </div>
 
 
+<div class="block r">
+ <div class="block-label" style="position:sticky;top:calc(var(--nav-h) + 1.5rem);">
+  <div class="block-num">06</div>
+  <div class="block-title">Delivery bill</div>
+  <div class="block-sub">What the operator<br>actually receives.</div>
+ </div>
+ <div class="content">
+  <h2>A bill that explains itself.</h2>
+  <p>One of the core design decisions in Paid.ai was that the bill should not require a call to explain. The operator who receives it should be able to understand their consumption, the value delivered, and the cost breakdown without leaving the document. This is what that looks like.</p>
+  <div class="bill-wrap r">
+   <div class="bill-head">
+    <div class="bill-brand">
+     <div class="bill-logo">P</div>
+     <div>
+      <div class="bill-company">Paid.ai</div>
+      <div class="bill-title-main">Delivery bill</div>
+      <div class="bill-period-cust">Feb 2026 · Acme Corp</div>
+     </div>
+    </div>
+    <div class="bill-meta-right">
+     <div class="bill-ref">B-2026-021</div>
+     <div class="bill-issued">Issued 1 Mar 2026</div>
+     <div class="bill-status-badge">Approved</div>
+    </div>
+   </div>
+   <div class="bill-kpis">
+    <div class="bill-kpi">
+     <div class="bill-kpi-label">Total executions</div>
+     <div class="bill-kpi-num">4,821</div>
+     <div class="bill-kpi-sub">Times your AI agents ran across all workflows this period</div>
+    </div>
+    <div class="bill-kpi">
+     <div class="bill-kpi-label">Outcomes delivered</div>
+     <div class="bill-kpi-num">4,738</div>
+     <div class="bill-kpi-sub">Successful results verified by evidence. Only these are billed. <strong class="green-text">98.3% success rate</strong></div>
+    </div>
+    <div class="bill-kpi">
+     <div class="bill-kpi-label">Value generated</div>
+     <div class="bill-kpi-num">$250,545</div>
+     <div class="bill-kpi-sub">Total business value attributed to AI outcomes, after deducting AI running costs</div>
+    </div>
+   </div>
+   <div class="bill-section">
+    <div class="bill-section-title">LINE ITEMS</div>
+    <div class="bill-section-sub">Each workflow is billed per successfully delivered outcome at the agreed unit value. Failed executions are not charged.</div>
+    <table class="bill-table">
+     <thead><tr><th>Workflow</th><th>Executions</th><th>Outcomes</th><th>Unit value</th><th>Total</th></tr></thead>
+     <tbody>
+      <tr><td><strong>Support Automation</strong><br><span class="bill-outcome-sub">Outcome: Ticket Resolved</span></td><td>4,821</td><td>4,738</td><td>$45</td><td><strong>$213,210</strong></td></tr>
+      <tr><td><strong>Invoice Matching</strong><br><span class="bill-outcome-sub">Outcome: Invoice Matched</span></td><td>1,120</td><td>1,120</td><td>$30</td><td><strong>$33,600</strong></td></tr>
+      <tr class="bill-row-dim"><td>Failed executions<br><span class="bill-outcome-sub">No outcome, no charge</span></td><td>83</td><td>0</td><td>n/a</td><td>$0</td></tr>
+     </tbody>
+    </table>
+   </div>
+   <div class="bill-section">
+    <div class="bill-section-title">AI CONSUMPTION</div>
+    <div class="bill-section-sub">The actual cost of running your AI agents. Deducted from the value generated so you only pay for net results.</div>
+    <div class="bill-consumption">
+     <div class="bill-cons-item"><div class="bill-cons-label">MODEL</div><div class="bill-cons-val">GPT-4o</div><div class="bill-cons-sub">The AI model used to run your workflows</div></div>
+     <div class="bill-cons-item"><div class="bill-cons-label">INPUT TOKENS</div><div class="bill-cons-val">142.4M</div><div class="bill-cons-sub">Context and instructions sent to the model</div></div>
+     <div class="bill-cons-item"><div class="bill-cons-label">OUTPUT TOKENS</div><div class="bill-cons-val">38.1M</div><div class="bill-cons-sub">Responses and actions generated by the model</div></div>
+     <div class="bill-cons-item"><div class="bill-cons-label">TOTAL AI COST</div><div class="bill-cons-val">$2,455</div><div class="bill-cons-sub">$0.52 per outcome delivered</div></div>
+    </div>
+   </div>
+   <div class="bill-totals">
+    <div class="bill-total-row"><span>Subtotal (4,738 outcomes billed)</span><span>$246,810</span></div>
+    <div class="bill-total-row"><span>AI cost deduction</span><span>$2,455</span></div>
+    <div class="bill-total-row"><span>VAT (0%)</span><span>$0</span></div>
+    <div class="bill-total-row grand"><span>Total due</span><span>$244,355</span></div>
+   </div>
+   <div class="bill-roi">
+    <div class="bill-roi-left">
+     <div class="bill-roi-title">Value delivered vs cost</div>
+     <div class="bill-roi-body">Your AI agents generated $250,545 in business value this period.<br>After billing $244,355, Acme Corp nets a $6,190 gain before counting time saved.</div>
+    </div>
+    <div class="bill-roi-right">
+     <div class="bill-roi-num">102.5x</div>
+     <div class="bill-roi-label">ROI</div>
+    </div>
+   </div>
+   <div class="bill-footer-row">
+    <span class="bill-footer-note">4,738 verified outcomes · full execution trace attached</span>
+    <div class="bill-footer-actions">
+     <button class="bill-btn">View evidence</button>
+     <button class="bill-btn">Export PDF</button>
+    </div>
+   </div>
+  </div>
+ </div>
+</div>
+
 <div class="block alt r">
- <div class="block-label"><div class="block-num">06</div><div class="block-title">Outcome</div><div class="block-sub">What the design work<br>actually changed.</div></div>
+ <div class="block-label"><div class="block-num">07</div><div class="block-title">Outcome</div><div class="block-sub">What the design work<br>actually changed.</div></div>
  <div class="content">
  <h2>A clearer product that was easier<br>to sell, adopt, and build on.</h2>
  <p>The design work shaped how Paid.ai's team thought about and explained their own product. By making the value loop explicit and designing every screen to reinforce it, the MVP became something operators could understand immediately and customers could evaluate confidently.</p>
@@ -1578,7 +1722,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 </div>
 
 <div class="block r">
- <div class="block-label"><div class="block-num">07</div><div class="block-title">Learnings</div></div>
+ <div class="block-label"><div class="block-num">08</div><div class="block-title">Learnings</div></div>
  <div class="content">
  <h2>What designing a new<br>category teaches you.</h2>
  <div class="learning"><div class="l-n">01</div><div><div class="l-title">The mental model is the product</div><div class="l-body">In an established category, users arrive with a mental model. In a new category, you design both the interface and the concept. The loop Define, Execute, Attribute, Bill, Prove was not just a UX pattern. Every screen had to reinforce it.</div></div></div>
