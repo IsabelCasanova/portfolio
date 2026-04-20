@@ -24,7 +24,7 @@ body {
  background: var(--white);
  color: var(--ink);
  -webkit-font-smoothing: antialiased;
- overflow-x: hidden;
+ overflow-x: clip;
 }
 
 /* ── PROGRESS ── */
@@ -118,7 +118,7 @@ nav.scrolled::before {
 
 /* ── BLOCKS ── */
 .block {
- display: grid; grid-template-columns: 240px 1fr;
+ display: grid; grid-template-columns: 240px minmax(0,1fr);
  gap: 3rem; padding: 5rem 2.5rem;
  border-bottom: 1px solid var(--rule); align-items: start;
 }
@@ -234,12 +234,12 @@ nav.scrolled::before {
 
 /* ── IMAGES ── */
 .img-wrap { overflow: hidden; border-radius: 4px; border: 1px solid var(--rule); margin: 2.5rem 0; }
-.img-wrap img { width: 100%; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); max-height: 560px; object-fit: cover; object-position: top; }
+.img-wrap img { width: 100%; max-width: 100%; height: auto; display: block; transition: transform .5s cubic-bezier(.16,1,.3,1); }
 .img-wrap:hover img { transform: scale(1.015); }
 /* Full-height override for specific images that need to show fully */
 .img-wrap.full img { max-height: none; object-fit: unset; }
-/* Grid images — shorter */
-.img-grid .img-wrap img, .img-trio .img-wrap img { max-height: 360px; }
+/* Grid images shorter */
+.img-grid .img-wrap img, .img-trio .img-wrap img { }
 .img-cap { font-size: 11.5px; color: var(--dim); text-align: center; margin-top: .5rem; margin-bottom: 2.5rem; line-height: 1.5; }
 .img-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2.5rem 0; }
 .img-grid .img-wrap { margin: 0; }
@@ -568,13 +568,14 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
 <div class="block r">
  <div class="block-label"><div class="block-num">03</div><div class="block-title">How I worked</div><div class="block-sub">Decisions made close<br>to customers and data.</div></div>
  <div class="content">
- <h2>Decisions made close<br>to customers and data.</h2>
- <p>I started by talking directly to customers through CX, Sales, and direct interviews. One of the first things I mapped was the HR admin's payroll closing process as it existed before we touched it.</p>
+ <h2>Leading a team of 50<br>close to customers and data.</h2>
+ <p>I managed a team of 50 people across product and design, spread across multiple product lines. One of the first decisions I made was to restructure around outcomes rather than features each squad owned a problem, not a roadmap item. That changed how we prioritised, how we measured success, and how we talked to stakeholders.</p>
+ <p>I also made a deliberate call early on: I would stay hands-on in the design work, not just review it. On a platform this complex, the quality of design decisions depends on understanding the system and I could not delegate that fully.</p>
  <div class="challenge-grid r">
- <div class="challenge-card"><h3>Customer interviews</h3><p>Direct sessions with HR managers, admins, and employees to surface real pain not just feature requests.</p></div>
- <div class="challenge-card"><h3>Data analysis</h3><p>Usage patterns, drop-off points, and adoption curves to validate what customers said and prioritise by actual impact.</p></div>
- <div class="challenge-card"><h3>Team workshops</h3><p>Cross-functional sessions to align on the problem before touching solutions.</p></div>
- <div class="challenge-card"><h3>Co-design</h3><p>Hands-on throughout sketching alongside designers, running critiques, making the key design calls.</p></div>
+ <div class="challenge-card"><h3>Stakeholder alignment</h3><p>Time Management sat between HR, Finance, and Engineering. I ran monthly cross-functional reviews to keep all three aligned on priorities and tradeoffs, and to push back when business pressure conflicted with what customers actually needed.</p></div>
+ <div class="challenge-card"><h3>Team structure</h3><p>I reorganised the team midway to reduce handoffs between Time Tracking, Time Off, and Scheduling. Separate squads had created inconsistency. Consolidating around the HR admin workflow was the right call.</p></div>
+ <div class="challenge-card"><h3>Prioritisation tradeoffs</h3><p>We had more problems than capacity. I deprioritised Scheduling features for two quarters to get Time Tracking reliable enough that customers trusted it. Unpopular internally, but it proved right.</p></div>
+ <div class="challenge-card"><h3>Customer proximity</h3><p>Direct sessions with HR managers, admins, and employees. I made sure the team heard customers directly, not through filtered summaries. It changed what we built and how fast we moved.</p></div>
  </div>
  </div>
 </div>
@@ -675,7 +676,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <p>The decision was to rebuild Scheduling as the upstream input for Time Tracking, not a standalone tool. When a manager published a shift grid, those planned hours automatically populated the "estimated" column in the timesheet. Planning became the source of truth. Tracking became the measurement against it.</p>
  <div class="img-wrap r"><img src="Turnos.png" alt="Scheduling weekly view shift grid per employee published directly from the manager view"></div>
  <p class="img-cap">Scheduling: weekly shift grid per employee. Published shifts feed directly into the estimated hours calculation in Time Tracking no manual entry, no reconciliation step.</p>
- <p>This was also the first integration we built between products. It proved the technical architecture worked and set the pattern for the Payroll connection that followed.</p>
+ <p></p>
  </div>
 </div>
 
@@ -737,6 +738,7 @@ footer { display: grid; grid-template-columns: 240px 1fr; gap: 2rem; padding: 3.
  <div class="learning"><div class="l-n">01</div><div><div class="l-title">Mature before you connect</div><div class="l-body">Getting Time Tracking and Time Off to a level customers genuinely relied on was what made the Payroll connection meaningful. An integration built on weak products just creates a more complex version of the same problem.</div></div></div>
  <div class="learning"><div class="l-n">02</div><div><div class="l-title">Integration is a product decision, not an engineering one</div><div class="l-body">The payroll connection only worked because we started from a user question: "What does a manager need to decide when they approve overtime?" That framing made the right solution obvious.</div></div></div>
  <div class="learning"><div class="l-n">03</div><div><div class="l-title">Consistency is a growth lever</div><div class="l-body">Investing in shared patterns the same approval flow, the same table conventions paid off. The best feedback we got was: "It feels like one product now."</div></div></div>
+    <div class="learning"><div class="l-n">04</div><div><div class="l-title">The team structure is a design decision</div><div class="l-body">How you organise the team shapes what gets built and how fast. Reorganising around the HR admin's end-to-end workflow instead of separate product lines reduced the inconsistency that was the biggest user complaint. Organisation design and product design are the same problem.</div></div></div>
  </div>
 </div>
 
